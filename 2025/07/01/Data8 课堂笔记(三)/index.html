@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Data8 课堂笔记(三) | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Data 8 学习笔记(三)Numpy random.choice()有时我们需要从集合里随机选取一个值，这时就可以用np.choice()，具体语法是： 123456#随机选取一个值random_choice &#x3D; np.choice(array_name)#多次随机选取random_choices &#x3D; np.choice(array_name, frequency)#模拟掷骰子三次dice_ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data8 课堂笔记(三)">
+<meta property="og:url" content="https://emulisy.github.io/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="Data 8 学习笔记(三)Numpy random.choice()有时我们需要从集合里随机选取一个值，这时就可以用np.choice()，具体语法是： 123456#随机选取一个值random_choice &#x3D; np.choice(array_name)#多次随机选取random_choices &#x3D; np.choice(array_name, frequency)#模拟掷骰子三次dice_ro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg2.png">
+<meta property="article:published_time" content="2025-07-01T05:29:19.000Z">
+<meta property="article:modified_time" content="2025-07-01T09:18:52.537Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="中文">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg2.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Data8 课堂笔记(三)",
+  "url": "https://emulisy.github.io/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/",
+  "image": "https://emulisy.github.io/img/post-bg2.png",
+  "datePublished": "2025-07-01T05:29:19.000Z",
+  "dateModified": "2025-07-01T09:18:52.537Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Data8 课堂笔记(三)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/_custom/custom.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg2.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Data8 课堂笔记(三)</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Data8 课堂笔记(三)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-01T05:29:19.000Z" title="发表于 2025-07-01 13:29:19">2025-07-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-01T09:18:52.537Z" title="更新于 2025-07-01 17:18:52">2025-07-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Data8/">Data8</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">918</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Data-8-学习笔记-三"><a href="#Data-8-学习笔记-三" class="headerlink" title="Data 8 学习笔记(三)"></a>Data 8 学习笔记(三)</h1><h2 id="Numpy-random-choice"><a href="#Numpy-random-choice" class="headerlink" title="Numpy random.choice()"></a>Numpy random.choice()</h2><p>有时我们需要从集合里随机选取一个值，这时就可以用np.choice()，具体语法是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#随机选取一个值</span></span><br><span class="line">random_choice = np.choice(array_name)</span><br><span class="line"><span class="comment">#多次随机选取</span></span><br><span class="line">random_choices = np.choice(array_name, frequency)</span><br><span class="line"><span class="comment">#模拟掷骰子三次</span></span><br><span class="line">dice_rolls = np.choice(np.arange(<span class="number">1</span>,<span class="number">7</span>), <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="模拟-simulation-以原神抽卡为例"><a href="#模拟-simulation-以原神抽卡为例" class="headerlink" title="模拟 simulation - 以原神抽卡为例"></a>模拟 simulation - 以原神抽卡为例</h2><h3 id="Step-1-What-to-simulate"><a href="#Step-1-What-to-simulate" class="headerlink" title="Step 1: What to simulate?"></a>Step 1: What to simulate?</h3><p>我们想要模拟每次抽到五星物品的预计抽数。<br>每一次抽卡时，抽到五星物品的概率，也就是每一次抽卡只会有两个结果：</p>
+<ul>
+<li>抽到五星物品</li>
+<li>没抽到五星物品</li>
+</ul>
+<hr>
+<h3 id="Step-2-Simulating-one-play"><a href="#Step-2-Simulating-one-play" class="headerlink" title="Step 2: Simulating one play."></a>Step 2: Simulating one play.</h3><p>接下来我们模拟一次抽卡的结果。目前我们只考虑五星，不考虑四星插队的情况，也不考虑up角色的情况：</p>
+<p>在前73抽，每次出现五星物品的概率为0.6%。 从第74抽开始，每次增加6%的概率直至第90抽到达100%。</p>
+<p>我们定义一个函数<code>calc_chance</code>来计算每一抽出五星的概率，传入参数pity为目前抽数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_chance</span>(<span class="params">pity</span>):</span><br><span class="line">    <span class="keyword">if</span> pity &lt; <span class="number">74</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.006</span></span><br><span class="line">    <span class="keyword">elif</span> pity &lt; <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.006</span> + <span class="number">0.06</span> * (pity - <span class="number">74</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.0</span></span><br></pre></td></tr></table></figure>
+<p>那么对于一次模拟，我们定义函数<code>one_simulation</code>获得出五星时的抽数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">one_simulation</span>():</span><br><span class="line">    pity = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        pity += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> np.random.random() &lt; calc_chance(pity):</span><br><span class="line">            <span class="keyword">return</span> pity</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Step-3-Number-of-repetition"><a href="#Step-3-Number-of-repetition" class="headerlink" title="Step 3: Number of repetition"></a>Step 3: Number of repetition</h3><p>模拟次数由我们决定，次数越多结果越可靠，但是耗时越长。 这里我们仅仅模拟1000次试试：</p>
+<ul>
+<li>也就是说我们要模拟抽到五星物品的抽卡数10000次</li>
+</ul>
+<hr>
+<h3 id="Step-4-Simulating-Multiple-Values"><a href="#Step-4-Simulating-Multiple-Values" class="headerlink" title="Step 4: Simulating Multiple Values"></a>Step 4: Simulating Multiple Values</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">num_of_repetition = <span class="number">10000</span></span><br><span class="line">res = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(num_of_repetition):</span><br><span class="line">    res.append(one_simulation())</span><br><span class="line">res = np.array(res)</span><br><span class="line">simulation_result = Table().with_columns(</span><br><span class="line">    <span class="string">&quot;Repetition&quot;</span>, np.arange(<span class="number">1</span>, num_of_repetition + <span class="number">1</span>),</span><br><span class="line">    <span class="string">&quot;Count&quot;</span>, res</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<p>在<code>simulation_result</code>里我们获得了1000次模拟组成的Table。 接下来我们可以用直方图直观的查看数据分布, 并用np.mean查看出五星的平均抽数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">simulation_result.hist(<span class="string">&quot;Count&quot;</span>, bins=np.arange(<span class="number">1</span>, <span class="number">91</span>, <span class="number">1</span>))</span><br><span class="line">np.mean(res) <span class="comment">#在jupiter notebook里会自动打印每个cell的最后一行代码</span></span><br></pre></td></tr></table></figure>
+<p>结果如图：<br><img src="/../img/data8-3.png" alt="result"><br><strong>所以说我们可以得出结论，原神出金的平均抽数为大约63抽，但是大部分人会在74抽以后出金。</strong></p>
+<hr>
+<h2 id="Monty-Hall-Problem-三门问题"><a href="#Monty-Hall-Problem-三门问题" class="headerlink" title="Monty Hall Problem 三门问题"></a>Monty Hall Problem 三门问题</h2><p>经典的统计学问题，国内高中数学应该早有接触的。我们也可以用模拟来得出大概结论。具体情景可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/48254298">三门问题</a>。有三道门，背后分别由一辆汽车两个山羊，参与者从中选择一道门，然后主持人从剩余的两道门里指出背后有山羊的一道门，并询问参与者是否选择更换自己的选择。</p>
+<p>有一种反直觉但是符合逻辑的方式理解这个问题：</p>
+<ul>
+<li>从三道门里任选一个门背后有汽车的概率是1&#x2F;3</li>
+<li>那么选择一道门以后，剩余两道门里有汽车的概率为2&#x2F;3</li>
+<li>当得知剩余两道门的一道门背后有山羊后，最后的一道门里有车的概率还是2&#x2F;3</li>
+<li>所以如果选择换门，获得汽车的概率为2&#x2F;3，不换门的话概率仍然是1&#x2F;3</li>
+</ul>
+<p>通过我们提到的模拟，我们也能得出一样的结论，具体可以查看<a target="_blank" rel="noopener" href="https://inferentialthinking.com/chapters/09/4/Monty_Hall_Problem.html">data8教科书第9章第4节</a>。</p>
+<hr>
+<h2 id="Reference-and-remark"><a href="#Reference-and-remark" class="headerlink" title="Reference and remark"></a>Reference and remark</h2><p><a target="_blank" rel="noopener" href="https://inferentialthinking.com/chapters/intro.html#">Data 8 Text book: Inferential Thinking chapter 9</a><br>教科书里也介绍了基础统计学知识，这在国内高中和大学高数都有涵盖，同样国外很多学校的基础数学课程，例如Discrete mathematics和Probability theory应该也有深入学习。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a><a class="post-meta__tags" href="/tags/%E4%B8%AD%E6%96%87/">中文</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)"><img class="cover" src="/img/post-bg2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Data 8 学习笔记(二)</div></div><div class="info-2"><div class="info-item-1">Data 8 学习笔记(二)对Table的整列使用函数 Apply function to a columndatascience库的Table支持对其中一列进行运算，具体的规则是： 12square = Table.column(&quot;&quot;)**2operation = Table.column(&quot;column1&quot;) + Table.column(&quot;column2&quot;) 这个本质上是从Table里拿一列并转换成np array，然后由np array来支持运算，np array支持的运算很多样：  算术运算(* + &#x3D; &#x2F; % ** &#x2F;&#x2F;) 比较运算(逐元素) &gt; &lt; &gt;&#x3D; &lt;&#x3D; &#x3D;&#x3D; np聚合函数np.sum, np.mean, np.max, np.min, np.std, np.count_nonzero np向量函数运算np.sqrt, np.log, np.exp, np.sin,...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/06/26/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%80)/" title="Data 8 学习笔记(一)"><img class="cover" src="/img/post-bg2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-26</div><div class="info-item-2">Data 8 学习笔记(一)</div></div><div class="info-2"><div class="info-item-1">Data 8 学习笔记(一)介绍DATA 8 是加州大学伯克利分校的数据科学基础课程，使用的编程语言为python。课程资源:    课程官网   包含了课程视频，课上ppt，但是作业需要UCB的账号。视频在Youtube可以找到，目前最新的是2022Spring(最新的人家不可能让你免费看嘛)   Github 课程作业   包含课堂同步Jupiter notebook还有lab, hw, project以及最重量级的textbook。最新的是2025Spring(太良心了)。    具体的配置很简单，主要是使用numpy， panda, matplotlib, 还有UCB自己的datascience这几个python库。    datascience library安装(在terminal, cmd):  npm install datascience  这个库属于UCB为了初学者专门创建的preliminary tool，它主要操作的数据类型是库里定义的Table。就如同它的名字一样，Table就是个表格，每一列都是一个np...</div></div></div></a><a class="pagination-related" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)"><img class="cover" src="/img/post-bg2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-29</div><div class="info-item-2">Data 8 学习笔记(二)</div></div><div class="info-2"><div class="info-item-1">Data 8 学习笔记(二)对Table的整列使用函数 Apply function to a columndatascience库的Table支持对其中一列进行运算，具体的规则是： 12square = Table.column(&quot;&quot;)**2operation = Table.column(&quot;column1&quot;) + Table.column(&quot;column2&quot;) 这个本质上是从Table里拿一列并转换成np array，然后由np array来支持运算，np array支持的运算很多样：  算术运算(* + &#x3D; &#x2F; % ** &#x2F;&#x2F;) 比较运算(逐元素) &gt; &lt; &gt;&#x3D; &lt;&#x3D; &#x3D;&#x3D; np聚合函数np.sum, np.mean, np.max, np.min, np.std, np.count_nonzero np向量函数运算np.sqrt, np.log, np.exp, np.sin,...</div></div></div></a><a class="pagination-related" href="/2025/06/16/My-First-Post/" title="My First Blog~"><img class="cover" src="/img/post-bg2.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-16</div><div class="info-item-2">My First Blog~</div></div><div class="info-2"><div class="info-item-1">我的第一个博客~Hello World1print(&#x27;Hello World&#x27;) 1System.out.println(&quot;Hello World&quot;) 1234int main() &#123;    cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; endl;    return 0;&#125; 1console.log(&quot;Hello, World!&quot;);  </div></div></div></a><a class="pagination-related" href="/2025/06/25/MDlearning/" title="Markdown Fundamentals"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-25</div><div class="info-item-2">Markdown Fundamentals</div></div><div class="info-2"><div class="info-item-1">Learn Markdown Markdown is a lightweight markup language for creating formatted text using a plain-text editor.Wikipedia  I have always wondered why in Github some repos have beautifully documented readme section. Therefore, I decided to learn to create .md files for my readmes and posts. Markdown is widely used in various occasions, including Github readme.md, almost any post you see online and post in university forums, like ed.  HTMLWe must note that md supports raw HTML, so we can use...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Data-8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89"><span class="toc-number">1.</span> <span class="toc-text">Data 8 学习笔记(三)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Numpy-random-choice"><span class="toc-number">1.1.</span> <span class="toc-text">Numpy random.choice()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F-simulation-%E4%BB%A5%E5%8E%9F%E7%A5%9E%E6%8A%BD%E5%8D%A1%E4%B8%BA%E4%BE%8B"><span class="toc-number">1.2.</span> <span class="toc-text">模拟 simulation - 以原神抽卡为例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-What-to-simulate"><span class="toc-number">1.2.1.</span> <span class="toc-text">Step 1: What to simulate?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Simulating-one-play"><span class="toc-number">1.2.2.</span> <span class="toc-text">Step 2: Simulating one play.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Number-of-repetition"><span class="toc-number">1.2.3.</span> <span class="toc-text">Step 3: Number of repetition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Simulating-Multiple-Values"><span class="toc-number">1.2.4.</span> <span class="toc-text">Step 4: Simulating Multiple Values</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Monty-Hall-Problem-%E4%B8%89%E9%97%A8%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">Monty Hall Problem 三门问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference-and-remark"><span class="toc-number">1.4.</span> <span class="toc-text">Reference and remark</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/" title="Data8 课堂笔记(三)"><img src="/img/post-bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data8 课堂笔记(三)"/></a><div class="content"><a class="title" href="/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/" title="Data8 课堂笔记(三)">Data8 课堂笔记(三)</a><time datetime="2025-07-01T05:29:19.000Z" title="发表于 2025-07-01 13:29:19">2025-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)"><img src="/img/post-bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data 8 学习笔记(二)"/></a><div class="content"><a class="title" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)">Data 8 学习笔记(二)</a><time datetime="2025-06-29T03:44:23.000Z" title="发表于 2025-06-29 11:44:23">2025-06-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/26/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%80)/" title="Data 8 学习笔记(一)"><img src="/img/post-bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data 8 学习笔记(一)"/></a><div class="content"><a class="title" href="/2025/06/26/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%80)/" title="Data 8 学习笔记(一)">Data 8 学习笔记(一)</a><time datetime="2025-06-26T09:27:00.000Z" title="发表于 2025-06-26 17:27:00">2025-06-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/25/MDlearning/" title="Markdown Fundamentals"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Markdown Fundamentals"/></a><div class="content"><a class="title" href="/2025/06/25/MDlearning/" title="Markdown Fundamentals">Markdown Fundamentals</a><time datetime="2025-06-24T16:00:00.000Z" title="发表于 2025-06-25 00:00:00">2025-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/16/My-First-Post/" title="My First Blog~"><img src="/img/post-bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="My First Blog~"/></a><div class="content"><a class="title" href="/2025/06/16/My-First-Post/" title="My First Blog~">My First Blog~</a><time datetime="2025-06-16T13:00:00.000Z" title="发表于 2025-06-16 21:00:00">2025-06-16</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/post-bg2.png);"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  一个人知道自己为什么而活，就可以忍受任何一种生活。
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
