@@ -1,0 +1,24 @@
+#quote-box {
+    width: 80%;
+    min-width: 250px;
+
+    height: 12vh; /* 高度随视口改变 */
+    line-height: 1.4;
+
+    margin: 1em auto 0 auto;
+    padding: 0.5em 1em;
+
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    text-align: center;
+
+    color: #333;
+    font-size: clamp(0.8rem, 2vw, 1.2rem); /* 自适应字体 */
+    font-family: "仿宋_GB2312", "华文仿宋", "Segoe Script", "Apple Chancery", serif;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
