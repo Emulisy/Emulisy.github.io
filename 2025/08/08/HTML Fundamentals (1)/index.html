@@ -1,0 +1,444 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>HTML Fundamentals (1) | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="HTML Hypertext Markup Language - the Fundamentals (1)Anatomy of HTML1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&lt;!DOCTYPE html&gt;&amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML Fundamentals (1)">
+<meta property="og:url" content="https://emulisy.github.io/2025/08/08/HTML%20Fundamentals%20(1)/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="HTML Hypertext Markup Language - the Fundamentals (1)Anatomy of HTML1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859&lt;!DOCTYPE html&gt;&amp;l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg1.png">
+<meta property="article:published_time" content="2025-08-08T04:42:11.000Z">
+<meta property="article:modified_time" content="2025-08-16T12:53:15.084Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="English - 编程 - frontend - 前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML Fundamentals (1)",
+  "url": "https://emulisy.github.io/2025/08/08/HTML%20Fundamentals%20(1)/",
+  "image": "https://emulisy.github.io/img/post-bg1.png",
+  "datePublished": "2025-08-08T04:42:11.000Z",
+  "dateModified": "2025-08-16T12:53:15.084Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/08/08/HTML%20Fundamentals%20(1)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTML Fundamentals (1)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg1.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML Fundamentals (1)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML Fundamentals (1)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-08T04:42:11.000Z" title="发表于 2025-08-08 12:42:11">2025-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-16T12:53:15.084Z" title="更新于 2025-08-16 20:53:15">2025-08-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="HTML-Hypertext-Markup-Language-the-Fundamentals-1"><a href="#HTML-Hypertext-Markup-Language-the-Fundamentals-1" class="headerlink" title="HTML Hypertext Markup Language - the Fundamentals (1)"></a>HTML Hypertext Markup Language - the Fundamentals (1)</h1><h2 id="Anatomy-of-HTML"><a href="#Anatomy-of-HTML" class="headerlink" title="Anatomy of HTML"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Basic_HTML_syntax#anatomy_of_an_html_document">Anatomy of HTML</a></h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Metadata: character encoding, title, description --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Brief description of the page&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Title shown in the browser tab --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>My Web Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Link external CSS stylesheet --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Optional internal CSS --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">      <span class="attribute">font-family</span>: Arial, sans-serif;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Visible content of the page --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to My Website<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Navigation links --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Main content area --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>About This Page<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a sample paragraph in the main section.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Footer content --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="symbol">&amp;copy;</span> 2025 My Website<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Link external JavaScript file (best practice: before closing &lt;/body&gt;) --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;script.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Optional inline JavaScript --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Page loaded&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>&lt;!DOCTYPE html&gt;</code>: Doctype to be declared as HTML</li>
+<li><code>&lt;html lang=&quot;&quot;&gt;</code>: Root element that wraps up the whole HTML page, for internationalize purpose we usually specify the lang(en, zh, fr, ja, ar, es).</li>
+<li><code>&lt;head&gt;</code>: Contains everything else you want to include in the html file, including metadata, title, or internal or external CSS links. <strong>It does not include any components shown in the user interface!</strong><ul>
+<li><code>&lt;meta&gt;</code>: Contains metadata like character encoding(usually UTF-8), viewport settings and SEO data.</li>
+<li><code>&lt;title&gt;</code>: Browser tab and search engine results.</li>
+<li><code>&lt;link&gt;</code>: External CSS sheet or browser tab icons.</li>
+<li><code>&lt;style&gt;</code>:inline CSS </li>
+<li><code>&lt;script&gt;</code>: Reference to javascript. Using this directly at head will block html from rendering, therefore we only use it with defer(runs after dom ready) or async(parallel with html render) attribute for better performance.</li>
+</ul>
+</li>
+<li><code>&lt;body&gt;</code>: Contains everything that displays on the page. Usually includes<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>.</li>
+<li><code>&lt;script&gt;</code>: External or inline JS, ideally put at bottom.</li>
+</ol>
+<hr>
+<h2 id="White-space-rule"><a href="#White-space-rule" class="headerlink" title="White space rule"></a>White space rule</h2><p>In HTML element content, no matter how much white spaces we include, the HTML parser will only recognize the sequence of white spaces as a single space. </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>White space rule<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>White</span><br><span class="line">    space</span><br><span class="line">    rule<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--These two paragraphs are rendered the same in your browser!--&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>Tip: Accessing the innerHTML of elements from JavaScript will keep all the whitespace intact. This may return unexpected results if the whitespace is trimmed by the browser.</em></p>
+</blockquote>
+<hr>
+<h2 id="Character-references"><a href="#Character-references" class="headerlink" title="Character references"></a>Character references</h2><p>As in almost all programming languages, certain characters have special meanings and are usually treated as part of syntax instead of plain text. Like in python, when we want to print out <code>&quot;&quot;</code>, we need to type <code>print(\&quot;\&quot;)</code>.</p>
+<p>HTML also has reserved characters that are part of the markup, not normal text. If you want these characters to show up in the browser instead of being interpreted, you must use HTML character references:</p>
+<table>
+<thead>
+<tr>
+<th>Literal char</th>
+<th>Char ref</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt;</td>
+<td><code>&amp;gt; </code></td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td><code>&amp;lt;  </code></td>
+</tr>
+<tr>
+<td>“</td>
+<td><code>&amp;quot;</code></td>
+</tr>
+<tr>
+<td>‘</td>
+<td><code>&amp;apos;</code></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td><code>&amp;amp; </code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="HTML-Comments"><a href="#HTML-Comments" class="headerlink" title="HTML Comments"></a>HTML Comments</h2><p>Like in all languages, we can use ctrl + &#x2F; to conveniently comment lines of codes in HTML.</p>
+<p>In HTML the comment usually start with <code>&lt;--!</code> and ends with <code>--&gt;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--This is a line of comment.--&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="The-Head-of-HTML"><a href="#The-Head-of-HTML" class="headerlink" title="The Head of HTML"></a>The Head of HTML</h2><h3 id="Metadata-and"><a href="#Metadata-and" class="headerlink" title="Metadata and &lt;meta&gt;"></a>Metadata and <code>&lt;meta&gt;</code></h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Glossary/Metadata">Metadata</a>: don’t get confused by its fancy name, this is basically the same as data, however here we regard the HTML file to be the data that the metadata is describing(like the author, the date, the encoding standard).</p>
+<p><strong>Adding Metadata</strong>:</p>
+<ul>
+<li>Adding character encoding:<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>utf-8</code> is a universal character set that includes pretty much any character from any human language. We usually add this for better performance and internationalization. </p>
+</blockquote>
+</li>
+<li>Adding more metadata:<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;author&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Ian Zhang&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;HTML fundamentals&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>name&#x3D;”?”</th>
+<th>Data contained</th>
+<th>Still used for SEO purpose?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>author</td>
+<td>The author</td>
+<td>Optional, not used for ranking</td>
+</tr>
+<tr>
+<td>description</td>
+<td>The description of the site</td>
+<td>used for SEO snippet</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>Keyword of the site</td>
+<td>Usually ignored by search engines</td>
+</tr>
+<tr>
+<td>generator</td>
+<td>specifies the what software or platform was used to create the page</td>
+<td>usually removed for security reasons</td>
+</tr>
+<tr>
+<td>revisit-after</td>
+<td>tells the search engine to crawl the page again after certain period of time</td>
+<td>usually ignored by search engine</td>
+</tr>
+<tr>
+<td>These tags are usually used for SEO purposes only and <strong>does not affect the file and its output directly.</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+</li>
+</ul>
+<h4 id="Important-Meta-Tags"><a href="#Important-Meta-Tags" class="headerlink" title="Important Meta Tags"></a>Important Meta Tags</h4><ul>
+<li><p><strong><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Guides/Viewport_meta_element">Viewport</a></strong>: This tag tells the browser <strong>how wide the page should be, relative to the screen</strong>, and <strong>how zooming and scaling should work</strong></p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>width&#x3D;</strong> : can be set to specific pixels like <code>width=600</code> (<em>Only accept positive values from 1 to 10000</em>), and can also be set to special value <code>width=device-width</code>.<br>This value establishes the vm unit in CSS.</li>
+<li><strong>height&#x3D;</strong> : same as width but controls only the vertical axis, the special value is <code>height=device-height</code>.<br>This value establishes the vh unit in CSS.</li>
+<li><strong>initial-scale&#x3D;</strong> : controls the zoom level when the page is first loaded. Ranging from 1 to 10 and the default is 1.</li>
+<li><strong>minimum-scale&#x3D; &#x2F; maximum-scale&#x3D;</strong> : the minimum&#x2F;maximum zoom level allowed, by default are 0.1 and 10.</li>
+<li><strong>user-scalable&#x3D;</strong> : controls whether zooming is allowed on the page. Accepted values are <code>0</code>, <code>1</code>, <code>no</code>, <code>yes</code>.</li>
+<li><strong>interactive-widget&#x3D;</strong> : Specifies the effect that interactive UI widgets, such as a virtual keyboard, have on the page’s viewports.<br>Valid values: <code>resizes-visual</code>, <code>resizes-content</code>, or <code>overlays-content</code>. Default: <code>resizes-visual</code>.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/robots">Robot</a></strong>: Defines the crawl and indexing behavior that web crawlers should use with the page.</p>
+<blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;noindex&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>content&#x3D;</strong>: </p>
+<ul>
+<li><code>index</code>: default behaviour, allow robot to index the page.</li>
+<li><code>noindex</code>: restrict robot from indexing the page.</li>
+<li><code>follow</code>: also default behaviour, allow robot to follow links on the page.</li>
+<li><code>nofollow</code>: opposite of <code>follow</code>.</li>
+<li><code>all</code>: equivalent to <code>index</code> + <code>follow</code>, used by google.</li>
+<li><code>none</code>: equivalent to <code>noindex</code> + <code>nofollow</code>, used by google.</li>
+</ul>
+<p><strong>This only affect cooperative robots but not malicious users. In addition, the robot still have to access the page to read the meta tag, so we can consider using a robot.txt file to reduce bandwidth.</strong></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="tag"><a href="#tag" class="headerlink" title="&lt;link&gt; tag"></a><code>&lt;link&gt;</code> tag</h3><ul>
+<li>Using <code>&lt;link&gt;</code> tag we can add custom icons for the site.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Linking style sheets.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;styles.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>These two are the most common use of <code>&lt;link&gt;</code> tag, however the tag is also used for preload of resource and many other ways.</p>
+<hr>
+<h3 id="Applying-JS-using-tag"><a href="#Applying-JS-using-tag" class="headerlink" title="Applying JS using &lt;script&gt; tag"></a>Applying JS using <code>&lt;script&gt;</code> tag</h3><p>In the <code>&lt;head&gt;</code>, we usually use <code>&lt;script&gt;</code> tag to apply external js script.</p>
+<p>The <code>&lt;script&gt;</code> tag usually have two attributes:</p>
+<ul>
+<li><code>src=</code>: contains the path to the script</li>
+<li><code>defer</code>: a boolean attribute that ensures the HTML are parsed before loading the script</li>
+</ul>
+<p>There are some strategies for introducing a js script to our file only after the HTML elements are parsed:</p>
+<ul>
+<li>Placing the  <code>&lt;script&gt;</code> at the bottom of the <code>&lt;body&gt;</code> instead of the <code>&lt;head&gt;</code>, however depending on the internet connection and the length of the HTML file, this may cause some latency before the script is applied.</li>
+<li>Use <code>&lt;script type=&quot;module&quot;&gt;</code>, so that the browser treats it as a module and will be executed after all HTML are parsed.</li>
+<li>We can also use <code>defer</code> and <code>async</code> attribute for external scripts in <code>head</code>, or wrap the script in eventlistener, but <strong>unless we want to support very old browsers, using <code>type=&quot;module&quot;</code> is sufficient.</strong></li>
+</ul>
+<hr>
+<h2 id="The-body-of-HTML"><a href="#The-body-of-HTML" class="headerlink" title="The body of HTML"></a>The <code>body</code> of HTML</h2><h3 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis</h3><p>In HTML5, we use <code>&lt;em&gt;</code> to replace <code>&lt;i&gt;</code>, and <code>&lt;strong&gt;</code> to replace <code>&lt;b&gt;</code>, as we want to highlight the semantic meaning of the italic or bold text.</p>
+<blockquote>
+<p>Here’s the best rule you can remember: It’s only appropriate to use <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, or <code>&lt;u&gt;</code> to convey a meaning traditionally conveyed with bold, italics, or underline when there isn’t a more suitable element; and there usually is. Consider whether <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;mark&gt;</code>, or <code>&lt;span&gt;</code> might be more appropriate.</p>
+</blockquote>
+<p><mark> Use the elements based on their semantics, not their appearence!</mark></p>
+<hr>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><h4 id="Ordered-and-unordered-list"><a href="#Ordered-and-unordered-list" class="headerlink" title="Ordered and unordered list"></a>Ordered and unordered list</h4><ul>
+<li>ordered list <code>&lt;ol&gt;</code></li>
+<li>unordered list <code>&lt;ul&gt;</code></li>
+</ul>
+<p>We always use <code>&lt;li&gt;</code> for list items:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span> This is an unordered list<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span> This is an unordered list<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span> </span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>This is an ordered list<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>This is an ordered list<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+  <li> This is an unordered list</li>
+  <li> This is an unordered list</li>
+</ul></blockquote>
+<blockquote>
+<ol> 
+  <li>This is an ordered list</li>
+  <li> This is an ordered list</li>
+</ol></blockquote>
+<h4 id="Nested-list"><a href="#Nested-list" class="headerlink" title="Nested list"></a>Nested list</h4><p>To use nested list, we simply add new <code>&lt;ul&gt;</code> <code>&lt;ol&gt;</code> in the list item:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>The first layer<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span> The second layer</span><br><span class="line">      <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">li</span>&gt;</span>The second layer item<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span>    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+  <li>The first layer</li>
+  <li> The second layer
+     <ol>
+        <li>The second layer item</li>
+     </ol>
+  </li>
+</ul>   </blockquote>
+<h4 id="Description-list"><a href="#Description-list" class="headerlink" title="Description list"></a>Description list</h4><p>The purpose of description lists is to mark up a set of items and their associated descriptions, such as terms and definitions.</p>
+<p>Description lists use a different wrapper than the other list types — <code>&lt;dl&gt;</code>; in addition each term is wrapped in a <code>&lt;dt&gt;</code> (description term) element, and each description is wrapped in a <code>&lt;dd&gt;</code> (description definition) element.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dt</span>&gt;</span>The HTML<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dd</span>&gt;</span>A language that serves as the main skeleton of a website<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dt</span>&gt;</span>The CSS<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dd</span>&gt;</span>Defines the styling of HTML skeleton<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<dl>
+  <dt>The HTML</dt>
+  <dd>A language that serves as the main skeleton of a website</dd>
+  <dt>The CSS</dt>
+  <dd>Defines the styling of HTML skeleton</dd>
+</dl><p>To put it plainly, <code>&lt;dt&gt;</code> is like the item of the first layer list, and <code>&lt;dd&gt;</code> is like the item of the second layer list, and <code>&lt;dl&gt;</code> is like the <code>&lt;ol&gt;</code> that wraps everything up.<br>Tip: there can be multiple description for one term, just like there can be multiple items in a nested list.</p>
+</blockquote>
+<hr>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/English-%E7%BC%96%E7%A8%8B-frontend-%E5%89%8D%E7%AB%AF/">English - 编程 - frontend - 前端</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1"><img class="cover" src="/img/home-bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CS571 Class note 1</div></div><div class="info-2"><div class="info-item-1">CS571 @UW-MadisonCS571 is a course for basic UI&#x2F;UX design and frontend programming by University of Wisconsin Madison. The course is completely open source for all cs students to learn globally.  The official website of this course is CS571, the latest version is for 2025 Spring.  You can find matching class videos and other materials in this website.   JsonJson(Javascript Object Notation) is basically a way to represent data in a hierarchy key-value pairs. The first tutorial didn’t...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-Hypertext-Markup-Language-the-Fundamentals-1"><span class="toc-number">1.</span> <span class="toc-text">HTML Hypertext Markup Language - the Fundamentals (1)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Anatomy-of-HTML"><span class="toc-number">1.1.</span> <span class="toc-text">Anatomy of HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#White-space-rule"><span class="toc-number">1.2.</span> <span class="toc-text">White space rule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Character-references"><span class="toc-number">1.3.</span> <span class="toc-text">Character references</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-Comments"><span class="toc-number">1.4.</span> <span class="toc-text">HTML Comments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Head-of-HTML"><span class="toc-number">1.5.</span> <span class="toc-text">The Head of HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Metadata-and"><span class="toc-number">1.5.1.</span> <span class="toc-text">Metadata and &lt;meta&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Important-Meta-Tags"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">Important Meta Tags</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tag"><span class="toc-number">1.5.2.</span> <span class="toc-text">&lt;link&gt; tag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Applying-JS-using-tag"><span class="toc-number">1.5.3.</span> <span class="toc-text">Applying JS using &lt;script&gt; tag</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-body-of-HTML"><span class="toc-number">1.6.</span> <span class="toc-text">The body of HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Emphasis"><span class="toc-number">1.6.1.</span> <span class="toc-text">Emphasis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#List"><span class="toc-number">1.6.2.</span> <span class="toc-text">List</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Ordered-and-unordered-list"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">Ordered and unordered list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nested-list"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">Nested list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Description-list"><span class="toc-number">1.6.2.3.</span> <span class="toc-text">Description list</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/08/08/HTML%20Fundamentals%20(1)/" title="HTML Fundamentals (1)"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTML Fundamentals (1)"/></a><div class="content"><a class="title" href="/2025/08/08/HTML%20Fundamentals%20(1)/" title="HTML Fundamentals (1)">HTML Fundamentals (1)</a><time datetime="2025-08-08T04:42:11.000Z" title="发表于 2025-08-08 12:42:11">2025-08-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CS571 Class note 1"/></a><div class="content"><a class="title" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1">CS571 Class note 1</a><time datetime="2025-08-04T10:08:03.000Z" title="发表于 2025-08-04 18:08:03">2025-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/03/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E5%9B%9B)/" title="Data 8 学习笔记(四)"><img src="/img/post-bg9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data 8 学习笔记(四)"/></a><div class="content"><a class="title" href="/2025/07/03/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E5%9B%9B)/" title="Data 8 学习笔记(四)">Data 8 学习笔记(四)</a><time datetime="2025-07-03T05:32:01.000Z" title="发表于 2025-07-03 13:32:01">2025-07-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/" title="Data8 课堂笔记(三)"><img src="/img/post-bg5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data8 课堂笔记(三)"/></a><div class="content"><a class="title" href="/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/" title="Data8 课堂笔记(三)">Data8 课堂笔记(三)</a><time datetime="2025-07-01T05:29:19.000Z" title="发表于 2025-07-01 13:29:19">2025-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)"><img src="/img/post-bg4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Data 8 学习笔记(二)"/></a><div class="content"><a class="title" href="/2025/06/29/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%BA%8C)/" title="Data 8 学习笔记(二)">Data 8 学习笔记(二)</a><time datetime="2025-06-29T03:44:23.000Z" title="发表于 2025-06-29 11:44:23">2025-06-29</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/scripts/quote.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
