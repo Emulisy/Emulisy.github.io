@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS Fundamentals | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Fundamentals">
+<meta property="og:url" content="https://emulisy.github.io/2025/09/18/CSS%20Fundamentals%20(1)/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/home-bg.png">
+<meta property="article:published_time" content="2025-09-18T09:57:06.000Z">
+<meta property="article:modified_time" content="2025-09-28T07:45:50.455Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/home-bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS Fundamentals",
+  "url": "https://emulisy.github.io/2025/09/18/CSS%20Fundamentals%20(1)/",
+  "image": "https://emulisy.github.io/img/home-bg.png",
+  "datePublished": "2025-09-18T09:57:06.000Z",
+  "dateModified": "2025-09-28T07:45:50.455Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/09/18/CSS%20Fundamentals%20(1)/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS Fundamentals',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/home-bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS Fundamentals</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS Fundamentals</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-18T09:57:06.000Z" title="发表于 2025-09-18 17:57:06">2025-09-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-28T07:45:50.455Z" title="更新于 2025-09-28 15:45:50">2025-09-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="CSS-Fundamentals-1-CSS-Selectors-and-Cascading"><a href="#CSS-Fundamentals-1-CSS-Selectors-and-Cascading" class="headerlink" title="CSS Fundamentals (1) - CSS Selectors and Cascading"></a>CSS Fundamentals (1) - CSS Selectors and Cascading</h1><hr>
+<h2 id="Basic-Selectors"><a href="#Basic-Selectors" class="headerlink" title="Basic Selectors"></a>Basic Selectors</h2><h3 id="Type-Element-Selector"><a href="#Type-Element-Selector" class="headerlink" title="Type(Element) Selector"></a>Type(Element) Selector</h3><p>In html we have tags for each element, type selector selects all the elements with the specific tag:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#00c4b6</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Class-Selector"><a href="#Class-Selector" class="headerlink" title="Class Selector"></a>Class Selector</h3><p>In html, we can add class attribute to every element, each element can have multiple classes. The class selector can select elements that have the same class attribute.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.className</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0d0d0d</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>But sometimes we want to style specific elements that have class applied:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.className</span>&#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#86fffa</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This styles all <code>p</code> elements that have the class <code>className </code> applied(<em>No spaces between tag name and class name</em>).</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.className1</span><span class="selector-class">.className2</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">4px</span> solid black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This styles ALL elements that have BOTH <code>className1</code> and <code>className2</code> applied.</p>
+<hr>
+<h3 id="ID-Selector"><a href="#ID-Selector" class="headerlink" title="ID Selector"></a>ID Selector</h3><p>Usually the <code>id</code> attribute of a element is unique, so we can select the specific element using id selector.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#idName</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Just like the class selector, we can combine it with tag name to be more specific.(<em>But id selector is already the most specific selector, so this only works for large projects where elements may share unique ids</em>)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-id">#idName</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Selector-List"><a href="#Selector-List" class="headerlink" title="Selector List"></a>Selector List</h3><p>Sometimes there are multiple elements that need the same styling, we can style them together using selector list:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>, <span class="selector-class">.className</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#0d0d0d</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span></span><br><span class="line"><span class="selector-id">#idName</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can either separate them with <code>,</code> or write them on different lines. The first example is the same as:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#0d0d0d</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.className</span> &#123;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#0d0d0d</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Attribute-Selector"><a href="#Attribute-Selector" class="headerlink" title="Attribute Selector"></a>Attribute Selector</h3><p>Sometimes we want to select elements that have specific attribute:</p>
+<ul>
+<li><pre><code class="language-CSS">  p[attribute] &#123;
+  color: black;
+  &#125;
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    This selects all `&lt;p&gt;` elements that have the `attribute`, regardless of the value of the attribute.</span><br><span class="line">    (*The element can only be tag name, and can be omitted. If omitted, it will select all elements with the attribute*)</span><br><span class="line">* ```CSS</span><br><span class="line">    a[href=&quot;github.com&quot;] &#123;</span><br><span class="line">        color: #3d8fd1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+This way we can select those elements with the attribute and have the specific value.
+</code></pre>
+</li>
+<li><pre><code class="language-CSS">p[class~=&quot;example&quot;] &#123;
+  color: #3d8fd1;
+&#125;
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  This selects all `p` tags that have the attribute class=&quot;example&quot;. But `~=` means the target elements only need to have the value in its list of values.</span><br><span class="line"></span><br><span class="line">There are also attribute selectors for [value substrings](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Attribute_selectors), but they are rarely used.</span><br><span class="line"></span><br><span class="line">***</span><br><span class="line">### Pseudo-classes and pseudo-elements selector</span><br><span class="line">In the former selectors, if we want to maintain the site, we inevitably have to edit the HTML, like changing the classes, id or adding attributes. But that is not always available. </span><br><span class="line">Pseudo classes and elements however, only target at HTML elements in a certain state, and they behave as if you had added something to your HTML.</span><br><span class="line">#### User-action pseudo classes</span><br><span class="line">These classes behave like a class has been added to the element when user interact with them. They start with a `:`.</span><br><span class="line">* `:hover`:triggered when user moves their pointer over an element.</span><br><span class="line">* `:focus`: triggered when user click or use `tab` to select and element.</span><br><span class="line">* `:nth-child`: select the n-th child of the element.</span><br><span class="line">Using them we can make a hyperlink change color when user points at it:</span><br><span class="line">```html</span><br><span class="line">&lt;a href=&quot;github.com&quot;&gt;github link&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="pseudo-element"><a href="#pseudo-element" class="headerlink" title="pseudo element"></a>pseudo element</h4><p>This one behaves as if you added a new html element to the page. They start with <code>::</code>.</p>
+<ul>
+<li><code>::first-line</code>: selects the first line of the element dynamically.</li>
+<li><code>::before</code>: add another inline element in front of the father element. Must be accompanied by content.<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;this is a hyperlink&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><code>::after</code>: the same as <code>::before</code> but added as an immediate child. Must be used with <code>content</code>.</li>
+</ul>
+<h4 id="Combining-pseudo-class-and-elements"><a href="#Combining-pseudo-class-and-elements" class="headerlink" title="Combining pseudo class and elements"></a>Combining pseudo class and elements</h4><p>We can concatenate pseudo classes without limitation, as long as they don’t contradict with each other:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;score&quot;</span>&gt;</span>Please enter a score:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;score&quot;</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">max</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>Result:<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">:out-of-range</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/../img/CSS%20Fundamentals/pseudoclass%20before.png" alt="pseudoclass before.png"><br><img src="/../img/CSS%20Fundamentals/pseudoclass%20after.png" alt="pseudoclass after.png"><br>Now only when user tries to input more than 100 will the background turn red.</p>
+<p>However, you cannot do the same with pseudo-elements, <strong>they don’t support concatenation</strong>.<br>Still we can concatenate pseudo classes with pseudo-elements, <strong>as long as the element appears at last:</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">:out-of-range</span> + <span class="selector-tag">h4</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;Score out of range!&quot;</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">150%</span>;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/../img/CSS%20Fundamentals/pseudo%203.png" alt="pseudo 3.png"></p>
+<hr>
+<h3 id="Combinator"><a href="#Combinator" class="headerlink" title="Combinator"></a>Combinator</h3><ul>
+<li>Descendent <code>space</code>:<ul>
+<li><code>header p &#123;&#125;</code> only selects <code>&lt;p&gt;</code> within <code>&lt;header&gt;</code>.</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is ALSO styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is ALSO styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Child <code>&gt;</code>:<ul>
+<li><code>header &gt; p &#123;&#125;</code> only selects the direct child <code>&lt;p&gt;</code> within <code>&lt;header&gt;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is ALSO styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is NOT styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Adjacent sibling <code>+</code>:<ul>
+<li><code>header + p &#123;&#125;</code> only selects the first <code>&lt;p&gt;</code> in the <code>&lt;header&gt;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is NOT styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is NOT styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Skips if the direct sibling is not the target:<br> <code>article + p &#123;&#125;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;example.com&quot;</span>&gt;</span>example<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>target<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!--This p will not be selected--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Subsequent-sibling <code>~</code>:<ul>
+<li><code>article ~ p &#123;&#125;</code> Selects the sibling <code>p</code> that is at the same level, unlike the descendent combinator, which targets at all levels:</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is NOT styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This one is ALSO styled<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><em>We can combine all former selectors with combinators, so that we can create big CSS selectors that select specific part of the file. But be careful, as doing so may affect the reusability of CSS rules.</em></p>
+<p><code>ul &gt; li[class=&quot;example&quot;]</code> This one uses attribute selector and child combinator to select the direct child(<code>li</code> list item) of <code>ul</code> that has class <code>example</code></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="Grouping"><a href="#Grouping" class="headerlink" title="Grouping"></a>Grouping</h3><p>We can use <code>,</code> to group selectors together, unlike the combinator, doing so have the same effect as writing them separately.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span>, <span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>is the same as:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">h2</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="The-universal-selector"><a href="#The-universal-selector" class="headerlink" title="The universal selector *"></a>The universal selector <code>*</code></h3><p><code>*</code> matches all elements. If you use <code>*</code> alone, it targets at everything in your file. But it is usually used with other selectors and combinators:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> * &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#60fff2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This selects all descendents inside the <code>div</code>.</p>
+<hr>
+<h3 id="Inline-style"><a href="#Inline-style" class="headerlink" title="Inline style"></a>Inline style</h3><p>We can write inline styles in HTML file using the attribute <code>style=&quot;&quot;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color: red&quot;</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>is the same as </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="The-Cascade"><a href="#The-Cascade" class="headerlink" title="The Cascade"></a>The Cascade</h2><p>CSS stands for Cascading Style Sheet. When there are multiple rules styling the same element, the cascading algorithm decides which rule is applied.</p>
+<blockquote>
+<p>The general rule is that the last CSS rule in the sheet will be applied, given if they have the same specificity.</p>
+</blockquote>
+<h3 id="Specificity"><a href="#Specificity" class="headerlink" title="Specificity"></a>Specificity</h3><p>For a single element: <strong>Type(element) selector &lt; class selector &lt; id selector</strong></p>
+<hr>
+<h3 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h3><p>When you define the properties of the parent element, its child may <strong>inherit</strong> these properties. Like if you define the <code>font-family</code> of the <code>body</code>, by default every letter in your file will inherit such property and use its value as a default font.</p>
+<blockquote>
+<p>Generally speaking, you can only inherit a property only if :</p>
+<ul>
+<li>The property has no value yet</li>
+<li>The property can be inherited (Usually properties related to font or text can be inherited, like <code>font-family</code> or <code>color</code>)</li>
+</ul>
+</blockquote>
+<p>However, there are some <strong>universal property values</strong> we can use to control inheritance:</p>
+<ul>
+<li><code>property=inherit</code>: Enforce inheritance even if the property cannot be inherited.</li>
+<li><code>property=initial</code>: Set the value to the initial state (default value).</li>
+<li><code>property=unset</code>: If the property can be inherited, it behaves like <code>inherit</code>, otherwise it behaves like <code>initial</code></li>
+<li><code>property=revert</code>: Reset to browser’s stylesheet(user-agent stylesheet)</li>
+</ul>
+<blockquote>
+<p><em>We can use the special property-<code>all</code> to represent all properties</em></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line"><span class="attribute">all</span>:initial</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This sets all properties of <code>p</code> to default value.</p>
+</blockquote>
+<hr>
+<h3 id="The-Cascading-Algorithm"><a href="#The-Cascading-Algorithm" class="headerlink" title="The Cascading Algorithm"></a>The Cascading Algorithm</h3><p>When deciding which CSS rule is applied to a certain element, we use the following principles:</p>
+<ol>
+<li><p>First, consider importance:</p>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line"> <span class="attribute">color</span>: red <span class="meta">!important</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><code>!important</code> have the highest level priority.</p>
+</li>
+<li><p>Second, consider specificity:<br> We can measure the specificity in numbers:</p>
+<table>
+<thead>
+<tr>
+<th>Selector Type</th>
+<th>Example</th>
+<th>Specificity Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Inline styles</td>
+<td>style&#x3D;”color:red”</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>ID selector</td>
+<td>#header</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Class selector</td>
+<td>.highlight</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Attribute selector</td>
+<td>[type&#x3D;”text”]</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Pseudo-class</td>
+<td>:hover</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Element &#x2F; type selector</td>
+<td>div, p, h1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Pseudo-element</td>
+<td>::before, ::after</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Universal selector</td>
+<td>*</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Combinators</td>
+<td>div &gt; p, h1 + p</td>
+<td>0</td>
+</tr>
+<tr>
+<td>:where() (special case)</td>
+<td>:where(.class)</td>
+<td>0 (always zero)</td>
+</tr>
+<tr>
+<td>Together combined is the specificity value, the larger one wins.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Finally, consider source order. That is the one that comes last in the stylesheet wins.</p>
+</li>
+</ol>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/English/">English</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/img/home-bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/16/HTML%20Fundamentals%20(2)/" title="HTML Fundamentals (2)"><img class="cover" src="/img/post-bg1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">HTML Fundamentals (2)</div></div><div class="info-2"><div class="info-item-1">HTML Fundamentals (2)Structuring HTMLThere are many layout HTML elements that helps to structure the file in an ordered manner. Specifically speaking, the most commonly seen ones are:  &lt;main&gt; is for content unique to this page. Use &lt;main&gt; only once per page, and put it directly inside . Ideally this shouldn’t be nested within other elements. &lt;article&gt; encloses a block of related content that makes sense on its own without the rest of the page (for example, a single blog...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">CS571 Class note 1</div></div><div class="info-2"><div class="info-item-1">CS571 @UW-MadisonCS571 is a course for basic UI&#x2F;UX design and frontend programming by University of Wisconsin Madison. The course is completely open source for all cs students to learn globally.  The official website of this course is CS571, the latest version is for 2025 Spring.  You can find matching class videos and other materials in this website.   JsonJson(Javascript Object Notation) is basically a way to represent data in a hierarchy key-value pairs. The first tutorial didn’t...</div></div></div></a><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a><a class="pagination-related" href="/2025/09/02/Javascript%20Fundamentals/" title="Javascript Fundamentals"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">Javascript Fundamentals</div></div><div class="info-2"><div class="info-item-1">Primitive types string number bigInt boolean  undefined null symbol   NumbersIn JS, numbers are always 64-bit Floating Point!! Therefor precision exist to avoid overflow:  Integer precision: int are accurate within the scope (Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER) Floating-point imprecision: Because numbers are binary floats, decimals like 0.1 cannot be represented accurately. So float point arithmetic is not always precise.1console.log(0.1 + 0.2 === 0.3)//false So how to fix...</div></div></div></a><a class="pagination-related" href="/2025/06/25/MDlearning/" title="Markdown Fundamentals"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-25</div><div class="info-item-2">Markdown Fundamentals</div></div><div class="info-2"><div class="info-item-1">Learn Markdown Markdown is a lightweight markup language for creating formatted text using a plain-text editor.Wikipedia  I have always wondered why in Github some repos have beautifully documented readme section. Therefore, I decided to learn to create .md files for my readmes and posts. Markdown is widely used in various occasions, including Github readme.md, almost any post you see online and post in university forums, like ed.  HTMLWe must note that md supports raw HTML, so we can use...</div></div></div></a><a class="pagination-related" href="/2025/06/26/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%80)/" title="Data 8 学习笔记(一)"><img class="cover" src="/img/post-bg7.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-26</div><div class="info-item-2">Data 8 学习笔记(一)</div></div><div class="info-2"><div class="info-item-1">Data 8 学习笔记(一)介绍DATA 8 是加州大学伯克利分校的数据科学基础课程，使用的编程语言为python。课程资源:    课程官网   包含了课程视频，课上ppt，但是作业需要UCB的账号。视频在Youtube可以找到，目前最新的是2022Spring(最新的人家不可能让你免费看嘛)   Github 课程作业   包含课堂同步Jupiter notebook还有lab, hw, project以及最重量级的textbook。最新的是2025Spring(太良心了)。    具体的配置很简单，主要是使用numpy， panda, matplotlib, 还有UCB自己的datascience这几个python库。    datascience library安装(在terminal, cmd):  npm install datascience  这个库属于UCB为了初学者专门创建的preliminary tool，它主要操作的数据类型是库里定义的Table。就如同它的名字一样，Table就是个表格，每一列都是一个np...</div></div></div></a><a class="pagination-related" href="/2025/07/01/Data8%20%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0(%E4%B8%89)/" title="Data8 课堂笔记(三)"><img class="cover" src="/img/post-bg5.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-01</div><div class="info-item-2">Data8 课堂笔记(三)</div></div><div class="info-2"><div class="info-item-1">Data 8 学习笔记(三)Numpy random.choice()有时我们需要从集合里随机选取一个值，这时就可以用np.choice()，具体语法是： 123456#随机选取一个值random_choice = np.choice(array_name)#多次随机选取random_choices = np.choice(array_name, frequency)#模拟掷骰子三次dice_rolls = np.choice(np.arange(1,7), 3)  模拟 simulation - 以原神抽卡为例Step 1: What to simulate?我们想要模拟每次抽到五星物品的预计抽数。每一次抽卡只会有两个结果：  抽到五星物品 没抽到五星物品   Step 2: Simulating one play.接下来我们模拟一次抽卡的结果。目前我们只考虑五星，不考虑四星插队的情况，也不考虑up角色的情况： 在前73抽，每次出现五星物品的概率为0.6%。...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-Fundamentals-1-CSS-Selectors-and-Cascading"><span class="toc-number">1.</span> <span class="toc-text">CSS Fundamentals (1) - CSS Selectors and Cascading</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Selectors"><span class="toc-number">1.1.</span> <span class="toc-text">Basic Selectors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-Element-Selector"><span class="toc-number">1.1.1.</span> <span class="toc-text">Type(Element) Selector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-Selector"><span class="toc-number">1.1.2.</span> <span class="toc-text">Class Selector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ID-Selector"><span class="toc-number">1.1.3.</span> <span class="toc-text">ID Selector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Selector-List"><span class="toc-number">1.1.4.</span> <span class="toc-text">Selector List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Attribute-Selector"><span class="toc-number">1.1.5.</span> <span class="toc-text">Attribute Selector</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pseudo-element"><span class="toc-number">1.1.5.1.</span> <span class="toc-text">pseudo element</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Combining-pseudo-class-and-elements"><span class="toc-number">1.1.5.2.</span> <span class="toc-text">Combining pseudo class and elements</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Combinator"><span class="toc-number">1.1.6.</span> <span class="toc-text">Combinator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Grouping"><span class="toc-number">1.1.7.</span> <span class="toc-text">Grouping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-universal-selector"><span class="toc-number">1.1.8.</span> <span class="toc-text">The universal selector *</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inline-style"><span class="toc-number">1.1.9.</span> <span class="toc-text">Inline style</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Cascade"><span class="toc-number">1.2.</span> <span class="toc-text">The Cascade</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Specificity"><span class="toc-number">1.2.1.</span> <span class="toc-text">Specificity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inheritance"><span class="toc-number">1.2.2.</span> <span class="toc-text">Inheritance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Cascading-Algorithm"><span class="toc-number">1.2.3.</span> <span class="toc-text">The Cascading Algorithm</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS Fundamentals"/></a><div class="content"><a class="title" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals">CSS Fundamentals</a><time datetime="2025-09-18T09:57:06.000Z" title="发表于 2025-09-18 17:57:06">2025-09-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/16/HTML%20Fundamentals%20(2)/" title="HTML Fundamentals (2)"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTML Fundamentals (2)"/></a><div class="content"><a class="title" href="/2025/09/16/HTML%20Fundamentals%20(2)/" title="HTML Fundamentals (2)">HTML Fundamentals (2)</a><time datetime="2025-09-16T12:53:58.000Z" title="发表于 2025-09-16 20:53:58">2025-09-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/02/Javascript%20Fundamentals/" title="Javascript Fundamentals"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Javascript Fundamentals"/></a><div class="content"><a class="title" href="/2025/09/02/Javascript%20Fundamentals/" title="Javascript Fundamentals">Javascript Fundamentals</a><time datetime="2025-09-02T12:46:54.000Z" title="发表于 2025-09-02 20:46:54">2025-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CS571 More about Fetch"/></a><div class="content"><a class="title" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch">CS571 More about Fetch</a><time datetime="2025-09-02T12:39:10.000Z" title="发表于 2025-09-02 20:39:10">2025-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/08/HTML%20Fundamentals%20(1)/" title="HTML Fundamentals (1)"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTML Fundamentals (1)"/></a><div class="content"><a class="title" href="/2025/08/08/HTML%20Fundamentals%20(1)/" title="HTML Fundamentals (1)">HTML Fundamentals (1)</a><time datetime="2025-08-08T04:42:11.000Z" title="发表于 2025-08-08 12:42:11">2025-08-08</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/scripts/quote.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
