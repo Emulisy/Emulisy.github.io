@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CSS Layout - Flexbox | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Flexbox display: flex;The main axis and the cross axisThere are two invisible axis that control the flexbox.  The main axis that goes through the center of the box along the flex direction The cross a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS Layout - Flexbox">
+<meta property="og:url" content="https://emulisy.github.io/2025/10/21/CSS%20layout%20-%20Flexbox/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="Flexbox display: flex;The main axis and the cross axisThere are two invisible axis that control the flexbox.  The main axis that goes through the center of the box along the flex direction The cross a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg1.png">
+<meta property="article:published_time" content="2025-10-20T16:36:17.000Z">
+<meta property="article:modified_time" content="2025-10-20T19:37:15.548Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSS Layout - Flexbox",
+  "url": "https://emulisy.github.io/2025/10/21/CSS%20layout%20-%20Flexbox/",
+  "image": "https://emulisy.github.io/img/post-bg1.png",
+  "datePublished": "2025-10-20T16:36:17.000Z",
+  "dateModified": "2025-10-20T19:37:15.548Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/10/21/CSS%20layout%20-%20Flexbox/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CSS Layout - Flexbox',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg1.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">CSS Layout - Flexbox</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">CSS Layout - Flexbox</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-20T16:36:17.000Z" title="发表于 2025-10-21 00:36:17">2025-10-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-20T19:37:15.548Z" title="更新于 2025-10-21 03:37:15">2025-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">478</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Flexbox-display-flex"><a href="#Flexbox-display-flex" class="headerlink" title="Flexbox display: flex;"></a>Flexbox <code>display: flex;</code></h2><h2 id="The-main-axis-and-the-cross-axis"><a href="#The-main-axis-and-the-cross-axis" class="headerlink" title="The main axis and the cross axis"></a>The main axis and the cross axis</h2><p>There are two invisible axis that control the flexbox.</p>
+<ul>
+<li>The main axis that goes through the center of the box along the flex direction</li>
+<li>The cross axis that is perpendicular to the main axis</li>
+</ul>
+<blockquote>
+<p><code>flex-direction: row;</code> defines the direction of the main axis, it can be set to row or column</p>
+</blockquote>
+<p>We use <code>justify-content</code> to control the main axis, and <code>align-items</code> for the cross axis. </p>
+<ul>
+<li><p>For the <code>justify-content</code>, the values can be:</p>
+<ul>
+<li><code>flex-start</code>: default</li>
+<li><code>flex-end</code></li>
+<li><code>center</code></li>
+<li><code>space-between</code></li>
+<li><code>space-evenly</code></li>
+<li><code>space-around</code></li>
+</ul>
+</li>
+<li><p>For <code>align-items</code> we can use:</p>
+<ul>
+<li><code>flex-end</code></li>
+<li><code>flex-start</code></li>
+<li><code>stretch</code>: default</li>
+<li><code>center</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="How-the-flexbox-becomes-flexible"><a href="#How-the-flexbox-becomes-flexible" class="headerlink" title="How the flexbox becomes flexible"></a>How the flexbox becomes flexible</h2><p>There are three properties that makes elements inside flexbox shrink&#x2F;grow</p>
+<ul>
+<li><code>flex-basis</code>: the basis of the shrink or grow, by default it is auto, which means it will use the width&#x2F;height set to the item.</li>
+<li><code>flex-grow</code>: the ratio of how the item will expand when there is additional space, by default is 0, which means it will not grow.</li>
+<li><code>flex-shrink</code>: defines how much the item will shrink if the container is too small, by default is 1, which means the item can shrink</li>
+</ul>
+<h2 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a><code>flex-wrap</code></h2><p>By default, when there is not enough space, the items will shrink(because <code>flex-shrink</code> is 1 by default), but sometimes we want the page to be responsive by moving items to different rows.</p>
+<p>That’s where we need <code>flex-wrap</code>. It have 3 values:</p>
+<ul>
+<li><code>no-wrap</code>: the default value, even if there is no space, the items will not be moved to a new line.</li>
+<li><code>wrap</code>: move items to new line when there is no space.</li>
+<li><code>wrap-reverse</code>: same as <code>wrap</code> but the new line will be above the existing line instead of below.</li>
+</ul>
+<p>But a new problem comes in mind, <code>align-items</code> can only control alignment inside the row&#x2F;column, what should we do if we want to align multiple rows&#x2F;columns.</p>
+<p>That’s where <code>align-content</code> comes into use. It also have many values:</p>
+<ul>
+<li><code>flex-start</code></li>
+<li><code>flex-end</code></li>
+<li><code>center</code></li>
+<li><code>space-between</code></li>
+<li><code>space-around</code></li>
+<li><code>stretch</code></li>
+</ul>
+<p>But in order to use <code>align-content</code>, we must:</p>
+<ul>
+<li>set the <code>flex-wrap</code> to <code>wrap</code> or <code>no-wrap</code></li>
+<li>there are at least two lines in the container(wrapped)</li>
+</ul>
+<h2 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a><code>align-self</code></h2><p>Just like in the grid, we can set the alignment of individual items using <code>align-self</code> to override the <code>align-items</code> property.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-item</span> &#123;</span><br><span class="line">  <span class="attribute">align-self</span>: flex-start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In addition, we can use <code>order</code> to chang ethe virtual order of the items without changing the HTML.</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">order</span>: -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The order property can be set to negative numbers, and the items will be placed in ascending order.<br>But note that it only changes the virtual order, that is the order they appear on the user interface, not in the DOM.</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/English/">English</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/10/19/CSS%20layout%20-%20Grid%20and%20Flex/" title="CSS layout - Grid and Flex"><img class="cover" src="/img/home-bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CSS layout - Grid and Flex</div></div><div class="info-2"><div class="info-item-1">Grid LayoutSyntax Grid line: the grid line is the border of each cell, the first grid line is the left border of the first column, same applied to rows.  Grid Container123display: grid;grid-template-columns: repeat(3, 100px) ;grid-template-rows: repeat(2, 200px); This creates a grid with 3 columns and 2 rows, each column is 100px wide and each row is 200px high. However, instead of using repeat(), we can also define the size manually. 12grid-template-columns: 100px, 100px, 100px...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/19/CSS%20layout%20-%20Grid%20and%20Flex/" title="CSS layout - Grid and Flex"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-19</div><div class="info-item-2">CSS layout - Grid and Flex</div></div><div class="info-2"><div class="info-item-1">Grid LayoutSyntax Grid line: the grid line is the border of each cell, the first grid line is the left border of the first column, same applied to rows.  Grid Container123display: grid;grid-template-columns: repeat(3, 100px) ;grid-template-rows: repeat(2, 200px); This creates a grid with 3 columns and 2 rows, each column is 100px wide and each row is 200px high. However, instead of using repeat(), we can also define the size manually. 12grid-template-columns: 100px, 100px, 100px...</div></div></div></a><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a><a class="pagination-related" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">CS571 Class note 1</div></div><div class="info-2"><div class="info-item-1">CS571 @UW-MadisonCS571 is a course for basic UI&#x2F;UX design and frontend programming by University of Wisconsin Madison. The course is completely open source for all cs students to learn globally.  The official website of this course is CS571, the latest version is for 2025 Spring.  You can find matching class videos and other materials in this website.   JsonJson(Javascript Object Notation) is basically a way to represent data in a hierarchy key-value pairs. The first tutorial didn’t...</div></div></div></a><a class="pagination-related" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals (1)"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="info-item-2">CSS Fundamentals (1)</div></div><div class="info-2"><div class="info-item-1">CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;    color: #00c4b6;    &#125;  Class SelectorIn html, we can add class attribute to every element, each element can have multiple classes. The class selector can select elements that have the same class attribute. 123.className &#123;    color: #0d0d0d;&#125; But sometimes we want to style...</div></div></div></a><a class="pagination-related" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-12</div><div class="info-item-2">Falsy and Truthy in JS</div></div><div class="info-2"><div class="info-item-1">Difference between == and ===In a word, == tries to covert the two values to the same type, and then compare its value. 1&quot;10&quot; == 10; //true  But === requires the two values to have the same value and the same type: 12&quot;10&quot; === 10; //false&quot;10&quot; === &quot;10&quot;; //true  == is not so safe to use, so we usually use === or !==.  How to determine if a value is true or falseIn JS, whenever we need to transfer a value into a boolean, the value will be determined as...</div></div></div></a><a class="pagination-related" href="/2025/10/09/Javascript%20advanced/" title="Javascript advanced"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-09</div><div class="info-item-2">Javascript advanced</div></div><div class="info-2"><div class="info-item-1">Javascript overview High-level: As a high level language, unlike C language, js arranges garbage collection and memory allocation for us. Just-in-time compiled:  Multi-paradigm: JS supports procedural, object-oriented and functional programming, unlike C which does not support OOP(object-oriented programming), making JS more flexible and versatile. Single threaded with non-blocking event loop: enables concurrency, which is handling multiple tasks at the same time.   JS EngineAll JS engines...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flexbox-display-flex"><span class="toc-number">1.</span> <span class="toc-text">Flexbox display: flex;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-main-axis-and-the-cross-axis"><span class="toc-number">2.</span> <span class="toc-text">The main axis and the cross axis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-the-flexbox-becomes-flexible"><span class="toc-number">3.</span> <span class="toc-text">How the flexbox becomes flexible</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flex-wrap"><span class="toc-number">4.</span> <span class="toc-text">flex-wrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#align-self"><span class="toc-number">5.</span> <span class="toc-text">align-self</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS Layout - Flexbox"/></a><div class="content"><a class="title" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox">CSS Layout - Flexbox</a><time datetime="2025-10-20T16:36:17.000Z" title="发表于 2025-10-21 00:36:17">2025-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/19/CSS%20layout%20-%20Grid%20and%20Flex/" title="CSS layout - Grid and Flex"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS layout - Grid and Flex"/></a><div class="content"><a class="title" href="/2025/10/19/CSS%20layout%20-%20Grid%20and%20Flex/" title="CSS layout - Grid and Flex">CSS layout - Grid and Flex</a><time datetime="2025-10-18T22:01:36.000Z" title="发表于 2025-10-19 06:01:36">2025-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Falsy and Truthy in JS"/></a><div class="content"><a class="title" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS">Falsy and Truthy in JS</a><time datetime="2025-10-12T15:51:15.000Z" title="发表于 2025-10-12 23:51:15">2025-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/Spread%20and%20Rest%20Operator/" title="Spread and Rest Operator - ES6"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spread and Rest Operator - ES6"/></a><div class="content"><a class="title" href="/2025/10/12/Spread%20and%20Rest%20Operator/" title="Spread and Rest Operator - ES6">Spread and Rest Operator - ES6</a><time datetime="2025-10-12T12:31:49.000Z" title="发表于 2025-10-12 20:31:49">2025-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/09/Javascript%20advanced/" title="Javascript advanced"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Javascript advanced"/></a><div class="content"><a class="title" href="/2025/10/09/Javascript%20advanced/" title="Javascript advanced">Javascript advanced</a><time datetime="2025-10-09T12:02:10.000Z" title="发表于 2025-10-09 20:02:10">2025-10-09</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/scripts/quote.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
