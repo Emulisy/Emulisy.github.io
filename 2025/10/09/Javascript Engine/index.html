@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Javascript Engine | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Javascript overview High-level: As a high level language, unlike C language, js arranges garbage collection and memory allocation for us. Just-in-time compiled:  Multi-paradigm: JS supports procedural">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript Engine">
+<meta property="og:url" content="https://emulisy.github.io/2025/10/09/Javascript%20Engine/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="Javascript overview High-level: As a high level language, unlike C language, js arranges garbage collection and memory allocation for us. Just-in-time compiled:  Multi-paradigm: JS supports procedural">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg1.png">
+<meta property="article:published_time" content="2025-10-09T12:02:10.000Z">
+<meta property="article:modified_time" content="2025-10-31T03:30:23.082Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg1.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javascript Engine",
+  "url": "https://emulisy.github.io/2025/10/09/Javascript%20Engine/",
+  "image": "https://emulisy.github.io/img/post-bg1.png",
+  "datePublished": "2025-10-09T12:02:10.000Z",
+  "dateModified": "2025-10-31T03:30:23.082Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/10/09/Javascript%20Engine/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Javascript Engine',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg1.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Javascript Engine</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Javascript Engine</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-09T12:02:10.000Z" title="发表于 2025-10-09 20:02:10">2025-10-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-31T03:30:23.082Z" title="更新于 2025-10-31 11:30:23">2025-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Javascript-overview"><a href="#Javascript-overview" class="headerlink" title="Javascript overview"></a>Javascript overview</h2><ul>
+<li><strong>High-level</strong>: As a <strong>high level language</strong>, unlike C language, js arranges garbage collection and memory allocation for us.</li>
+<li><strong>Just-in-time compiled</strong>: </li>
+<li><strong>Multi-paradigm</strong>: JS supports procedural, object-oriented and functional programming, unlike C which does not support OOP(object-oriented programming), making JS more flexible and versatile.</li>
+<li><strong>Single threaded with non-blocking event loop</strong>: enables concurrency, which is handling multiple tasks at the same time.</li>
+</ul>
+<hr>
+<h2 id="Compiled-language-vs-Interpreted-language-vs-Javascript"><a href="#Compiled-language-vs-Interpreted-language-vs-Javascript" class="headerlink" title="Compiled language vs Interpreted language vs Javascript"></a>Compiled language vs Interpreted language vs Javascript</h2><table>
+<thead>
+<tr>
+<th>Knowledge point</th>
+<th>Compiled languages</th>
+<th>Interpreted languages</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Execution process</strong></td>
+<td>Compiled ahead-of-time into machine code.</td>
+<td>Interpreted at runtime line by line, but still need to be compiled into machine code.</td>
+</tr>
+<tr>
+<td><strong>Output files</strong></td>
+<td>Produces an executable (.exe, .out).</td>
+<td>Usually no standalone file; may produce bytecode (.pyc).</td>
+</tr>
+</tbody></table>
+<p>JS on the other hand is not purely interpreted nor compiled:</p>
+<blockquote>
+<p><strong>Modern JavaScript Execution Process</strong></p>
+<ol>
+<li>Parsing: Source code → Abstract Syntax Tree (AST).</li>
+<li>Interpretation: AST → Bytecode (executed immediately).</li>
+<li>JIT Compilation: Frequently executed (“hot”) code → Machine code at runtime.</li>
+<li>Optimization: Compiled machine code is cached for future use.</li>
+</ol>
+</blockquote>
+<p><strong>Key Differences</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Compiled Language</strong></th>
+<th><strong>Interpreted Language</strong></th>
+<th><strong>JavaScript (Modern)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Translation time</strong></td>
+<td>Before execution</td>
+<td>During execution</td>
+<td>During execution (JIT)</td>
+</tr>
+<tr>
+<td><strong>Machine code output</strong></td>
+<td>Yes (permanent binary)</td>
+<td>No</td>
+<td>Yes (temporary, generated at runtime)</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Fast</td>
+<td>Slower</td>
+<td>Fast after JIT optimization</td>
+</tr>
+<tr>
+<td><strong>Recompilation needed</strong></td>
+<td>Yes, if code changes</td>
+<td>No</td>
+<td>No, JIT dynamically adapts</td>
+</tr>
+<tr>
+<td><strong>Flexibility &#x2F; Portability</strong></td>
+<td>Low (platform-dependent)</td>
+<td>High (platform-independent)</td>
+<td>Very high (runs on any JS engine)</td>
+</tr>
+<tr>
+<td><strong>Examples</strong></td>
+<td>C, C++, Rust</td>
+<td>Python, Ruby, PHP</td>
+<td>JavaScript (V8, SpiderMonkey, etc.)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="JS-Engine-and-Runtime"><a href="#JS-Engine-and-Runtime" class="headerlink" title="JS Engine and Runtime"></a>JS Engine and Runtime</h2><p>JS Engine is a program that executes JS code, just like the <strong>V8</strong> in Chrome, which supports JS and Node-JS.</p>
+<p>All JS engines have two parts: a call stack and a heap.</p>
+<ul>
+<li>Heap: where the engine stores all the objects, it is an unstructured memory pool.</li>
+<li>Call Stack: contains <strong>execute contexts</strong>, and is where our code is executed.</li>
+</ul>
+<h3 id="JS-Runtime"><a href="#JS-Runtime" class="headerlink" title="JS Runtime"></a>JS Runtime</h3><p>If we imagine JS runtime as a box, then in the box we have three components: </p>
+<ul>
+<li>JS Engine</li>
+<li>Web APIs: DOM, Fetch API, etc.</li>
+<li>Callback queue: where callback functions are stored</li>
+</ul>
+<p>Together, they form what we call the Event Loop mechanism, especially between call stack in JS engine and the callback queue.</p>
+<hr>
+<h2 id="Execution-context"><a href="#Execution-context" class="headerlink" title="Execution context"></a>Execution context</h2><h3 id="What-is-Execution-Context"><a href="#What-is-Execution-Context" class="headerlink" title="What is Execution Context"></a>What is Execution Context</h3><p>We explained that inside the call stack in JS engine where the code is actually executed, there are execution contexts.</p>
+<p>An execution context is an environment in which a piece of JavaScript code is evaluated and executed.<br>It defines how and where variables and functions are accessible, and what value this refers to.</p>
+<p>There are usually two types of execution context:</p>
+<ul>
+<li><p><strong>Global Execution Context (GEC)</strong>:</p>
+<p>  Created (only once) when the JavaScript program starts. It contains top level codes like global variables and functions (codes that are not in any function), and represents the global scope (e.g., window in browsers, global in Node.js).</p>
+</li>
+<li><p><strong>Function Execution Context (FEC)</strong>：<br>Created every time a function is called. Each function has its own context with new variable scope and this binding</p>
+</li>
+</ul>
+<h3 id="What-is-inside-Execution-Context"><a href="#What-is-inside-Execution-Context" class="headerlink" title="What is inside Execution Context"></a>What is inside Execution Context</h3><ul>
+<li><p>When the execution context is created, JS sets up the environment and:</p>
+<ul>
+<li>Creates the <strong>Variable Environment</strong></li>
+<li>Creates the <strong>Lexical Environment</strong></li>
+<li>Sets the target of <code>this</code></li>
+</ul>
+</li>
+<li><p>When the execution context is in execution phase:</p>
+<ul>
+<li>The code is executed line by line.</li>
+<li>Variables are assigned their actual values.</li>
+<li>Functions are invoked and possibly create new execution contexts.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Variable Environment: contains:</p>
+<ul>
+<li>variables declared with <code>var</code></li>
+<li>function declarations<blockquote>
+<p>and both of them are hoisted in the creation phase</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Lexical Environment contains Environment Record + Reference to Outer Lexical Environment, that is:</p>
+<ul>
+<li>Reference to outer scopes (basis of <strong>scope chain</strong>)</li>
+<li>variable declared with <code>const</code> or <code>let</code>, which has block scope.</li>
+<li>arguments passed into the function(forms a <code>argument</code> object)</li>
+</ul>
+</blockquote>
+<h3 id="Scope-chain"><a href="#Scope-chain" class="headerlink" title="Scope chain"></a>Scope chain</h3><p>When you try to access a variable:</p>
+<ol>
+<li>The JS engine first looks for it in the current lexical environment.</li>
+<li>If not found, it goes to the outer environment (parent scope).</li>
+<li>This continues until:<ul>
+<li>The variable is found, or</li>
+<li>The engine reaches the global scope (and throws an error if not found).</li>
+</ul>
+</li>
+</ol>
+<p>The basis is that the inner function stores the lexical environment of the outer function.</p>
+<h3 id="Hoisting-and-TDZ-Temporary-Dead-Zone"><a href="#Hoisting-and-TDZ-Temporary-Dead-Zone" class="headerlink" title="Hoisting and TDZ(Temporary Dead Zone)"></a>Hoisting and TDZ(Temporary Dead Zone)</h3><p>In the creation phase of the execution context, all variables <code>var</code> <code>let</code> <code>const</code> are hoisted, meaning their declarations are moved to the top of their scope in memory.</p>
+<table>
+<thead>
+<tr>
+<th>Declaration Type</th>
+<th>Hoisted?</th>
+<th>Initialized?</th>
+<th>Accessible Before Declaration?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>var</code></td>
+<td>✅ Yes</td>
+<td>✅ Initialized to <code>undefined</code></td>
+<td>✅ Yes (value &#x3D; <code>undefined</code>)</td>
+</tr>
+<tr>
+<td><code>let</code></td>
+<td>✅ Yes</td>
+<td>❌ Not initialized</td>
+<td>❌ No (in TDZ)</td>
+</tr>
+<tr>
+<td><code>const</code></td>
+<td>✅ Yes</td>
+<td>❌ Not initialized</td>
+<td>❌ No (in TDZ)</td>
+</tr>
+<tr>
+<td><code>function</code></td>
+<td>✅ Yes</td>
+<td>✅ Fully initialized</td>
+<td>✅ Yes (can be called)</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>TDZ</strong>: A region between entering the scope and the actual declaration of <code>let</code>&#x2F;<code>const</code>, where the variable cannot be accessed.</p>
+<p>Its purpose is to enforce “declare before use”, which increases code safety and clarity. Hence, we usually use <code>let</code>&#x2F;<code>const</code> rather than <code>var</code> when declaring variables.</p>
+</blockquote>
+<hr>
+<h2 id="This-Keyword"><a href="#This-Keyword" class="headerlink" title="This Keyword"></a><code>This</code> Keyword</h2><h3 id="Dynamic-this"><a href="#Dynamic-this" class="headerlink" title="Dynamic this"></a>Dynamic <code>this</code></h3><p>After learning Java, I always though <code>this</code> keyword is static and bind with the object when it is created:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">person</span>(String name)&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>; <span class="comment">//This is not the class attribute</span></span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(emulisy);</span><br><span class="line"></span><br><span class="line">System.out.println(a.name); <span class="comment">//we get emulisy</span></span><br><span class="line">System.out.println(a.age); <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
+<p>The name of the Person class is set using <code>this</code> by the time we create the <code>a</code> object with <code>new</code> keyword.</p>
+<p>However, that is not the case in Javascript. <code>this</code> keyword is dynamic in js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> emulisy = &#123;</span><br><span class="line">    <span class="attr">birthYear</span>: <span class="number">2003</span>,</span><br><span class="line">    <span class="attr">name</span>: emulisy,</span><br><span class="line">    <span class="title function_">getAge</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2025</span> - <span class="variable language_">this</span>.<span class="property">birthYear</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(emulisy.<span class="title function_">getAge</span>()); <span class="comment">//this one would behave just like in java, and give 22.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sophy = &#123;</span><br><span class="line">    <span class="attr">birthYear</span>: <span class="number">2004</span>,</span><br><span class="line">    <span class="attr">name</span>: sophy,</span><br><span class="line">&#125;</span><br><span class="line">sophy.<span class="property">getAge</span> = emulisy.<span class="property">getAge</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sophy.<span class="property">getAge</span>); <span class="comment">//However, this gives the correct 21, but in java this would give 22.</span></span><br></pre></td></tr></table></figure>
+<p>This is because in Javascript, <code>this</code> is dynamic and its target is defined by its usage.</p>
+<h3 id="What-this-points-to"><a href="#What-this-points-to" class="headerlink" title="What this points to?"></a>What <code>this</code> points to?</h3><ul>
+<li>In the Global Scope <code>this</code> points to the <code>window</code> object</li>
+<li>In a regular function call, this points to <code>window</code> by default, or to <code>undefined</code> in strict mode.</li>
+<li>In a function call that has an owner, <code>this</code> points to the caller object.</li>
+<li>Arrow Functions are not <code>this</code> binding, therefore the <code>this</code> inherits from its outer scope.</li>
+<li>When using <code>new</code> to create an object with constructor, <code>this</code> points to the newly created object.</li>
+</ul>
+<h3 id="bind-apply-and-call"><a href="#bind-apply-and-call" class="headerlink" title="bind apply and call"></a><code>bind</code> <code>apply</code> and <code>call</code></h3><p>There are ways to manually control <code>this</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">Emulisy</span>,</span><br><span class="line">    <span class="title function_">greet</span>(<span class="params">year</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Greetings <span class="subst">$&#123;<span class="variable language_">this</span>.name&#125;</span>! Welcome to <span class="subst">$&#123;year&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.<span class="title function_">greet</span>(<span class="number">2025</span>); <span class="comment">//Greetings Emulisy! Welcome to 2025</span></span><br><span class="line"><span class="keyword">const</span> greetFunc = person.<span class="property">greet</span>;</span><br></pre></td></tr></table></figure>
+<p>if we simply call <code>greetFunc(2025)</code>, since it is a regular function call, <code>this</code> points to the <code>undefined</code> in strict mode.</p>
+<p>Assuming I have another object:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sophia = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">Sophia</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now I want to print <code>Greetings Sophia! Welcome to 2025</code></p>
+<ul>
+<li><code>call</code>: the basic syntax is  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greetFunc.<span class="title function_">call</span>(sophia, <span class="number">2025</span>);</span><br></pre></td></tr></table></figure>
+The first argument is what <code>this</code> points to, and the rest argument is what passed to the original function.</li>
+<li><code>apply</code>: it’s almost the same as <code>call</code>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">greetFunc.<span class="title function_">apply</span>(sophia, [<span class="number">2025</span>]);</span><br></pre></td></tr></table></figure>
+But we store all original arguments in an array.</li>
+<li><code>bind</code>: bind works differently.  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> greetSophia = greetFunc.<span class="title function_">bind</span>(sophia, <span class="number">2025</span>);</span><br><span class="line">greetSophia;</span><br></pre></td></tr></table></figure>
+Doing so we permanently bind <code>this</code> in greetSophia to sophia and the argument is always 2025. Even if I use <code>greetSophia(2026)</code>, the passed argument is still 2025.<br>However, <code>bind</code> does not change the original function, it creates a new function that has specific <code>this</code> binding and argument(optional).</li>
+</ul>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/English/">English</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals (1)"><img class="cover" src="/img/home-bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">CSS Fundamentals (1)</div></div><div class="info-2"><div class="info-item-1">CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;    color: #00c4b6;    &#125;  Class SelectorIn html, we can add class attribute to every element, each element can have multiple classes. The class selector can select elements that have the same class attribute. 123.className &#123;    color: #0d0d0d;&#125; But sometimes we want to style...</div></div></div></a><a class="pagination-related" href="/2025/10/12/Spread%20and%20Rest%20Operator/" title="Spread and Rest Operator - ES6"><img class="cover" src="/img/home-bg.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Spread and Rest Operator - ES6</div></div><div class="info-2"><div class="info-item-1">ES6 Spread and Rest (...)The three dots ... in JavaScript can represent two different concepts:  Spread Operator – expands data Rest Pattern &#x2F; Rest Parameters – gathers data  They look identical but behave in opposite directions depending on where they’re used.  Concept Overview   Feature Purpose Context    Spread (...) Expands an iterable into individual elements When passing or copying data   Rest (...) Collects multiple elements into one array&#x2F;object When receiving or...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a><a class="pagination-related" href="/2025/08/04/CS571%20Class%20note%201/" title="CS571 Class note 1"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-04</div><div class="info-item-2">CS571 Class note 1</div></div><div class="info-2"><div class="info-item-1">CS571 @UW-MadisonCS571 is a course for basic UI&#x2F;UX design and frontend programming by University of Wisconsin Madison. The course is completely open source for all cs students to learn globally.  The official website of this course is CS571, the latest version is for 2025 Spring.  You can find matching class videos and other materials in this website.   JsonJson(Javascript Object Notation) is basically a way to represent data in a hierarchy key-value pairs. The first tutorial didn’t...</div></div></div></a><a class="pagination-related" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals (1)"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="info-item-2">CSS Fundamentals (1)</div></div><div class="info-2"><div class="info-item-1">CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;    color: #00c4b6;    &#125;  Class SelectorIn html, we can add class attribute to every element, each element can have multiple classes. The class selector can select elements that have the same class attribute. 123.className &#123;    color: #0d0d0d;&#125; But sometimes we want to style...</div></div></div></a><a class="pagination-related" href="/2025/10/19/CSS%20layout%20-%20Grid/" title="CSS layout - Grid"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-19</div><div class="info-item-2">CSS layout - Grid</div></div><div class="info-2"><div class="info-item-1">Grid LayoutSyntax Grid line: the grid line is the border of each cell, the first grid line is the left border of the first column, same applied to rows.  Grid Container123display: grid;grid-template-columns: repeat(3, 100px) ;grid-template-rows: repeat(2, 200px); This creates a grid with 3 columns and 2 rows, each column is 100px wide and each row is 200px high. However, instead of using repeat(), we can also define the size manually. 12grid-template-columns: 100px, 100px, 100px...</div></div></div></a><a class="pagination-related" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-21</div><div class="info-item-2">CSS Layout - Flexbox</div></div><div class="info-2"><div class="info-item-1">Flexbox display: flex;The main axis and the cross axisThere are two invisible axis that control the flexbox.  The main axis that goes through the center of the box along the flex direction The cross axis that is perpendicular to the main axis   flex-direction: row; defines the direction of the main axis, it can be set to row or column  We use justify-content to control the main axis, and align-items for the cross axis.   For the justify-content, the values can be:  flex-start:...</div></div></div></a><a class="pagination-related" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-12</div><div class="info-item-2">Falsy and Truthy in JS</div></div><div class="info-2"><div class="info-item-1">Difference between == and ===In a word, == tries to covert the two values to the same type, and then compare its value. 1&quot;10&quot; == 10; //true  But === requires the two values to have the same value and the same type: 12&quot;10&quot; === 10; //false&quot;10&quot; === &quot;10&quot;; //true  == is not so safe to use, so we usually use === or !==.  How to determine if a value is true or falseIn JS, whenever we need to transfer a value into a boolean, the value will be determined as...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Javascript-overview"><span class="toc-number">1.</span> <span class="toc-text">Javascript overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compiled-language-vs-Interpreted-language-vs-Javascript"><span class="toc-number">2.</span> <span class="toc-text">Compiled language vs Interpreted language vs Javascript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS-Engine-and-Runtime"><span class="toc-number">3.</span> <span class="toc-text">JS Engine and Runtime</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS-Runtime"><span class="toc-number">3.1.</span> <span class="toc-text">JS Runtime</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Execution-context"><span class="toc-number">4.</span> <span class="toc-text">Execution context</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-Execution-Context"><span class="toc-number">4.1.</span> <span class="toc-text">What is Execution Context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-inside-Execution-Context"><span class="toc-number">4.2.</span> <span class="toc-text">What is inside Execution Context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scope-chain"><span class="toc-number">4.3.</span> <span class="toc-text">Scope chain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hoisting-and-TDZ-Temporary-Dead-Zone"><span class="toc-number">4.4.</span> <span class="toc-text">Hoisting and TDZ(Temporary Dead Zone)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#This-Keyword"><span class="toc-number">5.</span> <span class="toc-text">This Keyword</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-this"><span class="toc-number">5.1.</span> <span class="toc-text">Dynamic this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-this-points-to"><span class="toc-number">5.2.</span> <span class="toc-text">What this points to?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bind-apply-and-call"><span class="toc-number">5.3.</span> <span class="toc-text">bind apply and call</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/10/21/All%20%20about%20scrolling%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8/" title="浏览器滚动scrolling"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器滚动scrolling"/></a><div class="content"><a class="title" href="/2025/10/21/All%20%20about%20scrolling%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8/" title="浏览器滚动scrolling">浏览器滚动scrolling</a><time datetime="2025-10-21T11:08:55.000Z" title="发表于 2025-10-21 19:08:55">2025-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS Layout - Flexbox"/></a><div class="content"><a class="title" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox">CSS Layout - Flexbox</a><time datetime="2025-10-20T16:36:17.000Z" title="发表于 2025-10-21 00:36:17">2025-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/19/CSS%20layout%20-%20Grid/" title="CSS layout - Grid"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS layout - Grid"/></a><div class="content"><a class="title" href="/2025/10/19/CSS%20layout%20-%20Grid/" title="CSS layout - Grid">CSS layout - Grid</a><time datetime="2025-10-18T22:01:36.000Z" title="发表于 2025-10-19 06:01:36">2025-10-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Falsy and Truthy in JS"/></a><div class="content"><a class="title" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS">Falsy and Truthy in JS</a><time datetime="2025-10-12T15:51:15.000Z" title="发表于 2025-10-12 23:51:15">2025-10-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/12/Spread%20and%20Rest%20Operator/" title="Spread and Rest Operator - ES6"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spread and Rest Operator - ES6"/></a><div class="content"><a class="title" href="/2025/10/12/Spread%20and%20Rest%20Operator/" title="Spread and Rest Operator - ES6">Spread and Rest Operator - ES6</a><time datetime="2025-10-12T12:31:49.000Z" title="发表于 2025-10-12 20:31:49">2025-10-12</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/scripts/quote.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
