@@ -174,7 +174,6 @@
     flex-direction: column;
     z-index: 9999;
     opacity: 1;
-    transition: opacity 0.2s ease;
 }
 
 .load-container {
@@ -255,8 +254,8 @@
     100% { transform: translateX(0); width:5.5rem; }
 }
 
-.load-rect-1 { position:absolute; bottom:0; height:0; width:9rem; background:white; z-index:1000; transition: height 0.2s ease-in; }
-.load-rect-2 { position:absolute; bottom:0; height:0; width:100vw; background:white; z-index:1000; transition: height 0.2s ease-in; }
+.load-rect-1 { position:absolute; bottom:0; height:0; width:9rem; background:white; z-index:1; transition: height 0.2s ease-in; }
+.load-rect-2 { position:fixed; bottom:0; height:0; width:100vw; background:white; z-index:10000; transition: height 0.2s ease-in; }
 </style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div><div class="load-rect-1"></div></div></div><div class="load-rect-2"><script>(function(){
     const startTime = Date.now();
     let i = 0;
@@ -269,16 +268,17 @@
         if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
     }
 
-    function loadComplete() {
-        rect1.style.height = "100vh";
-        rect2.style.height = "100vh";
+    function loadComplete() {   //animation when loading is completed
+        rect1.style.height = "70vh";
+        setTimeout(()=>{
+            rect2.style.height = "100vh";
+        }, 300)
         setTimeout(()=>{
             if($loadingBox){
-                $loadingBox.style.opacity = "0";
-                setTimeout(()=>{ $loadingBox.style.display = "none"; }, 500);
+                $loadingBox.style.display = "none";
             }
             if(rect2){ rect2.style.top="0"; rect2.style.height="0"; }
-        }, 500);
+        }, 800);
     }
 
     window.addEventListener("load", ()=>{
@@ -296,7 +296,7 @@
             btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
             btf.addGlobalFn("pjaxComplete",()=>{
                 $loadingBox.style.opacity="0";
-                setTimeout(()=>{ $loadingBox.style.display="none"; }, 500);
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 200);
             },"preloader_end");
         }
     }
