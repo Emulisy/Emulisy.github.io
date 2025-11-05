@@ -159,28 +159,149 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="load-page" id="loading-box"><style>/* === CSS 动画样式 === */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+.load-page {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* 平滑淡出 */
+}
+
+.load-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2.6rem;
+    width: 200px;
+}
+
+.load-1 {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+#heart-wrapper { transform: rotate(-135deg) scale(0.9) translateY(0.4rem); }
+
+#heart {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    background: white;
+    transform-origin: center;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+#heart::before, #heart::after {
+    content: "";
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background: white;
+    border-radius: 50%;
+}
+
+#heart::before { top: 1rem; left: 0; }
+#heart::after { top: 0; left: 1rem; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#x {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+#rect1, #rect2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.2rem;
+    height: 0.8rem;
+    background: white;
+    transform-origin: center center;
+}
+
+#rect1 { transform: translate(-50%, -50%) rotate(45deg); border-radius:1rem; width:3.5rem; }
+#rect2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.load-2 {
+    height: 0.7rem;
+    background: white;
+    animation: load2 0.3s linear forwards;
+    transform-origin: center right;
+}
+
+@keyframes load2 {
+    0% { transform: translateX(-15rem); width:0; }
+    40% { transform: translateX(-5rem); width:10rem; }
+    70% { transform: translateX(-2rem); width:8rem; }
+    100% { transform: translateX(0); width:5.5rem; }
+}
+
+.load-rect-1 { position:absolute; bottom:0; height:0; width:9rem; background:white; z-index:1000; transition: height 0.2s ease-in; }
+.load-rect-2 { position:absolute; bottom:0; height:0; width:100vw; background:white; z-index:1000; transition: height 0.2s ease-in; }
+</style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div><div class="load-rect-1"></div></div></div><div class="load-rect-2"><script>(function(){
+    const startTime = Date.now();
+    let i = 0;
+    const $loadingBox = document.getElementById("loading-box");
+    const rect1 = document.querySelector(".load-rect-1");
+    const rect2 = document.querySelector(".load-rect-2");
+
+    function rotateX() {
+        const xbox = document.querySelector("#x");
+        if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
     }
-  }
 
-  preloader.initLoading()
-  window.addEventListener('load', preloader.endLoading)
+    function loadComplete() {
+        rect1.style.height = "100vh";
+        rect2.style.height = "100vh";
+        setTimeout(()=>{
+            if($loadingBox){
+                $loadingBox.style.opacity = "0";
+                setTimeout(()=>{ $loadingBox.style.display = "none"; }, 500);
+            }
+            if(rect2){ rect2.style.top="0"; rect2.style.height="0"; }
+        }, 500);
+    }
 
-  if (false) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/home-bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML Fundamentals (2)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML Fundamentals (2)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-16T12:53:58.000Z" title="发表于 2025-09-16 20:53:58">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-09T12:05:16.832Z" title="更新于 2025-10-09 20:05:16">2025-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="HTML-Fundamentals-2"><a href="#HTML-Fundamentals-2" class="headerlink" title="HTML Fundamentals (2)"></a>HTML Fundamentals (2)</h1><h2 id="Structuring-HTML"><a href="#Structuring-HTML" class="headerlink" title="Structuring HTML"></a>Structuring HTML</h2><p>There are many layout HTML elements that helps to structure the file in an ordered manner. Specifically speaking, the most commonly seen ones are:</p>
+    window.addEventListener("load", ()=>{
+        const timePassed = Date.now() - startTime;
+        const minDisplay = 3000;
+        const timeRemaining = Math.max(0, minDisplay - timePassed);
+        setTimeout(loadComplete, timeRemaining);
+    });
+
+    setInterval(rotateX, 1000);
+
+    // PJAX 支持
+    if(!window.theme || !theme.pjax || !theme.pjax.enable){
+        if(window.btf){
+            btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
+            btf.addGlobalFn("pjaxComplete",()=>{
+                $loadingBox.style.opacity="0";
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 500);
+            },"preloader_end");
+        }
+    }
+})();</script></div><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/home-bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">HTML Fundamentals (2)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">HTML Fundamentals (2)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-16T12:53:58.000Z" title="发表于 2025-09-16 20:53:58">2025-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-09T12:05:16.832Z" title="更新于 2025-10-09 20:05:16">2025-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="HTML-Fundamentals-2"><a href="#HTML-Fundamentals-2" class="headerlink" title="HTML Fundamentals (2)"></a>HTML Fundamentals (2)</h1><h2 id="Structuring-HTML"><a href="#Structuring-HTML" class="headerlink" title="Structuring HTML"></a>Structuring HTML</h2><p>There are many layout HTML elements that helps to structure the file in an ordered manner. Specifically speaking, the most commonly seen ones are:</p>
 <ul>
 <li><code>&lt;main&gt;</code> is for content unique to this page. Use <code>&lt;main&gt;</code> only once per page, and put it directly inside <body>. Ideally this shouldn’t be nested within other elements.</li>
 <li><code>&lt;article&gt;</code> encloses a block of related content that makes sense on its own without the rest of the page (<em>for example, a single blog post. If you use your dev tool in your browser on this page, you may find the whole blog content is wrapped within a <code>&lt;article&gt;</code> tag.</em>).</li>
