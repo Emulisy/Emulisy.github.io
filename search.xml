@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>在Hexo Butterfly 里添加自定义加载页面</title>
+      <link href="/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/"/>
+      <url>/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="DOM-生命周期事件"><a href="#DOM-生命周期事件" class="headerlink" title="DOM 生命周期事件"></a>DOM 生命周期事件</h2><ul><li><p><code> document.addEventListener(&#39;DOMContentLoaded&#39;, ...)</code>:</p><p>  网页在载入的时候首先会解析HTML并构建DOM树。当这一步完成的时候该事件就会触发，此时css可能还没完全加载，其他网页资源如图片等也可能没完全加载完成。</p></li><li><p><code>window.addEventListener(&#39;load&#39;, ...)</code>:</p><p>  当所有网页资源加载完毕的时候触发，一般比DOM树加载晚得多。</p></li><li><p><code>window.addEventListener(&#39;beforeunload&#39;, ...)</code>:</p><p>  当用户要离开界面的时候触发，可能是跳转也可能是主动关闭页面。可以用来保存数据和弹出提示(现代浏览器一般会限制提示内容)</p></li></ul><p>要创建一个加载页面我们一般会用到第二个事件: <code>load</code>。 我们可以创建一个<code>position:fixed</code>的加载页面，然后在监听到页面加载完成的时候将他消除，例如<code>display:none</code>。</p><h2 id="在hexo-butterfly添加自定义加载页面"><a href="#在hexo-butterfly添加自定义加载页面" class="headerlink" title="在hexo butterfly添加自定义加载页面"></a>在hexo butterfly添加自定义加载页面</h2><blockquote><p><em>仅仅对于hexo: 7.3.0版本</em></p></blockquote><p><img src="/../img/Hexo/Hexo%20load.png" alt="Hexo loading"></p><ol><li>找到文件夹 <code>yourBlog/themes/butterfly</code> 打开<code>layout</code>文件夹:</li></ol><p><img src="/../img/Hexo/HexoLayout.png" alt="Hexo layout"></p><ol start="2"><li><p>打开<code>layout/includes/loading</code>文件夹，里面默认只有 <code>index.pug</code> <code>pace.pug</code> <code>full-page-loading.pug</code></p></li><li><p>创建你自己的<code>my-loader.pug</code> 里面有内联的css和js以及pug格式的HTML。可以直接把你的代码喂给AI转换为PUG格式(和原生HTML CSS JS 没啥区别)。</p></li><li><p>把原本的<code>index.pug</code> 里面替换为:</p> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if theme.preloader.enable</span><br><span class="line">  if theme.preloader.source === 1</span><br><span class="line">    include ./my-loader.pug</span><br></pre></td></tr></table></figure></li></ol><p>最后在terminal <code>hexo cl</code> <code>hexo g</code> <code>hexo s</code> 就可以预览了， 如果效果可以的话<code>hexo d</code>就可以部署。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术博客(tech blog) </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 中文 </tag>
+            
+            <tag> frontend </tag>
+            
+            <tag> 前端 </tag>
+            
+            <tag> 编程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Intersection Observer API</title>
       <link href="/2025/11/04/Using%20Intersection%20Observer/"/>
       <url>/2025/11/04/Using%20Intersection%20Observer/</url>

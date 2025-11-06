@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>在Hexo Butterfly 里添加自定义加载页面 | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="DOM 生命周期事件  document.addEventListener(&#39;DOMContentLoaded&#39;, ...):   网页在载入的时候首先会解析HTML并构建DOM树。当这一步完成的时候该事件就会触发，此时css可能还没完全加载，其他网页资源如图片等也可能没完全加载完成。  window.addEventListener(&#39;load&#39;, ...):">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Hexo Butterfly 里添加自定义加载页面">
+<meta property="og:url" content="https://emulisy.github.io/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="DOM 生命周期事件  document.addEventListener(&#39;DOMContentLoaded&#39;, ...):   网页在载入的时候首先会解析HTML并构建DOM树。当这一步完成的时候该事件就会触发，此时css可能还没完全加载，其他网页资源如图片等也可能没完全加载完成。  window.addEventListener(&#39;load&#39;, ...):">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/home-bg.png">
+<meta property="article:published_time" content="2025-11-06T13:13:46.000Z">
+<meta property="article:modified_time" content="2025-11-06T17:24:34.852Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="中文">
+<meta property="article:tag" content="frontend">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/home-bg.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在Hexo Butterfly 里添加自定义加载页面",
+  "url": "https://emulisy.github.io/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/",
+  "image": "https://emulisy.github.io/img/home-bg.png",
+  "datePublished": "2025-11-06T13:13:46.000Z",
+  "dateModified": "2025-11-06T17:24:34.852Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在Hexo Butterfly 里添加自定义加载页面',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="load-page" id="loading-box"><style>* { box-sizing: border-box; margin:0; padding:0; }
+
+.load-page {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+}
+
+.load-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    width: 200px;
+}
+
+.load-1 {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+#heart-wrapper { transform: rotate(-135deg) scale(0.9) translateY(0.4rem); }
+
+#heart {
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    transform-origin: center;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+#heart::before, #heart::after {
+    content: "";
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    border-radius: 50%;
+}
+
+#heart::before { top: 0.9rem; left: 0; }
+#heart::after { top: 0; left: 0.9rem; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#x {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+#rect1, #rect2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.2rem;
+    height: 0.8rem;
+    background: white;
+    transform-origin: center center;
+}
+
+#rect1 { transform: translate(-50%, -50%) rotate(45deg); border-radius:1rem; width:3.5rem; }
+#rect2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.load-2 {
+    position: absolute;
+    bottom: 0;
+    height: 0.7rem;
+    background: white;
+    animation: load2 0.3s linear forwards;
+    transition: height 0.3s ease-in, width 0.4s ease-in;
+    transform-origin: center right;
+}
+
+@keyframes load2 {
+    0% { transform: translateX(-15rem); width:0; }
+    40% { transform: translateX(-7rem); width:14rem; }
+    70% { transform: translateX(-3rem); width:10rem; }
+    100% { transform: translateX(0); width:6rem; }
+}
+.load-rect-2 { position:fixed; bottom:0; height:0; width:100vw; background:white; z-index:10000; transition: height 0.15s ease-in; }
+</style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div></div></div><div class="load-rect-2"><script>(function(){
+    const startTime = Date.now();
+    let i = 0;
+    const $loadingBox = document.getElementById("loading-box");
+    const rect1 = document.querySelector(".load-2");
+    const rect2 = document.querySelector(".load-rect-2");
+
+    rect1.addEventListener("animationend", () => {
+        rect1.style.animation = "none";
+        rect1.style.width = "5.5rem"
+    })
+
+    function rotateX() {
+        const xbox = document.querySelector("#x");
+        if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
+    }
+
+    function loadComplete() { //animation when loading is completed
+        rect1.style.width = "10rem";
+        setTimeout(() => {
+            rect1.style.height = "100vh";
+        }, 350);
+        setTimeout(() => {
+            rect2.style.height = "100vh";
+        }, 700);
+        setTimeout(() => {
+            if ($loadingBox) {
+                $loadingBox.style.display = "none";
+            }
+            if (rect2) {
+                rect2.style.top = "0";
+                rect2.style.height = "0";
+            }
+        }, 1000)
+    }
+
+    window.addEventListener("load", ()=>{
+        const timePassed = Date.now() - startTime;
+        const minDisplay = 2000;  // minimum loading time
+        const timeRemaining = Math.max(0, minDisplay - timePassed);
+        setTimeout(loadComplete, timeRemaining);
+    });
+
+    setInterval(rotateX, 1000);
+
+    // PJAX support
+    if(!window.theme || !theme.pjax || !theme.pjax.enable){
+        if(window.btf){
+            btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
+            btf.addGlobalFn("pjaxComplete",()=>{
+                $loadingBox.style.opacity="0";
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 200);
+            },"preloader_end");
+        }
+    }
+})();</script></div><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/home-bg.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">在Hexo Butterfly 里添加自定义加载页面</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">在Hexo Butterfly 里添加自定义加载页面</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-06T13:13:46.000Z" title="发表于 2025-11-06 21:13:46">2025-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-06T17:24:34.852Z" title="更新于 2025-11-07 01:24:34">2025-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">390</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="DOM-生命周期事件"><a href="#DOM-生命周期事件" class="headerlink" title="DOM 生命周期事件"></a>DOM 生命周期事件</h2><ul>
+<li><p><code> document.addEventListener(&#39;DOMContentLoaded&#39;, ...)</code>:</p>
+<p>  网页在载入的时候首先会解析HTML并构建DOM树。当这一步完成的时候该事件就会触发，此时css可能还没完全加载，其他网页资源如图片等也可能没完全加载完成。</p>
+</li>
+<li><p><code>window.addEventListener(&#39;load&#39;, ...)</code>:</p>
+<p>  当所有网页资源加载完毕的时候触发，一般比DOM树加载晚得多。</p>
+</li>
+<li><p><code>window.addEventListener(&#39;beforeunload&#39;, ...)</code>:</p>
+<p>  当用户要离开界面的时候触发，可能是跳转也可能是主动关闭页面。可以用来保存数据和弹出提示(现代浏览器一般会限制提示内容)</p>
+</li>
+</ul>
+<p>要创建一个加载页面我们一般会用到第二个事件: <code>load</code>。 我们可以创建一个<code>position:fixed</code>的加载页面，然后在监听到页面加载完成的时候将他消除，例如<code>display:none</code>。</p>
+<h2 id="在hexo-butterfly添加自定义加载页面"><a href="#在hexo-butterfly添加自定义加载页面" class="headerlink" title="在hexo butterfly添加自定义加载页面"></a>在hexo butterfly添加自定义加载页面</h2><blockquote>
+<p><em>仅仅对于hexo: 7.3.0版本</em></p>
+</blockquote>
+<p><img src="/../img/Hexo/Hexo%20load.png" alt="Hexo loading"></p>
+<ol>
+<li>找到文件夹 <code>yourBlog/themes/butterfly</code> 打开<code>layout</code>文件夹:</li>
+</ol>
+<p><img src="/../img/Hexo/HexoLayout.png" alt="Hexo layout"></p>
+<ol start="2">
+<li><p>打开<code>layout/includes/loading</code>文件夹，里面默认只有 <code>index.pug</code> <code>pace.pug</code> <code>full-page-loading.pug</code></p>
+</li>
+<li><p>创建你自己的<code>my-loader.pug</code> 里面有内联的css和js以及pug格式的HTML。可以直接把你的代码喂给AI转换为PUG格式(和原生HTML CSS JS 没啥区别)。</p>
+</li>
+<li><p>把原本的<code>index.pug</code> 里面替换为:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if theme.preloader.enable</span><br><span class="line">  if theme.preloader.source === 1</span><br><span class="line">    include ./my-loader.pug</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>最后在terminal <code>hexo cl</code> <code>hexo g</code> <code>hexo s</code> 就可以预览了， 如果效果可以的话<code>hexo d</code>就可以部署。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%AD%E6%96%87/">中文</a><a class="post-meta__tags" href="/tags/frontend/">frontend</a><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></div><div class="post-share"><div class="social-share" data-image="/img/home-bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/11/04/Using%20Intersection%20Observer/" title="Intersection Observer API"><img class="cover" src="/img/post-bg1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Intersection Observer API</div></div><div class="info-2"><div class="info-item-1">The Intersection Observer LiteralCreating a new Intersection Observer using constructor: 1const observer = new IntersectionObserver(callback, options);  callback: The function to be called whenever the target enter&#x2F;leave the intersection area. options: An object that controls the condition of triggering the callback function.  options ObjectThe option object looks like this: 12345const option = &#123;    root: null,    rootMargin: &quot;0px&quot;,    thereshold: [0, 0.1]&#125;  root:...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/21/All%20%20about%20scrolling%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8/" title="浏览器滚动scrolling"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-21</div><div class="info-item-2">浏览器滚动scrolling</div></div><div class="info-2"><div class="info-item-1">一、全局滚动属性（window 级别）这些属性用于 获取或控制整个页面的滚动状态。    属性&#x2F;方法 作用 示例    window.scrollX 页面水平滚动距离（单位 px） console.log(scrollX)   window.scrollY 页面垂直滚动距离（单位 px） console.log(scrollY)   window.pageXOffset 同 scrollX（旧写法） ✅ 向后兼容   window.pageYOffset 同 scrollY（旧写法） ✅ 向后兼容   window.scrollTo(x, y) 跳转到页面指定位置 window.scrollTo(0, 0)   window.scrollBy(x, y) 相对当前位置滚动 window.scrollBy(0, 500)   window.scroll() 等价于 scrollTo()（支持对象参数） window.scroll(&#123; top: 500, behavior: &#39;smooth&#39;...</div></div></div></a><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a><a class="pagination-related" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-21</div><div class="info-item-2">CSS Layout - Flexbox</div></div><div class="info-2"><div class="info-item-1">Flexbox display: flex;The main axis and the cross axisThere are two invisible axis that control the flexbox.  The main axis that goes through the center of the box along the flex direction The cross axis that is perpendicular to the main axis   flex-direction: row; defines the direction of the main axis, it can be set to row or column  We use justify-content to control the main axis, and align-items for the cross axis.   For the justify-content, the values can be:  flex-start:...</div></div></div></a><a class="pagination-related" href="/2025/09/18/CSS%20Fundamentals%20(1)/" title="CSS Fundamentals (1)"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-18</div><div class="info-item-2">CSS Fundamentals (1)</div></div><div class="info-2"><div class="info-item-1">CSS Fundamentals (1) - CSS Selectors and Cascading Basic SelectorsType(Element) SelectorIn html we have tags for each element, type selector selects all the elements with the specific tag: 123p &#123;    color: #00c4b6;    &#125;  Class SelectorIn html, we can add class attribute to every element, each element can have multiple classes. The class selector can select elements that have the same class attribute. 123.className &#123;    color: #0d0d0d;&#125; But sometimes we want to style...</div></div></div></a><a class="pagination-related" href="/2025/10/19/CSS%20layout%20-%20Grid/" title="CSS layout - Grid"><img class="cover" src="/img/post-bg1.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-19</div><div class="info-item-2">CSS layout - Grid</div></div><div class="info-2"><div class="info-item-1">Grid LayoutSyntax Grid line: the grid line is the border of each cell, the first grid line is the left border of the first column, same applied to rows.  Grid Container123display: grid;grid-template-columns: repeat(3, 100px) ;grid-template-rows: repeat(2, 200px); This creates a grid with 3 columns and 2 rows, each column is 100px wide and each row is 200px high. However, instead of using repeat(), we can also define the size manually. 12grid-template-columns: 100px, 100px, 100px...</div></div></div></a><a class="pagination-related" href="/2025/10/12/Falsy%20and%20Truthy%20in%20JS/" title="Falsy and Truthy in JS"><img class="cover" src="/img/home-bg.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-12</div><div class="info-item-2">Falsy and Truthy in JS</div></div><div class="info-2"><div class="info-item-1">Difference between == and ===In a word, == tries to covert the two values to the same type, and then compare its value. 1&quot;10&quot; == 10; //true  But === requires the two values to have the same value and the same type: 12&quot;10&quot; === 10; //false&quot;10&quot; === &quot;10&quot;; //true  == is not so safe to use, so we usually use === or !==.  How to determine if a value is true or falseIn JS, whenever we need to transfer a value into a boolean, the value will be determined as...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">DOM 生命周期事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8hexo-butterfly%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2"><span class="toc-number">2.</span> <span class="toc-text">在hexo butterfly添加自定义加载页面</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/" title="在Hexo Butterfly 里添加自定义加载页面"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在Hexo Butterfly 里添加自定义加载页面"/></a><div class="content"><a class="title" href="/2025/11/06/Hexo%20Butterfly%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A0%E8%BD%BD%E9%A1%B5%E9%9D%A2/" title="在Hexo Butterfly 里添加自定义加载页面">在Hexo Butterfly 里添加自定义加载页面</a><time datetime="2025-11-06T13:13:46.000Z" title="发表于 2025-11-06 21:13:46">2025-11-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/04/Using%20Intersection%20Observer/" title="Intersection Observer API"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Intersection Observer API"/></a><div class="content"><a class="title" href="/2025/11/04/Using%20Intersection%20Observer/" title="Intersection Observer API">Intersection Observer API</a><time datetime="2025-11-04T15:50:55.000Z" title="发表于 2025-11-04 23:50:55">2025-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/02/All%20about%20DOM%20and%20Browser%20Performance/" title="All about DOM API and Browser Performance"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="All about DOM API and Browser Performance"/></a><div class="content"><a class="title" href="/2025/11/02/All%20about%20DOM%20and%20Browser%20Performance/" title="All about DOM API and Browser Performance">All about DOM API and Browser Performance</a><time datetime="2025-11-02T15:13:00.000Z" title="发表于 2025-11-02 23:13:00">2025-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/21/All%20%20about%20scrolling%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8/" title="浏览器滚动scrolling"><img src="/img/post-bg1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器滚动scrolling"/></a><div class="content"><a class="title" href="/2025/10/21/All%20%20about%20scrolling%20-%20%E6%B5%8F%E8%A7%88%E5%99%A8%E6%BB%9A%E5%8A%A8/" title="浏览器滚动scrolling">浏览器滚动scrolling</a><time datetime="2025-10-21T11:08:55.000Z" title="发表于 2025-10-21 19:08:55">2025-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox"><img src="/img/home-bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CSS Layout - Flexbox"/></a><div class="content"><a class="title" href="/2025/10/21/CSS%20layout%20-%20Flexbox/" title="CSS Layout - Flexbox">CSS Layout - Flexbox</a><time datetime="2025-10-20T16:36:17.000Z" title="发表于 2025-10-21 00:36:17">2025-10-21</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="/scripts/quote.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
