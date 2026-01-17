@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>about me | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="about me">
+<meta property="og:url" content="https://emulisy.github.io/about-me/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/favicon.png">
+<meta property="article:published_time" content="2026-01-16T12:25:58.000Z">
+<meta property="article:modified_time" content="2026-01-16T12:32:07.304Z">
+<meta property="article:author" content="Emulisy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/about-me/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'about me',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="load-page" id="loading-box"><style>* { box-sizing: border-box; margin:0; padding:0; }
+
+.load-page {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+}
+
+.load-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    width: 200px;
+}
+
+.load-1 {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+#heart-wrapper { transform: rotate(-135deg) scale(0.9) translateY(0.4rem); }
+
+#heart {
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    transform-origin: center;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+#heart::before, #heart::after {
+    content: "";
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    border-radius: 50%;
+}
+
+#heart::before { top: 0.9rem; left: 0; }
+#heart::after { top: 0; left: 0.9rem; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#x {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+#rect1, #rect2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.2rem;
+    height: 0.8rem;
+    background: white;
+    transform-origin: center center;
+}
+
+#rect1 { transform: translate(-50%, -50%) rotate(45deg); border-radius:1rem; width:3.5rem; }
+#rect2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.load-2 {
+    position: absolute;
+    bottom: 0;
+    height: 0.7rem;
+    background: white;
+    animation: load2 0.3s linear forwards;
+    transition: height 0.3s ease-in, width 0.4s ease-in;
+    transform-origin: center right;
+}
+
+@keyframes load2 {
+    0% { transform: translateX(-15rem); width:0; }
+    40% { transform: translateX(-7rem); width:14rem; }
+    70% { transform: translateX(-3rem); width:10rem; }
+    100% { transform: translateX(0); width:6rem; }
+}
+.load-rect-2 { position:fixed; bottom:0; height:0; width:100vw; background:white; z-index:10000; transition: height 0.15s ease-in; }
+</style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div></div></div><div class="load-rect-2"><script>(function(){
+    const startTime = Date.now();
+    let i = 0;
+    const $loadingBox = document.getElementById("loading-box");
+    const rect1 = document.querySelector(".load-2");
+    const rect2 = document.querySelector(".load-rect-2");
+
+    rect1.addEventListener("animationend", () => {
+        rect1.style.animation = "none";
+        rect1.style.width = "5.5rem"
+    })
+
+    function rotateX() {
+        const xbox = document.querySelector("#x");
+        if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
+    }
+
+    function loadComplete() { //animation when loading is completed
+        rect1.style.width = "10rem";
+        setTimeout(() => {
+            rect1.style.height = "100vh";
+        }, 350);
+        setTimeout(() => {
+            rect2.style.height = "100vh";
+        }, 700);
+        setTimeout(() => {
+            if ($loadingBox) {
+                $loadingBox.style.display = "none";
+            }
+            if (rect2) {
+                rect2.style.top = "0";
+                rect2.style.height = "0";
+            }
+        }, 1000)
+    }
+
+    window.addEventListener("DOMContentLoaded", ()=>{
+        const timePassed = Date.now() - startTime;
+        const minDisplay = 2000;  // minimum loading time
+        const timeRemaining = Math.max(0, minDisplay - timePassed);
+        setTimeout(loadComplete, timeRemaining);
+    });
+
+    setInterval(rotateX, 1000);
+
+    // PJAX support
+    if(!window.theme || !theme.pjax || !theme.pjax.enable){
+        if(window.btf){
+            btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
+            btf.addGlobalFn("pjaxComplete",()=>{
+                $loadingBox.style.opacity="0";
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 200);
+            },"preloader_end");
+        }
+    }
+})();</script></div><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background: transparent;"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">about me</h1></div></header><main class="layout hide-aside" id="content-inner"><div id="page"><div class="container" id="article-container"></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"bottom","lang":"en"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'Emulisy/Emulisy.github.io',
+      'data-repo-id': 'R_kgDOPAbCig',
+      'data-category-id': 'DIC_kwDOPAbCis4C05wb',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/scripts/quotes.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

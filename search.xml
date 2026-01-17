@@ -4,6 +4,106 @@
   
     
     <entry>
+      <title>Solidity Basics</title>
+      <link href="/2026/01/17/Solidity%20Basic%20Syntax/"/>
+      <url>/2026/01/17/Solidity%20Basic%20Syntax/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Solidity-Basic-Syntax-Notes"><a href="#Solidity-Basic-Syntax-Notes" class="headerlink" title="Solidity Basic Syntax Notes"></a>Solidity Basic Syntax Notes</h1><h2 id="1-File-Structure"><a href="#1-File-Structure" class="headerlink" title="1. File Structure"></a>1. File Structure</h2><p>Every Solidity file should start with a license identifier and the pragma version.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.20; // Specifies the compiler version</span><br></pre></td></tr></table></figure><hr><h2 id="2-Contract-Structure"><a href="#2-Contract-Structure" class="headerlink" title="2. Contract Structure"></a>2. Contract Structure</h2><p>A contract is similar to a <code>class</code> in object-oriented languages.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">contract MyContract &#123;</span><br><span class="line">    // State variables (stored on the blockchain)</span><br><span class="line">    uint256 public myNumber;</span><br><span class="line"></span><br><span class="line">    // Constructor (runs once upon deployment)</span><br><span class="line">    constructor(uint256 _initialNumber) &#123;</span><br><span class="line">        myNumber = _initialNumber;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="3-Data-Types"><a href="#3-Data-Types" class="headerlink" title="3. Data Types"></a>3. Data Types</h2><h3 id="Value-Types"><a href="#Value-Types" class="headerlink" title="Value Types"></a>Value Types</h3><ul><li><strong>boolean:</strong> <code>bool public isActive = true;</code></li><li><strong>uint:</strong> Unsigned integer (positive only). <code>uint256</code> is the standard.</li><li><strong>int:</strong> Signed integer (positive and negative).</li><li><strong>address:</strong> Holds a 20-byte Ethereum address.<ul><li><code>address public owner;</code></li><li><code>address payable public recipient;</code> (can receive Ether)</li></ul></li></ul><h3 id="Reference-Types"><a href="#Reference-Types" class="headerlink" title="Reference Types"></a>Reference Types</h3><ul><li><strong>string:</strong> <code>string public name = &quot;Solidity&quot;;</code></li><li><strong>struct:</strong> Custom defined types.  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct User &#123;</span><br><span class="line">    uint id;</span><br><span class="line">    string name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><strong>mapping:</strong> Key-value pairs (hash tables).<ul><li><code>mapping(address =&gt; uint) public balances;</code></li></ul></li><li><strong>Arrays:</strong><ul><li><code>uint[] public dynamicArray;</code></li><li><code>uint[5] public fixedArray;</code></li></ul></li></ul><hr><h2 id="4-Functions"><a href="#4-Functions" class="headerlink" title="4. Functions"></a>4. Functions</h2><h3 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function functionName(uint _param) public view returns (uint) &#123;</span><br><span class="line">    return _param + myNumber;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Visibility-Modifiers"><a href="#Visibility-Modifiers" class="headerlink" title="Visibility Modifiers"></a>Visibility Modifiers</h3><ul><li><strong>public:</strong> Can be called internally and externally.</li><li><strong>private:</strong> Only accessible within the current contract.</li><li><strong>internal:</strong> Accessible within the contract and derived contracts (inheritance).</li><li><strong>external:</strong> Can only be called from outside the contract.</li></ul><h3 id="State-Modifiers"><a href="#State-Modifiers" class="headerlink" title="State Modifiers"></a>State Modifiers</h3><ul><li><strong>view:</strong> Promises not to modify the state (reads data only).</li><li><strong>pure:</strong> Promises not to modify or read from the state (calculates logic only).</li><li><strong>payable:</strong> Allows the function to receive Ether.</li></ul><hr><h2 id="5-Data-Locations"><a href="#5-Data-Locations" class="headerlink" title="5. Data Locations"></a>5. Data Locations</h2><p>Where data is stored during execution:</p><ul><li><strong>storage:</strong> Persistent on-chain storage (state variables).</li><li><strong>memory:</strong> Temporary storage (exists only during function execution).</li><li><strong>calldata:</strong> Non-modifiable temporary storage for function arguments.</li></ul><hr><h2 id="6-Control-Structures"><a href="#6-Control-Structures" class="headerlink" title="6. Control Structures"></a>6. Control Structures</h2><p>Solidity uses standard C-style syntax.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// If-Else</span><br><span class="line">if (x &gt; 10) &#123; ... &#125; else &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">// Loops (Be careful with gas limits!)</span><br><span class="line">for (uint i = 0; i &lt; 10; i++) &#123; ... &#125;</span><br><span class="line">while (x &lt; 5) &#123; ... &#125;</span><br></pre></td></tr></table></figure><hr><h2 id="7-Error-Handling"><a href="#7-Error-Handling" class="headerlink" title="7. Error Handling"></a>7. Error Handling</h2><ul><li><strong>require(condition, “error message”):</strong> Reverts if condition is false. Used for input validation.</li><li><strong>revert(“error message”):</strong> Aborts execution and reverts changes.</li><li><strong>assert(condition):</strong> Used for internal invariants (serious bugs).</li></ul><hr><h2 id="8-Events"><a href="#8-Events" class="headerlink" title="8. Events"></a>8. Events</h2><p>Events allow logging to the Ethereum blockchain, which off-chain applications can listen for.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">event Transfer(address indexed from, address indexed to, uint amount);</span><br><span class="line"></span><br><span class="line">function sendMoney(address _to, uint _amount) public &#123;</span><br><span class="line">    emit Transfer(msg.sender, _to, _amount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="9-Global-Variables"><a href="#9-Global-Variables" class="headerlink" title="9. Global Variables"></a>9. Global Variables</h2><ul><li><code>msg.sender</code>: Address of the person calling the function.</li><li><code>msg.value</code>: Amount of Wei sent with the call.</li><li><code>block.timestamp</code>: Current block timestamp.</li><li><code>block.number</code>: Current block number.</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术博客(tech blog) </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Smart Contract Basics</title>
+      <link href="/2026/01/16/Smart%20Contract%20Basics/"/>
+      <url>/2026/01/16/Smart%20Contract%20Basics/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Smart-Contract-Development"><a href="#Smart-Contract-Development" class="headerlink" title="Smart Contract Development"></a>Smart Contract Development</h2><h2 id="1-Dapp-Architecture-and-Development-Workflow"><a href="#1-Dapp-Architecture-and-Development-Workflow" class="headerlink" title="1. Dapp Architecture and Development Workflow"></a>1. Dapp Architecture and Development Workflow</h2><p>Decentralized applications (Dapps) differ from traditional centralized apps. They run on blockchains or distributed networks, and their logic and data are maintained collectively by multiple participants rather than a single entity.</p><p>Dapp development requires understanding:</p><ul><li>Decentralized tech stack</li><li>Smart contract programming</li><li>Frontend &amp; blockchain interaction</li></ul><hr><h3 id="1-1-Dapp-Architecture"><a href="#1-1-Dapp-Architecture" class="headerlink" title="1.1 Dapp Architecture"></a>1.1 Dapp Architecture</h3><p>Dapp architecture consists of four core components:</p><h4 id="1-Frontend-User-Interface"><a href="#1-Frontend-User-Interface" class="headerlink" title="1. Frontend (User Interface)"></a>1. Frontend (User Interface)</h4><ul><li>Built with HTML, CSS, JavaScript (React, Vue, etc.)</li><li>Interacts with blockchain via wallet-injected provider or RPC node:<ul><li><strong>Read-only calls</strong> (e.g., <code>eth_call</code>) to fetch contract state, events, etc.</li><li><strong>State-changing calls</strong> are signed by wallet and broadcast via RPC node</li></ul></li><li>Integrates blockchain wallets (MetaMask) for authentication and transaction signing</li></ul><h4 id="2-Smart-Contracts"><a href="#2-Smart-Contracts" class="headerlink" title="2. Smart Contracts"></a>2. Smart Contracts</h4><ul><li>Core logic of Dapp, deployed on blockchain</li><li>Executed automatically by blockchain rules</li><li>On Ethereum, written in <strong>Solidity</strong> and run on <strong>EVM</strong></li></ul><h4 id="3-Indexer-Data-Retriever"><a href="#3-Indexer-Data-Retriever" class="headerlink" title="3. Indexer &#x2F; Data Retriever"></a>3. Indexer &#x2F; Data Retriever</h4><ul><li>Captures events emitted by smart contracts (e.g., <code>Transfer</code> event for NFTs)</li><li>Stores processed data in traditional databases (PostgreSQL)</li><li>Enables frontend to query data efficiently</li><li>Example: retrieve all NFTs owned by an address by parsing <code>Transfer</code> events</li></ul><h4 id="4-Blockchain-Decentralized-Storage"><a href="#4-Blockchain-Decentralized-Storage" class="headerlink" title="4. Blockchain &amp; Decentralized Storage"></a>4. Blockchain &amp; Decentralized Storage</h4><ul><li>Blockchain stores smart contract state and transaction history</li><li>Decentralized storage (IPFS, Arweave) stores large unstructured data</li><li>Ensures data persistence and decentralization</li></ul><hr><h3 id="1-2-Dapp-Development-Workflow"><a href="#1-2-Dapp-Development-Workflow" class="headerlink" title="1.2 Dapp Development Workflow"></a>1.2 Dapp Development Workflow</h3><p>Workflow stages:</p><ol><li><p><strong>Requirement Analysis &amp; Planning</strong></p><ul><li>Define functionality: transfers, balance queries, voting, etc.</li><li>Select blockchain platform: Ethereum, Polygon, Solana, etc.</li><li>Design user experience (UX) for blockchain interactions</li></ul></li><li><p><strong>Smart Contract Development</strong></p><ul><li>Write contracts in Solidity</li><li>Write unit tests to ensure correctness</li><li>Audit &amp; optimize for security (reentrancy, integer overflow, etc.)</li></ul></li><li><p><strong>Indexer Development</strong></p><ul><li>Determine what on-chain data frontend needs</li><li>Write indexer in TypeScript (frameworks: Ponder, Subgraph)</li><li>Deploy with Docker or use SaaS indexer services</li></ul></li><li><p><strong>Frontend Development</strong></p><ul><li>Choose framework: React, Vue</li><li>Integrate wallets (MetaMask)</li><li>Fetch blockchain and indexer data for display</li><li>Handle transaction signing &amp; submission</li></ul></li><li><p><strong>Blockchain Interaction</strong></p><ul><li>Use Viem (recommended), Ethers.js, Wagmi</li><li>Read state: call contract functions</li><li>Send transactions: signed via wallet to execute contract functions</li></ul></li><li><p><strong>Deployment &amp; Launch</strong></p><ul><li>Deploy smart contracts: Hardhat or Foundry<ul><li>Testnets: Sepolia, Holesky</li><li>Mainnet deployment</li></ul></li><li>Frontend deployment: IPFS or traditional web hosting (Vercel)</li><li>Maintenance: updates, bug fixes, user feedback</li></ul></li></ol><hr><h3 id="1-3-Summary"><a href="#1-3-Summary" class="headerlink" title="1.3 Summary"></a>1.3 Summary</h3><p>Dapp development covers:</p><ul><li>Requirement analysis</li><li>Smart contract programming</li><li>Indexer &amp; frontend development</li><li>Deployment</li></ul><p>Challenges unique to Dapps include:</p><ul><li>User experience</li><li>Transaction handling</li><li>Security concerns</li><li>Blockchain transparency and immutability</li></ul><hr><h2 id="2-Ethereum-Development-Environment-Setup"><a href="#2-Ethereum-Development-Environment-Setup" class="headerlink" title="2. Ethereum Development Environment Setup"></a>2. Ethereum Development Environment Setup</h2><h3 id="2-1-Prerequisites"><a href="#2-1-Prerequisites" class="headerlink" title="2.1 Prerequisites"></a>2.1 Prerequisites</h3><ul><li>Node.js (managed with nvm)</li><li>npm or yarn</li><li>Git</li></ul><p>Example commands:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Install nvm</span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span><br><span class="line"></span><br><span class="line"># Install Node.js LTS</span><br><span class="line">nvm install --lts</span><br><span class="line">nvm use --lts</span><br><span class="line"></span><br><span class="line"># Optional: install yarn</span><br><span class="line">npm install -g yarn</span><br></pre></td></tr></table></figure><hr><h3 id="2-2-Local-Ethereum-Development-Chains"><a href="#2-2-Local-Ethereum-Development-Chains" class="headerlink" title="2.2 Local Ethereum Development Chains"></a>2.2 Local Ethereum Development Chains</h3><h4 id="Option-1-Foundry-Rust-based-fast"><a href="#Option-1-Foundry-Rust-based-fast" class="headerlink" title="Option 1: Foundry (Rust-based, fast)"></a>Option 1: Foundry (Rust-based, fast)</h4><ul><li>Install: <code>curl -L https://foundry.paradigm.xyz | bash &amp;&amp; foundryup</code></li><li>Tools:<ul><li><code>forge</code>: build, test, deploy, verify contracts</li><li><code>anvil</code>: local dev node, Ethereum JSON-RPC compatible</li><li><code>cast</code>: CLI for on-chain interactions</li></ul></li><li>Example project initialization: <code>forge init Counter</code></li><li>Compile: <code>forge build</code></li><li>Test: <code>forge test</code></li><li>Local node: <code>anvil</code></li><li>Deployment:</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PRIVATE_KEY=&quot;your_private_key_here&quot;</span><br><span class="line">forge script script/Counter.s.sol --rpc-url http://127.0.0.1:8545 --broadcast --private-key $PRIVATE_KEY</span><br></pre></td></tr></table></figure><h4 id="Option-2-Hardhat-modern-framework"><a href="#Option-2-Hardhat-modern-framework" class="headerlink" title="Option 2: Hardhat (modern framework)"></a>Option 2: Hardhat (modern framework)</h4><ul><li>Install: <code>npm install --global hardhat</code></li><li>Create project: <code>npx hardhat</code></li><li>Start node: <code>npx hardhat node</code></li><li>Deploy: <code>npx hardhat run scripts/deploy.js --network localhost</code></li></ul><hr><h3 id="2-3-Wallet-and-Frontend-Integration"><a href="#2-3-Wallet-and-Frontend-Integration" class="headerlink" title="2.3 Wallet and Frontend Integration"></a>2.3 Wallet and Frontend Integration</h3><ul><li>Use <strong>MetaMask</strong> as development wallet</li><li>Frontend libraries: <strong>Viem</strong>, <strong>Wagmi</strong></li></ul><hr><h3 id="2-4-Other-Useful-Tools"><a href="#2-4-Other-Useful-Tools" class="headerlink" title="2.4 Other Useful Tools"></a>2.4 Other Useful Tools</h3><ul><li>Remix IDE (browser-based)</li><li>OpenZeppelin contracts (<code>npm install @openzeppelin/contracts</code>)</li><li>Chainlink testnet integration for oracles</li></ul><hr><h2 id="3-RPC-Node-Services"><a href="#3-RPC-Node-Services" class="headerlink" title="3. RPC Node Services"></a>3. RPC Node Services</h2><p>RPC (Remote Procedure Call) nodes bridge frontend apps and blockchain networks.</p><h3 id="3-1-What-is-RPC"><a href="#3-1-What-is-RPC" class="headerlink" title="3.1 What is RPC?"></a>3.1 What is RPC?</h3><ul><li>RPC nodes run blockchain client software, maintaining a full node</li><li>Expose APIs for reading chain data, sending transactions, listening to events</li><li>Analogy: ATM machine connecting to bank</li></ul><hr><h3 id="3-2-Role-of-RPC-in-Web3-Development"><a href="#3-2-Role-of-RPC-in-Web3-Development" class="headerlink" title="3.2 Role of RPC in Web3 Development"></a>3.2 Role of RPC in Web3 Development</h3><ul><li><strong>Read data</strong>: account balance, contract state, block info</li><li><strong>Send transactions</strong>: broadcast signed tx, check confirmations, gas estimation</li><li><strong>Event listening</strong>: subscribe to contract events via WebSocket</li><li><strong>Network management</strong>: switch chains, query network info</li></ul><hr><h3 id="3-3-JSON-RPC-Protocol"><a href="#3-3-JSON-RPC-Protocol" class="headerlink" title="3.3 JSON-RPC Protocol"></a>3.3 JSON-RPC Protocol</h3><ul><li>Ethereum uses JSON-RPC 2.0</li><li>HTTP or WebSocket</li><li>Example request:</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">  &quot;method&quot;: &quot;eth_getBalance&quot;,</span><br><span class="line">  &quot;params&quot;: [&quot;0xAddress&quot;, &quot;latest&quot;],</span><br><span class="line">  &quot;id&quot;: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>Common methods:<ul><li><code>eth_getBalance</code></li><li><code>eth_blockNumber</code></li><li><code>eth_sendTransaction</code></li><li><code>eth_call</code></li><li><code>eth_getTransactionReceipt</code></li><li><code>eth_getLogs</code></li></ul></li></ul><hr><h3 id="3-4-RPC-Providers-Comparison"><a href="#3-4-RPC-Providers-Comparison" class="headerlink" title="3.4 RPC Providers Comparison"></a>3.4 RPC Providers Comparison</h3><table><thead><tr><th>Provider</th><th>Features</th><th>Free Tier</th><th>Use Case</th></tr></thead><tbody><tr><td>Alchemy</td><td>Enterprise-grade, stable</td><td>300M requests&#x2F;mo</td><td>Production, enterprise apps</td></tr><tr><td>Infura</td><td>Established, ConsenSys</td><td>100k requests&#x2F;mo</td><td>Dev&#x2F;test, small projects</td></tr><tr><td>QuickNode</td><td>High-performance, multi-chain</td><td>Limited free tier</td><td>High-frequency, real-time</td></tr><tr><td>Public Node</td><td>Fully free, no registration</td><td>Unlimited*</td><td>Learning, personal projects</td></tr><tr><td>Ankr</td><td>Multi-chain, decentralized</td><td>Limited free tier</td><td>Multi-chain dev</td></tr></tbody></table><hr><h3 id="3-5-Getting-and-Using-RPC-Endpoints"><a href="#3-5-Getting-and-Using-RPC-Endpoints" class="headerlink" title="3.5 Getting and Using RPC Endpoints"></a>3.5 Getting and Using RPC Endpoints</h3><ol><li>Register and create app (e.g., Alchemy)</li><li>Get RPC URL (e.g., <code>https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY</code>)</li><li>Use in code:</li></ol><p><strong>Viem Example</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createPublicClient, http &#125; from &#x27;viem&#x27;</span><br><span class="line">import &#123; mainnet &#125; from &#x27;viem/chains&#x27;</span><br><span class="line"></span><br><span class="line">const client = createPublicClient(&#123;</span><br><span class="line">  chain: mainnet,</span><br><span class="line">  transport: http(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const balance = await client.getBalance(&#123;</span><br><span class="line">  address: &#x27;0xAddress&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p><strong>Ethers.js Example</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const &#123; ethers &#125; = require(&#x27;ethers&#x27;)</span><br><span class="line">const provider = new ethers.JsonRpcProvider(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">const balance = await provider.getBalance(&#x27;0xAddress&#x27;)</span><br></pre></td></tr></table></figure><p><strong>Web3.js Example</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const &#123; Web3 &#125; = require(&#x27;web3&#x27;)</span><br><span class="line">const web3 = new Web3(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">const balance = await web3.eth.getBalance(&#x27;0xAddress&#x27;)</span><br></pre></td></tr></table></figure><hr><h3 id="3-6-Hardhat-Configuration"><a href="#3-6-Hardhat-Configuration" class="headerlink" title="3.6 Hardhat Configuration"></a>3.6 Hardhat Configuration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;@nomicfoundation/hardhat-toolbox&#x27;)</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  solidity: &#x27;0.8.19&#x27;,</span><br><span class="line">  networks: &#123;</span><br><span class="line">    mainnet: &#123;</span><br><span class="line">      url: process.env.MAINNET_RPC_URL || &#x27;&#x27;,</span><br><span class="line">      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],</span><br><span class="line">    &#125;,</span><br><span class="line">    sepolia: &#123;</span><br><span class="line">      url: process.env.SEPOLIA_RPC_URL || &#x27;&#x27;,</span><br><span class="line">      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><code>.env</code> file:</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MAINNET_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY</span><br><span class="line">SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY</span><br><span class="line">PRIVATE_KEY=your_private_key_here</span><br></pre></td></tr></table></figure><hr><h3 id="3-7-RPC-Best-Practices"><a href="#3-7-RPC-Best-Practices" class="headerlink" title="3.7 RPC Best Practices"></a>3.7 RPC Best Practices</h3><ul><li>Protect API Keys: use <code>.env</code>, ignore in Git</li><li>Error handling &amp; retries: handle network failures</li><li>Rate limiting: throttle requests, use WebSocket for high-frequency</li><li>Multi-node redundancy: fallback to multiple RPCs</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const rpcUrls = [</span><br><span class="line">  &#x27;https://eth-mainnet.g.alchemy.com/v2/KEY1&#x27;,</span><br><span class="line">  &#x27;https://eth-mainnet.infura.io/v3/KEY2&#x27;,</span><br><span class="line">  &#x27;https://rpc.ankr.com/eth&#x27;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">async function callWithFallback(method, params) &#123;</span><br><span class="line">  for (const url of rpcUrls) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const client = createPublicClient(&#123; chain: mainnet, transport: http(url) &#125;)</span><br><span class="line">      return await client.request(&#123; method, params &#125;)</span><br><span class="line">    &#125; catch &#123;</span><br><span class="line">      console.warn(`RPC $&#123;url&#125; failed, trying next...`)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  throw new Error(&#x27;All RPC endpoints failed&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>Monitoring: log success rate, latency, and usage</li><li>Local nodes: use Hardhat Node or Anvil for dev&#x2F;test</li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术博客(tech blog) </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> English </tag>
+            
+            <tag> Web3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>2025年度书籍</title>
+      <link href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/"/>
+      <url>/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="2025-年度书籍"><a href="#2025-年度书籍" class="headerlink" title="2025 年度书籍"></a>2025 年度书籍</h1><p>2025也是很曲折的一年，很多时候太忙或者没心情看书，所以读的书并不多。即便如此，我还是觉得应该记录一下2025年我读的书里面，最让我有感觉的几本书。</p><h2 id="The-Catcher-in-the-Rye"><a href="#The-Catcher-in-the-Rye" class="headerlink" title="The Catcher in the Rye"></a>The Catcher in the Rye</h2><p>麦田里的守望者的中文译本我其实很早就读过了，但是从来没有勇气去读全英文的原版。如今在国外历练了英文水平，于是打算重新读一下原文，感受一下与中文译本的不同。</p><p>其实我很小的时候就听说塞林格在小说里从来不忌讳用在正式会话里让人觉得粗鄙，甚至可以说是骂人的词语。 但是很早看过的译本里面，我印象里让人感到冒犯的词语似乎只有“该死的”，“王八蛋”这种在现代骂战里面可以说是毫无攻击性的词语。如今看了原文，更加感觉霍尔顿用的很多词语，例如goddamn, bastard更像是情绪化的表达。</p><p>看英文原著对我来说也是一个挑战。高中的时候，我曾经尝试读过乔伊斯的《都柏林人》原文。乔伊斯的作品对我来说有太多生词了，而麦田里的守望者的语言就显得通俗了很多。这也很合理，整本书从霍尔顿的角度叙述，所用的语言自然也是普通美国高中生都能读懂的。</p><p>我是一个恋旧的人，但是有些书我读过以后可能很久不会重新再翻一遍，有些却会时不时翻开看一段。麦田里的守望者我读的次数不多，每次都会有新的感受。境遇不同，书里的文字就有不同的质感。</p><p><em>The mark of the immature man is that he wants to die nobly for a cause, while the mark of the mature man is that he wants to live humbly for one.</em> 这是霍尔顿的历史老师(应该没记错吧)对霍尔顿说的话。我其实一直再纠结塞林格笔下的霍尔顿到底是一个正面角色还是负面角色，希望过几年再读的时候我会有答案吧。</p><h2 id="华氏451"><a href="#华氏451" class="headerlink" title="华氏451"></a>华氏451</h2><p>其实反乌托邦小说我读的不少了-赫胥黎，奥威尔，还有《我们》《发条橙》，每本书都有其独特的设定，所以哪怕主题一样，我还是看的乐此不疲。《华氏451》里面的消防员从某种角度看，也是扑灭火焰的人了。洞穴里的囚徒看见身后的火焰投射在面前的影子，就误以为这是自己本来的模样。没有了火焰，是不是从根源上让囚徒们失去了看清现实的机会呢？书里的消防员是现实意义上最接近火焰的人，但是谁能保证太靠近火的人不会引火上身呢。</p><p>我一直认为，读书从来不是目的，而是方法。如今的世界有太多文明的载体了，读书不再是人们认识自己，认识世界的最重要的途径了。当然这在《华氏451》的世界就截然不同了，你不能指望人们从几公里长的广告牌，或者日复一日不变的娱乐节目里面认识世界，于是乎书在那个世界的重要性就十分突出了。不过回到现实，我认为我的人生里面并不是必须要有书，但是要不要阅读一定要由我来决定。如果某一天，书对我而言反倒成为了负担，我不介意一把火把它们全部烧了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 中文 </tag>
+            
+            <tag> 书(books) </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Web3 Operation</title>
+      <link href="/2026/01/15/Web3%20Operation/"/>
+      <url>/2026/01/15/Web3%20Operation/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Web3-Operation"><a href="#Web3-Operation" class="headerlink" title="Web3 Operation"></a>Web3 Operation</h1><h2 id="Wallet-Key-Concepts"><a href="#Wallet-Key-Concepts" class="headerlink" title="Wallet Key Concepts"></a>Wallet Key Concepts</h2><h3 id="Mnemonic-Phrase-Seed-Phrase"><a href="#Mnemonic-Phrase-Seed-Phrase" class="headerlink" title="Mnemonic Phrase (Seed Phrase)"></a>Mnemonic Phrase (Seed Phrase)</h3><ul><li>A human-readable list of words used to generate private keys</li><li>Usually 12 or 24 words (BIP-39 standard)</li><li>Acts as the master backup of a wallet</li><li>Anyone with it can fully control the wallet</li></ul><h3 id="Private-Key"><a href="#Private-Key" class="headerlink" title="Private Key"></a>Private Key</h3><ul><li>A secret cryptographic number</li><li>Used to sign transactions and prove ownership</li><li>Derived from the mnemonic phrase</li><li>Must never be shared</li></ul><h3 id="Public-Key"><a href="#Public-Key" class="headerlink" title="Public Key"></a>Public Key</h3><ul><li>Generated from the private key</li><li>Used to verify transaction signatures</li><li>Safe to share publicly</li><li>Cannot be reversed to get the private key</li></ul><h3 id="Wallet-Address"><a href="#Wallet-Address" class="headerlink" title="Wallet Address"></a>Wallet Address</h3><ul><li>Derived from the public key</li><li>Used to receive assets on the blockchain</li><li>Public and shareable</li><li>Example (Ethereum): <code>0x...</code></li></ul><h3 id="Relationship"><a href="#Relationship" class="headerlink" title="Relationship"></a>Relationship</h3><ul><li>Mnemonic Phrase → Private Key → Public Key → Wallet Address</li></ul><hr><h1 id="From-Wallet-Transaction-to-Block-Confirmation-Complete-Flow"><a href="#From-Wallet-Transaction-to-Block-Confirmation-Complete-Flow" class="headerlink" title="From Wallet Transaction to Block Confirmation: Complete Flow"></a>From Wallet Transaction to Block Confirmation: Complete Flow</h1><h2 id="1-Transaction-Creation-Wallet-Side"><a href="#1-Transaction-Creation-Wallet-Side" class="headerlink" title="1. Transaction Creation (Wallet Side)"></a>1. Transaction Creation (Wallet Side)</h2><ol><li><p><strong>User initiates a transaction in the wallet</strong></p><ul><li>Example: Alice wants to send 1 ETH to Bob</li><li>Wallet generates a transaction object:<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;AliceAddress&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BobAddress&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="number">1</span> ETH<span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span><span class="punctuation">:</span> <span class="number">21000</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;gasPrice&quot;</span><span class="punctuation">:</span> <span class="number">50</span> Gwei</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li><li><code>nonce</code>: sequence number to prevent replay attacks</li><li><code>gas</code>: transaction fee to compensate miners&#x2F;validators</li></ul></li><li><p><strong>Wallet signs the transaction with the private key</strong></p><ul><li>Ensures the transaction is authorized by Alice</li><li>Anyone can verify the signature but cannot forge it</li></ul></li></ol><hr><h2 id="2-Transaction-Broadcasting"><a href="#2-Transaction-Broadcasting" class="headerlink" title="2. Transaction Broadcasting"></a>2. Transaction Broadcasting</h2><ol><li>Wallet broadcasts the signed transaction to the blockchain network (P2P network)</li><li>Nodes receive the transaction and place it in the <strong>mempool</strong> (pending transaction pool)<ul><li>Transactions in mempool are waiting to be included in a block</li></ul></li><li>At this stage, the transaction is <strong>not yet part of any block</strong></li></ol><hr><h2 id="3-Transaction-Validation-Nodes-Miners-Validators"><a href="#3-Transaction-Validation-Nodes-Miners-Validators" class="headerlink" title="3. Transaction Validation (Nodes &#x2F; Miners &#x2F; Validators)"></a>3. Transaction Validation (Nodes &#x2F; Miners &#x2F; Validators)</h2><p>Before packaging into a block, transactions are validated:</p><ol><li><strong>Signature verification</strong> → confirms the transaction is from Alice</li><li><strong>Sufficient balance</strong> → Alice has enough ETH + gas</li><li><strong>Nonce correctness</strong> → prevents duplicate transactions</li></ol><p>✅ Only valid transactions are eligible to be included in a block</p><hr><h2 id="4-Block-Packaging"><a href="#4-Block-Packaging" class="headerlink" title="4. Block Packaging"></a>4. Block Packaging</h2><ol><li>Miner&#x2F;validator selects transactions from the mempool<ul><li>Usually prioritizes transactions with higher gas fees</li></ul></li><li>Creates a new block:<ul><li>Contains a list of transactions</li><li>Includes <strong>previous block hash</strong></li><li>Constructs a block header:<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Block N+1</span><br><span class="line">  - PreviousHash: hash(Block N)</span><br><span class="line">  - MerkleRoot: hash(all transactions)</span><br><span class="line">  - Timestamp: 1673779200</span><br><span class="line">  - Nonce: ??? (used in PoW)</span><br></pre></td></tr></table></figure></li></ul></li><li>Essentially, the block organizes transactions into a structured format ready for consensus</li></ol><hr><h2 id="5-Consensus-Phase"><a href="#5-Consensus-Phase" class="headerlink" title="5. Consensus Phase"></a>5. Consensus Phase</h2><p>Different blockchains use different consensus mechanisms:</p><h3 id="a-Proof-of-Work-PoW-e-g-Bitcoin"><a href="#a-Proof-of-Work-PoW-e-g-Bitcoin" class="headerlink" title="a. Proof of Work (PoW, e.g., Bitcoin)"></a>a. Proof of Work (PoW, e.g., Bitcoin)</h3><ul><li>Miner performs <strong>work computation</strong></li><li>Tries different <code>Nonce</code> values to find a hash below the target</li><li>Successfully mined block is broadcast to the network</li></ul><h3 id="b-Proof-of-Stake-PoS-e-g-Ethereum-2-0"><a href="#b-Proof-of-Stake-PoS-e-g-Ethereum-2-0" class="headerlink" title="b. Proof of Stake (PoS, e.g., Ethereum 2.0)"></a>b. Proof of Stake (PoS, e.g., Ethereum 2.0)</h3><ul><li>Validator is selected as block proposer</li><li>Verifies transaction validity</li><li>Signs the block and broadcasts it</li><li>Other validators vote to finalize the block</li></ul><blockquote><p>Core idea: global agreement on which block is accepted</p></blockquote><hr><h2 id="6-Block-Confirmation-On-chain"><a href="#6-Block-Confirmation-On-chain" class="headerlink" title="6. Block Confirmation (On-chain)"></a>6. Block Confirmation (On-chain)</h2><ol><li>Nodes receive the new block and re-verify transactions and block integrity</li><li>Updates local ledger&#x2F;state</li><li>Block is appended to the blockchain<ul><li>Links to previous block hash</li><li>Transactions in this block are now confirmed</li></ul></li><li>Wallet can check transaction status:<ul><li>“Pending” → “Confirmed after 1&#x2F;2&#x2F;3 blocks”</li><li>Confirmed transactions are immutable</li></ul></li></ol><hr><h2 id="7-Summary-Flow-Diagram-Text-Version"><a href="#7-Summary-Flow-Diagram-Text-Version" class="headerlink" title="7. Summary Flow Diagram (Text Version)"></a>7. Summary Flow Diagram (Text Version)</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Wallet creates &amp; signs transaction</span><br><span class="line">         ↓</span><br><span class="line">Broadcast to network (mempool)</span><br><span class="line">         ↓</span><br><span class="line">Nodes/Miners validate transactions</span><br><span class="line">         ↓</span><br><span class="line">Transactions packaged into new block</span><br><span class="line">         ↓</span><br><span class="line">Consensus mechanism confirms the block</span><br><span class="line">         ↓</span><br><span class="line">Block appended to blockchain, transaction complete</span><br></pre></td></tr></table></figure><hr><h1 id="Wallet-Node-RPC-and-Blockchain-Network"><a href="#Wallet-Node-RPC-and-Blockchain-Network" class="headerlink" title="Wallet, Node, RPC, and Blockchain Network"></a>Wallet, Node, RPC, and Blockchain Network</h1><h2 id="1-Wallet"><a href="#1-Wallet" class="headerlink" title="1. Wallet"></a>1. Wallet</h2><ul><li>Manages <strong>private keys, public keys, and addresses</strong></li><li>Functions:<ul><li>Sign transactions</li><li>Query balances and transaction status</li><li>Interact with blockchain via nodes</li></ul></li><li>Does <strong>not store the blockchain</strong> or validate transactions</li></ul><h2 id="2-Node"><a href="#2-Node" class="headerlink" title="2. Node"></a>2. Node</h2><ul><li>Computer in the blockchain network holding <strong>ledger&#x2F;state</strong></li><li>Functions:<ul><li>Validate transactions and blocks</li><li>Store blockchain data</li><li>Provide <strong>RPC interface</strong> for wallets and apps</li></ul></li></ul><h2 id="3-RPC-Remote-Procedure-Call"><a href="#3-RPC-Remote-Procedure-Call" class="headerlink" title="3. RPC (Remote Procedure Call)"></a>3. RPC (Remote Procedure Call)</h2><ul><li>Interface to interact with nodes remotely</li><li>Functions:<ul><li>Query account balance</li><li>Broadcast signed transactions</li><li>Retrieve block or transaction info</li></ul></li><li>Protocols:<ul><li>HTTP &#x2F; HTTPS (JSON-RPC)</li><li>WebSocket (for real-time events)</li></ul></li></ul><h2 id="4-Blockchain-Network"><a href="#4-Blockchain-Network" class="headerlink" title="4. Blockchain Network"></a>4. Blockchain Network</h2><ul><li>P2P network of nodes</li><li>Nodes sync blocks and transactions</li><li>Wallet accesses the network <strong>indirectly via node RPC</strong></li></ul><h2 id="5-Wallet-Node-Network-Connection"><a href="#5-Wallet-Node-Network-Connection" class="headerlink" title="5. Wallet-Node-Network Connection"></a>5. Wallet-Node-Network Connection</h2><pre><code class="language-text">Wallet (UI + Private Key)         |         | RPC/API call         vNode (Full / Light / Hosted)         |         | P2P network sync         vBlockchain Network</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> English </tag>
+            
+            <tag> Web3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ethereum - basic concepts</title>
       <link href="/2026/01/13/Ethereum%20-%20basic%20concepts/"/>
       <url>/2026/01/13/Ethereum%20-%20basic%20concepts/</url>
@@ -74,13 +174,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -107,13 +207,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -173,13 +273,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -206,13 +306,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
         </tags>
       
@@ -268,11 +368,11 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -301,11 +401,11 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -334,13 +434,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -367,13 +467,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -400,13 +500,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -433,11 +533,11 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -491,13 +591,13 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
             
             <tag> javascript </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -524,11 +624,11 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             
@@ -582,11 +682,11 @@
       
         <tags>
             
+            <tag> English </tag>
+            
             <tag> frontend </tag>
             
             <tag> 前端 </tag>
-            
-            <tag> English </tag>
             
             <tag> 编程 </tag>
             

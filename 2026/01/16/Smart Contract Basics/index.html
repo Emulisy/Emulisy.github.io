@@ -1,0 +1,811 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Smart Contract Basics | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Smart Contract Development1. Dapp Architecture and Development WorkflowDecentralized applications (Dapps) differ from traditional centralized apps. They run on blockchains or distributed networks, and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smart Contract Basics">
+<meta property="og:url" content="https://emulisy.github.io/2026/01/16/Smart%20Contract%20Basics/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="Smart Contract Development1. Dapp Architecture and Development WorkflowDecentralized applications (Dapps) differ from traditional centralized apps. They run on blockchains or distributed networks, and">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg1.jpg">
+<meta property="article:published_time" content="2026-01-16T10:25:33.000Z">
+<meta property="article:modified_time" content="2026-01-16T11:33:20.151Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="Web3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg1.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Smart Contract Basics",
+  "url": "https://emulisy.github.io/2026/01/16/Smart%20Contract%20Basics/",
+  "image": "https://emulisy.github.io/img/post-bg1.jpg",
+  "datePublished": "2026-01-16T10:25:33.000Z",
+  "dateModified": "2026-01-16T11:33:20.151Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2026/01/16/Smart%20Contract%20Basics/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Smart Contract Basics',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="load-page" id="loading-box"><style>* { box-sizing: border-box; margin:0; padding:0; }
+
+.load-page {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+}
+
+.load-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    width: 200px;
+}
+
+.load-1 {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+#heart-wrapper { transform: rotate(-135deg) scale(0.9) translateY(0.4rem); }
+
+#heart {
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    transform-origin: center;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+#heart::before, #heart::after {
+    content: "";
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    border-radius: 50%;
+}
+
+#heart::before { top: 0.9rem; left: 0; }
+#heart::after { top: 0; left: 0.9rem; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#x {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+#rect1, #rect2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.2rem;
+    height: 0.8rem;
+    background: white;
+    transform-origin: center center;
+}
+
+#rect1 { transform: translate(-50%, -50%) rotate(45deg); border-radius:1rem; width:3.5rem; }
+#rect2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.load-2 {
+    position: absolute;
+    bottom: 0;
+    height: 0.7rem;
+    background: white;
+    animation: load2 0.3s linear forwards;
+    transition: height 0.3s ease-in, width 0.4s ease-in;
+    transform-origin: center right;
+}
+
+@keyframes load2 {
+    0% { transform: translateX(-15rem); width:0; }
+    40% { transform: translateX(-7rem); width:14rem; }
+    70% { transform: translateX(-3rem); width:10rem; }
+    100% { transform: translateX(0); width:6rem; }
+}
+.load-rect-2 { position:fixed; bottom:0; height:0; width:100vw; background:white; z-index:10000; transition: height 0.15s ease-in; }
+</style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div></div></div><div class="load-rect-2"><script>(function(){
+    const startTime = Date.now();
+    let i = 0;
+    const $loadingBox = document.getElementById("loading-box");
+    const rect1 = document.querySelector(".load-2");
+    const rect2 = document.querySelector(".load-rect-2");
+
+    rect1.addEventListener("animationend", () => {
+        rect1.style.animation = "none";
+        rect1.style.width = "5.5rem"
+    })
+
+    function rotateX() {
+        const xbox = document.querySelector("#x");
+        if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
+    }
+
+    function loadComplete() { //animation when loading is completed
+        rect1.style.width = "10rem";
+        setTimeout(() => {
+            rect1.style.height = "100vh";
+        }, 350);
+        setTimeout(() => {
+            rect2.style.height = "100vh";
+        }, 700);
+        setTimeout(() => {
+            if ($loadingBox) {
+                $loadingBox.style.display = "none";
+            }
+            if (rect2) {
+                rect2.style.top = "0";
+                rect2.style.height = "0";
+            }
+        }, 1000)
+    }
+
+    window.addEventListener("DOMContentLoaded", ()=>{
+        const timePassed = Date.now() - startTime;
+        const minDisplay = 2000;  // minimum loading time
+        const timeRemaining = Math.max(0, minDisplay - timePassed);
+        setTimeout(loadComplete, timeRemaining);
+    });
+
+    setInterval(rotateX, 1000);
+
+    // PJAX support
+    if(!window.theme || !theme.pjax || !theme.pjax.enable){
+        if(window.btf){
+            btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
+            btf.addGlobalFn("pjaxComplete",()=>{
+                $loadingBox.style.opacity="0";
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 200);
+            },"preloader_end");
+        }
+    }
+})();</script></div><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg1.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Smart Contract Basics</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Smart Contract Basics</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-16T10:25:33.000Z" title="发表于 2026-01-16 18:25:33">2026-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-16T11:33:20.151Z" title="更新于 2026-01-16 19:33:20">2026-01-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2-tech-blog/">技术博客(tech blog)</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Smart-Contract-Development"><a href="#Smart-Contract-Development" class="headerlink" title="Smart Contract Development"></a>Smart Contract Development</h2><h2 id="1-Dapp-Architecture-and-Development-Workflow"><a href="#1-Dapp-Architecture-and-Development-Workflow" class="headerlink" title="1. Dapp Architecture and Development Workflow"></a>1. Dapp Architecture and Development Workflow</h2><p>Decentralized applications (Dapps) differ from traditional centralized apps. They run on blockchains or distributed networks, and their logic and data are maintained collectively by multiple participants rather than a single entity.</p>
+<p>Dapp development requires understanding:</p>
+<ul>
+<li>Decentralized tech stack</li>
+<li>Smart contract programming</li>
+<li>Frontend &amp; blockchain interaction</li>
+</ul>
+<hr>
+<h3 id="1-1-Dapp-Architecture"><a href="#1-1-Dapp-Architecture" class="headerlink" title="1.1 Dapp Architecture"></a>1.1 Dapp Architecture</h3><p>Dapp architecture consists of four core components:</p>
+<h4 id="1-Frontend-User-Interface"><a href="#1-Frontend-User-Interface" class="headerlink" title="1. Frontend (User Interface)"></a>1. Frontend (User Interface)</h4><ul>
+<li>Built with HTML, CSS, JavaScript (React, Vue, etc.)</li>
+<li>Interacts with blockchain via wallet-injected provider or RPC node:<ul>
+<li><strong>Read-only calls</strong> (e.g., <code>eth_call</code>) to fetch contract state, events, etc.</li>
+<li><strong>State-changing calls</strong> are signed by wallet and broadcast via RPC node</li>
+</ul>
+</li>
+<li>Integrates blockchain wallets (MetaMask) for authentication and transaction signing</li>
+</ul>
+<h4 id="2-Smart-Contracts"><a href="#2-Smart-Contracts" class="headerlink" title="2. Smart Contracts"></a>2. Smart Contracts</h4><ul>
+<li>Core logic of Dapp, deployed on blockchain</li>
+<li>Executed automatically by blockchain rules</li>
+<li>On Ethereum, written in <strong>Solidity</strong> and run on <strong>EVM</strong></li>
+</ul>
+<h4 id="3-Indexer-Data-Retriever"><a href="#3-Indexer-Data-Retriever" class="headerlink" title="3. Indexer &#x2F; Data Retriever"></a>3. Indexer &#x2F; Data Retriever</h4><ul>
+<li>Captures events emitted by smart contracts (e.g., <code>Transfer</code> event for NFTs)</li>
+<li>Stores processed data in traditional databases (PostgreSQL)</li>
+<li>Enables frontend to query data efficiently</li>
+<li>Example: retrieve all NFTs owned by an address by parsing <code>Transfer</code> events</li>
+</ul>
+<h4 id="4-Blockchain-Decentralized-Storage"><a href="#4-Blockchain-Decentralized-Storage" class="headerlink" title="4. Blockchain &amp; Decentralized Storage"></a>4. Blockchain &amp; Decentralized Storage</h4><ul>
+<li>Blockchain stores smart contract state and transaction history</li>
+<li>Decentralized storage (IPFS, Arweave) stores large unstructured data</li>
+<li>Ensures data persistence and decentralization</li>
+</ul>
+<hr>
+<h3 id="1-2-Dapp-Development-Workflow"><a href="#1-2-Dapp-Development-Workflow" class="headerlink" title="1.2 Dapp Development Workflow"></a>1.2 Dapp Development Workflow</h3><p>Workflow stages:</p>
+<ol>
+<li><p><strong>Requirement Analysis &amp; Planning</strong></p>
+<ul>
+<li>Define functionality: transfers, balance queries, voting, etc.</li>
+<li>Select blockchain platform: Ethereum, Polygon, Solana, etc.</li>
+<li>Design user experience (UX) for blockchain interactions</li>
+</ul>
+</li>
+<li><p><strong>Smart Contract Development</strong></p>
+<ul>
+<li>Write contracts in Solidity</li>
+<li>Write unit tests to ensure correctness</li>
+<li>Audit &amp; optimize for security (reentrancy, integer overflow, etc.)</li>
+</ul>
+</li>
+<li><p><strong>Indexer Development</strong></p>
+<ul>
+<li>Determine what on-chain data frontend needs</li>
+<li>Write indexer in TypeScript (frameworks: Ponder, Subgraph)</li>
+<li>Deploy with Docker or use SaaS indexer services</li>
+</ul>
+</li>
+<li><p><strong>Frontend Development</strong></p>
+<ul>
+<li>Choose framework: React, Vue</li>
+<li>Integrate wallets (MetaMask)</li>
+<li>Fetch blockchain and indexer data for display</li>
+<li>Handle transaction signing &amp; submission</li>
+</ul>
+</li>
+<li><p><strong>Blockchain Interaction</strong></p>
+<ul>
+<li>Use Viem (recommended), Ethers.js, Wagmi</li>
+<li>Read state: call contract functions</li>
+<li>Send transactions: signed via wallet to execute contract functions</li>
+</ul>
+</li>
+<li><p><strong>Deployment &amp; Launch</strong></p>
+<ul>
+<li>Deploy smart contracts: Hardhat or Foundry<ul>
+<li>Testnets: Sepolia, Holesky</li>
+<li>Mainnet deployment</li>
+</ul>
+</li>
+<li>Frontend deployment: IPFS or traditional web hosting (Vercel)</li>
+<li>Maintenance: updates, bug fixes, user feedback</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1-3-Summary"><a href="#1-3-Summary" class="headerlink" title="1.3 Summary"></a>1.3 Summary</h3><p>Dapp development covers:</p>
+<ul>
+<li>Requirement analysis</li>
+<li>Smart contract programming</li>
+<li>Indexer &amp; frontend development</li>
+<li>Deployment</li>
+</ul>
+<p>Challenges unique to Dapps include:</p>
+<ul>
+<li>User experience</li>
+<li>Transaction handling</li>
+<li>Security concerns</li>
+<li>Blockchain transparency and immutability</li>
+</ul>
+<hr>
+<h2 id="2-Ethereum-Development-Environment-Setup"><a href="#2-Ethereum-Development-Environment-Setup" class="headerlink" title="2. Ethereum Development Environment Setup"></a>2. Ethereum Development Environment Setup</h2><h3 id="2-1-Prerequisites"><a href="#2-1-Prerequisites" class="headerlink" title="2.1 Prerequisites"></a>2.1 Prerequisites</h3><ul>
+<li>Node.js (managed with nvm)</li>
+<li>npm or yarn</li>
+<li>Git</li>
+</ul>
+<p>Example commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Install nvm</span><br><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span><br><span class="line"></span><br><span class="line"># Install Node.js LTS</span><br><span class="line">nvm install --lts</span><br><span class="line">nvm use --lts</span><br><span class="line"></span><br><span class="line"># Optional: install yarn</span><br><span class="line">npm install -g yarn</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-2-Local-Ethereum-Development-Chains"><a href="#2-2-Local-Ethereum-Development-Chains" class="headerlink" title="2.2 Local Ethereum Development Chains"></a>2.2 Local Ethereum Development Chains</h3><h4 id="Option-1-Foundry-Rust-based-fast"><a href="#Option-1-Foundry-Rust-based-fast" class="headerlink" title="Option 1: Foundry (Rust-based, fast)"></a>Option 1: Foundry (Rust-based, fast)</h4><ul>
+<li>Install: <code>curl -L https://foundry.paradigm.xyz | bash &amp;&amp; foundryup</code></li>
+<li>Tools:<ul>
+<li><code>forge</code>: build, test, deploy, verify contracts</li>
+<li><code>anvil</code>: local dev node, Ethereum JSON-RPC compatible</li>
+<li><code>cast</code>: CLI for on-chain interactions</li>
+</ul>
+</li>
+<li>Example project initialization: <code>forge init Counter</code></li>
+<li>Compile: <code>forge build</code></li>
+<li>Test: <code>forge test</code></li>
+<li>Local node: <code>anvil</code></li>
+<li>Deployment:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PRIVATE_KEY=&quot;your_private_key_here&quot;</span><br><span class="line">forge script script/Counter.s.sol --rpc-url http://127.0.0.1:8545 --broadcast --private-key $PRIVATE_KEY</span><br></pre></td></tr></table></figure>
+
+<h4 id="Option-2-Hardhat-modern-framework"><a href="#Option-2-Hardhat-modern-framework" class="headerlink" title="Option 2: Hardhat (modern framework)"></a>Option 2: Hardhat (modern framework)</h4><ul>
+<li>Install: <code>npm install --global hardhat</code></li>
+<li>Create project: <code>npx hardhat</code></li>
+<li>Start node: <code>npx hardhat node</code></li>
+<li>Deploy: <code>npx hardhat run scripts/deploy.js --network localhost</code></li>
+</ul>
+<hr>
+<h3 id="2-3-Wallet-and-Frontend-Integration"><a href="#2-3-Wallet-and-Frontend-Integration" class="headerlink" title="2.3 Wallet and Frontend Integration"></a>2.3 Wallet and Frontend Integration</h3><ul>
+<li>Use <strong>MetaMask</strong> as development wallet</li>
+<li>Frontend libraries: <strong>Viem</strong>, <strong>Wagmi</strong></li>
+</ul>
+<hr>
+<h3 id="2-4-Other-Useful-Tools"><a href="#2-4-Other-Useful-Tools" class="headerlink" title="2.4 Other Useful Tools"></a>2.4 Other Useful Tools</h3><ul>
+<li>Remix IDE (browser-based)</li>
+<li>OpenZeppelin contracts (<code>npm install @openzeppelin/contracts</code>)</li>
+<li>Chainlink testnet integration for oracles</li>
+</ul>
+<hr>
+<h2 id="3-RPC-Node-Services"><a href="#3-RPC-Node-Services" class="headerlink" title="3. RPC Node Services"></a>3. RPC Node Services</h2><p>RPC (Remote Procedure Call) nodes bridge frontend apps and blockchain networks.</p>
+<h3 id="3-1-What-is-RPC"><a href="#3-1-What-is-RPC" class="headerlink" title="3.1 What is RPC?"></a>3.1 What is RPC?</h3><ul>
+<li>RPC nodes run blockchain client software, maintaining a full node</li>
+<li>Expose APIs for reading chain data, sending transactions, listening to events</li>
+<li>Analogy: ATM machine connecting to bank</li>
+</ul>
+<hr>
+<h3 id="3-2-Role-of-RPC-in-Web3-Development"><a href="#3-2-Role-of-RPC-in-Web3-Development" class="headerlink" title="3.2 Role of RPC in Web3 Development"></a>3.2 Role of RPC in Web3 Development</h3><ul>
+<li><strong>Read data</strong>: account balance, contract state, block info</li>
+<li><strong>Send transactions</strong>: broadcast signed tx, check confirmations, gas estimation</li>
+<li><strong>Event listening</strong>: subscribe to contract events via WebSocket</li>
+<li><strong>Network management</strong>: switch chains, query network info</li>
+</ul>
+<hr>
+<h3 id="3-3-JSON-RPC-Protocol"><a href="#3-3-JSON-RPC-Protocol" class="headerlink" title="3.3 JSON-RPC Protocol"></a>3.3 JSON-RPC Protocol</h3><ul>
+<li>Ethereum uses JSON-RPC 2.0</li>
+<li>HTTP or WebSocket</li>
+<li>Example request:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">  &quot;method&quot;: &quot;eth_getBalance&quot;,</span><br><span class="line">  &quot;params&quot;: [&quot;0xAddress&quot;, &quot;latest&quot;],</span><br><span class="line">  &quot;id&quot;: 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Common methods:<ul>
+<li><code>eth_getBalance</code></li>
+<li><code>eth_blockNumber</code></li>
+<li><code>eth_sendTransaction</code></li>
+<li><code>eth_call</code></li>
+<li><code>eth_getTransactionReceipt</code></li>
+<li><code>eth_getLogs</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-4-RPC-Providers-Comparison"><a href="#3-4-RPC-Providers-Comparison" class="headerlink" title="3.4 RPC Providers Comparison"></a>3.4 RPC Providers Comparison</h3><table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Features</th>
+<th>Free Tier</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alchemy</td>
+<td>Enterprise-grade, stable</td>
+<td>300M requests&#x2F;mo</td>
+<td>Production, enterprise apps</td>
+</tr>
+<tr>
+<td>Infura</td>
+<td>Established, ConsenSys</td>
+<td>100k requests&#x2F;mo</td>
+<td>Dev&#x2F;test, small projects</td>
+</tr>
+<tr>
+<td>QuickNode</td>
+<td>High-performance, multi-chain</td>
+<td>Limited free tier</td>
+<td>High-frequency, real-time</td>
+</tr>
+<tr>
+<td>Public Node</td>
+<td>Fully free, no registration</td>
+<td>Unlimited*</td>
+<td>Learning, personal projects</td>
+</tr>
+<tr>
+<td>Ankr</td>
+<td>Multi-chain, decentralized</td>
+<td>Limited free tier</td>
+<td>Multi-chain dev</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="3-5-Getting-and-Using-RPC-Endpoints"><a href="#3-5-Getting-and-Using-RPC-Endpoints" class="headerlink" title="3.5 Getting and Using RPC Endpoints"></a>3.5 Getting and Using RPC Endpoints</h3><ol>
+<li>Register and create app (e.g., Alchemy)</li>
+<li>Get RPC URL (e.g., <code>https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY</code>)</li>
+<li>Use in code:</li>
+</ol>
+<p><strong>Viem Example</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createPublicClient, http &#125; from &#x27;viem&#x27;</span><br><span class="line">import &#123; mainnet &#125; from &#x27;viem/chains&#x27;</span><br><span class="line"></span><br><span class="line">const client = createPublicClient(&#123;</span><br><span class="line">  chain: mainnet,</span><br><span class="line">  transport: http(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const balance = await client.getBalance(&#123;</span><br><span class="line">  address: &#x27;0xAddress&#x27;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Ethers.js Example</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const &#123; ethers &#125; = require(&#x27;ethers&#x27;)</span><br><span class="line">const provider = new ethers.JsonRpcProvider(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">const balance = await provider.getBalance(&#x27;0xAddress&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Web3.js Example</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const &#123; Web3 &#125; = require(&#x27;web3&#x27;)</span><br><span class="line">const web3 = new Web3(&#x27;https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY&#x27;)</span><br><span class="line">const balance = await web3.eth.getBalance(&#x27;0xAddress&#x27;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-6-Hardhat-Configuration"><a href="#3-6-Hardhat-Configuration" class="headerlink" title="3.6 Hardhat Configuration"></a>3.6 Hardhat Configuration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">require(&#x27;@nomicfoundation/hardhat-toolbox&#x27;)</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  solidity: &#x27;0.8.19&#x27;,</span><br><span class="line">  networks: &#123;</span><br><span class="line">    mainnet: &#123;</span><br><span class="line">      url: process.env.MAINNET_RPC_URL || &#x27;&#x27;,</span><br><span class="line">      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],</span><br><span class="line">    &#125;,</span><br><span class="line">    sepolia: &#123;</span><br><span class="line">      url: process.env.SEPOLIA_RPC_URL || &#x27;&#x27;,</span><br><span class="line">      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>.env</code> file:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MAINNET_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY</span><br><span class="line">SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY</span><br><span class="line">PRIVATE_KEY=your_private_key_here</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-7-RPC-Best-Practices"><a href="#3-7-RPC-Best-Practices" class="headerlink" title="3.7 RPC Best Practices"></a>3.7 RPC Best Practices</h3><ul>
+<li>Protect API Keys: use <code>.env</code>, ignore in Git</li>
+<li>Error handling &amp; retries: handle network failures</li>
+<li>Rate limiting: throttle requests, use WebSocket for high-frequency</li>
+<li>Multi-node redundancy: fallback to multiple RPCs</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const rpcUrls = [</span><br><span class="line">  &#x27;https://eth-mainnet.g.alchemy.com/v2/KEY1&#x27;,</span><br><span class="line">  &#x27;https://eth-mainnet.infura.io/v3/KEY2&#x27;,</span><br><span class="line">  &#x27;https://rpc.ankr.com/eth&#x27;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">async function callWithFallback(method, params) &#123;</span><br><span class="line">  for (const url of rpcUrls) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      const client = createPublicClient(&#123; chain: mainnet, transport: http(url) &#125;)</span><br><span class="line">      return await client.request(&#123; method, params &#125;)</span><br><span class="line">    &#125; catch &#123;</span><br><span class="line">      console.warn(`RPC $&#123;url&#125; failed, trying next...`)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  throw new Error(&#x27;All RPC endpoints failed&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Monitoring: log success rate, latency, and usage</li>
+<li>Local nodes: use Hardhat Node or Anvil for dev&#x2F;test</li>
+</ul>
+<hr>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/English/">English</a><a class="post-meta__tags" href="/tags/Web3/">Web3</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍"><img class="cover" src="/img/post-bg2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">2025年度书籍</div></div><div class="info-2"><div class="info-item-1">2025 年度书籍2025也是很曲折的一年，很多时候太忙或者没心情看书，所以读的书并不多。即便如此，我还是觉得应该记录一下2025年我读的书里面，最让我有感觉的几本书。 The Catcher in the Rye麦田里的守望者的中文译本我其实很早就读过了，但是从来没有勇气去读全英文的原版。如今在国外历练了英文水平，于是打算重新读一下原文，感受一下与中文译本的不同。 其实我很小的时候就听说塞林格在小说里从来不忌讳用在正式会话里让人觉得粗鄙，甚至可以说是骂人的词语。 但是很早看过的译本里面，我印象里让人感到冒犯的词语似乎只有“该死的”，“王八蛋”这种在现代骂战里面可以说是毫无攻击性的词语。如今看了原文，更加感觉霍尔顿用的很多词语，例如goddamn,...</div></div></div></a><a class="pagination-related" href="/2026/01/17/Solidity%20Basic%20Syntax/" title="Solidity Basics"><img class="cover" src="/img/post-bg3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Solidity Basics</div></div><div class="info-2"><div class="info-item-1">Solidity Basic Syntax Notes1. File StructureEvery Solidity file should start with a license identifier and the pragma version. 12// SPDX-License-Identifier: MITpragma solidity ^0.8.20; // Specifies the compiler version   2. Contract StructureA contract is similar to a class in object-oriented languages. 123456789contract MyContract &#123;    // State variables (stored on the blockchain)    uint256 public myNumber;    // Constructor (runs once upon deployment)    constructor(uint256...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/01/12/BlockChain%20-%20basic%20concepts/" title="Blcokchain - Basic Concepts"><img class="cover" src="/img/post-bg1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-12</div><div class="info-item-2">Blcokchain - Basic Concepts</div></div><div class="info-2"><div class="info-item-1">Blockchain Basics1. What is Blockchain?Blockchain is a decentralized, distributed ledger technology used to record information securely, transparently, and immutably across multiple participants. It consists of a series of chronologically linked “blocks,” each containing transaction data and the hash of the previous block, ensuring the integrity of the chain. Key Features of Blockchain Immutable: Once data is written to the chain, it is nearly impossible to alter Transparent: Transactions on...</div></div></div></a><a class="pagination-related" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts"><img class="cover" src="/img/post-bg3.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-13</div><div class="info-item-2">Ethereum - basic concepts</div></div><div class="info-2"><div class="info-item-1">Ethereum Basics1. What is Ethereum?Ethereum is a decentralized, open-source blockchain platform designed to support smart contracts and decentralized applications (dApps). Unlike Bitcoin, which mainly focuses on digital currency, Ethereum acts as a programmable blockchain that enables developers to build complex on-chain logic. Ethereum has a native cryptocurrency called Ether (ETH), which is used to pay transaction fees and secure the network. Ethereum is often described as a “world...</div></div></div></a><a class="pagination-related" href="/2026/01/15/Web3%20Operation/" title="Web3 Operation"><img class="cover" src="/img/post-bg4.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-15</div><div class="info-item-2">Web3 Operation</div></div><div class="info-2"><div class="info-item-1">Web3 OperationWallet Key ConceptsMnemonic Phrase (Seed Phrase) A human-readable list of words used to generate private keys Usually 12 or 24 words (BIP-39 standard) Acts as the master backup of a wallet Anyone with it can fully control the wallet  Private Key A secret cryptographic number Used to sign transactions and prove ownership Derived from the mnemonic phrase Must never be shared  Public Key Generated from the private key Used to verify transaction signatures Safe to share...</div></div></div></a><a class="pagination-related" href="/2025/11/02/All%20about%20DOM%20and%20Browser%20Performance/" title="All about DOM API and Browser Performance"><img class="cover" src="/img/post-bg2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-02</div><div class="info-item-2">All about DOM API and Browser Performance</div></div><div class="info-2"><div class="info-item-1">The DOM APIThe Document Object Model (DOM) is a tree-like, in-memory representation of your HTML document.When the browser parses an HTML file, it creates objects that form a hierarchical tree structure where:  Each HTML element becomes a node.  Text inside elements becomes text nodes.  The relationships between elements (nested tags) form parent-child links.   So the key fact is that in DOM, EVERYTHING is about nodes.  DOM NodeBehind the scenes, each DOM node is a complex object...</div></div></div></a><a class="pagination-related" href="/2025/11/16/Asynchronous%20Javascript/" title="Asynchronous Javascript"><img class="cover" src="/img/post-bg2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-16</div><div class="info-item-2">Asynchronous Javascript</div></div><div class="info-2"><div class="info-item-1">Asynchronous JSJS has only one thread, so it cannot handle multiple tasks at the same time. But thanks to the non-blocking behaviour, we can carry on to the next task before the last task is finished, this is Asynchronous Javascript. HTTP&#x2F;HTTPSWhen making communication with a server, we use HTTP&#x2F;HTTPS requests. What happens when we make an HTTP&#x2F;HTTPS request:  Parse URL and check cache: to make a request we need to know the url of the server, so we need to parse the...</div></div></div></a><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/post-bg3.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="card-widget visitor-location-map" id="visitor-location-map"><div class="item-headline"><i class="fas fa-map-marker-alt"></i><span>Your Location</span></div><div class="item-content"><div id="location-container" style="
+  width: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  padding: 15px; 
+  background: rgba(255,255,255,0.05); 
+  border-radius: 14px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+  backdrop-filter: blur(6px); 
+  transition: all 0.3s ease;
+">
+  <div id="map-display" style="
+    margin-bottom: 10px; 
+    min-height: 150px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  ">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+
+  <div id="location-text" style="
+    font-size: 14px; 
+    font-weight: 600; 
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+  ">Locating...</div>
+  <div id="location-detail" style="
+    font-size: 12px; 
+    margin-top: 4px;
+  "></div>
+
+  <i id="quote-text" style="
+    font-size: 12px; 
+    margin-top: 8px; 
+    cursor: help; 
+    display: block; 
+    line-height: 1.4;
+    transition: all 0.2s ease;
+  "></i>
+  <i id="quote-author" style="
+    font-size: 11px; 
+    opacity: 0.7; 
+    display: block; 
+    margin-top: 2px; 
+    transition: all 0.2s ease;
+  "></i>
+</div>
+
+<script>
+  function formatHour12(hour) {
+    const suffix = hour >= 12 ? "PM" : "AM";
+    const h = hour % 12 === 0 ? 12 : hour % 12;
+    return `${h} ${suffix}`;
+  }
+
+  function updateVisitorMap() {
+    const hour = new Date().getHours();
+    const quote = window.QuoteService?.getQuote(hour);
+
+    fetch('https://ipwho.is/')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) throw new Error();
+
+        const textEl = document.getElementById('location-text');
+        const detailEl = document.getElementById('location-detail');
+        const mapEl = document.getElementById('map-display');
+        const quoteEl = document.getElementById('quote-text');
+        const authorEl = document.getElementById('quote-author');
+
+        const { country, region, city, latitude, longitude } = data;
+
+        const mapUrl =
+          `https://static-maps.yandex.ru/1.x/?lang=en-US&ll=${longitude},${latitude}` +
+          `&z=4&l=map&size=250,180&pt=${longitude},${latitude},pm2rdm`;
+
+        mapEl.innerHTML =
+          `<img src="${mapUrl}" style="border-radius:12px; width:100%; height:auto;">`;
+
+        textEl.innerHTML = `Welcome, it's ${formatHour12(hour)}`;
+        detailEl.innerHTML = `${region} · ${city}`;
+
+        if (!quote) return;
+
+        /* 默认：英文 */
+        quoteEl.innerHTML = quote.en;
+        authorEl.innerHTML = `— ${quote.authorEN}`;
+
+        /* hover：切换为中文 */
+        quoteEl.onmouseenter = () => {
+          quoteEl.innerHTML = quote.cn;
+          authorEl.innerHTML = `— ${quote.authorCN}`;
+        };
+
+        quoteEl.onmouseleave = () => {
+          quoteEl.innerHTML = quote.en;
+          authorEl.innerHTML = `— ${quote.authorEN}`;
+        };
+      })
+      .catch(() => {
+        document.getElementById('location-text').innerHTML =
+          "Can't find your location, but welcome to my blog!";
+      });
+  }
+
+  window.addEventListener('load', updateVisitorMap);
+</script>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Smart-Contract-Development"><span class="toc-number">1.</span> <span class="toc-text">Smart Contract Development</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Dapp-Architecture-and-Development-Workflow"><span class="toc-number">2.</span> <span class="toc-text">1. Dapp Architecture and Development Workflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Dapp-Architecture"><span class="toc-number">2.1.</span> <span class="toc-text">1.1 Dapp Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Frontend-User-Interface"><span class="toc-number">2.1.1.</span> <span class="toc-text">1. Frontend (User Interface)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Smart-Contracts"><span class="toc-number">2.1.2.</span> <span class="toc-text">2. Smart Contracts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Indexer-Data-Retriever"><span class="toc-number">2.1.3.</span> <span class="toc-text">3. Indexer &#x2F; Data Retriever</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Blockchain-Decentralized-Storage"><span class="toc-number">2.1.4.</span> <span class="toc-text">4. Blockchain &amp; Decentralized Storage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Dapp-Development-Workflow"><span class="toc-number">2.2.</span> <span class="toc-text">1.2 Dapp Development Workflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Summary"><span class="toc-number">2.3.</span> <span class="toc-text">1.3 Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Ethereum-Development-Environment-Setup"><span class="toc-number">3.</span> <span class="toc-text">2. Ethereum Development Environment Setup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Prerequisites"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 Prerequisites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Local-Ethereum-Development-Chains"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 Local Ethereum Development Chains</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Option-1-Foundry-Rust-based-fast"><span class="toc-number">3.2.1.</span> <span class="toc-text">Option 1: Foundry (Rust-based, fast)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Option-2-Hardhat-modern-framework"><span class="toc-number">3.2.2.</span> <span class="toc-text">Option 2: Hardhat (modern framework)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Wallet-and-Frontend-Integration"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 Wallet and Frontend Integration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Other-Useful-Tools"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 Other Useful Tools</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-RPC-Node-Services"><span class="toc-number">4.</span> <span class="toc-text">3. RPC Node Services</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-What-is-RPC"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 What is RPC?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Role-of-RPC-in-Web3-Development"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 Role of RPC in Web3 Development</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-JSON-RPC-Protocol"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 JSON-RPC Protocol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-RPC-Providers-Comparison"><span class="toc-number">4.4.</span> <span class="toc-text">3.4 RPC Providers Comparison</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Getting-and-Using-RPC-Endpoints"><span class="toc-number">4.5.</span> <span class="toc-text">3.5 Getting and Using RPC Endpoints</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Hardhat-Configuration"><span class="toc-number">4.6.</span> <span class="toc-text">3.6 Hardhat Configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-RPC-Best-Practices"><span class="toc-number">4.7.</span> <span class="toc-text">3.7 RPC Best Practices</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/17/Solidity%20Basic%20Syntax/" title="Solidity Basics"><img src="/img/post-bg3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solidity Basics"/></a><div class="content"><a class="title" href="/2026/01/17/Solidity%20Basic%20Syntax/" title="Solidity Basics">Solidity Basics</a><time datetime="2026-01-17T08:33:03.000Z" title="发表于 2026-01-17 16:33:03">2026-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/16/Smart%20Contract%20Basics/" title="Smart Contract Basics"><img src="/img/post-bg1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Smart Contract Basics"/></a><div class="content"><a class="title" href="/2026/01/16/Smart%20Contract%20Basics/" title="Smart Contract Basics">Smart Contract Basics</a><time datetime="2026-01-16T10:25:33.000Z" title="发表于 2026-01-16 18:25:33">2026-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍"><img src="/img/post-bg2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025年度书籍"/></a><div class="content"><a class="title" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍">2025年度书籍</a><time datetime="2026-01-16T07:29:11.000Z" title="发表于 2026-01-16 15:29:11">2026-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/Web3%20Operation/" title="Web3 Operation"><img src="/img/post-bg4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Web3 Operation"/></a><div class="content"><a class="title" href="/2026/01/15/Web3%20Operation/" title="Web3 Operation">Web3 Operation</a><time datetime="2026-01-15T09:57:37.000Z" title="发表于 2026-01-15 17:57:37">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts"><img src="/img/post-bg3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ethereum - basic concepts"/></a><div class="content"><a class="title" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts">Ethereum - basic concepts</a><time datetime="2026-01-13T12:40:51.000Z" title="发表于 2026-01-13 20:40:51">2026-01-13</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"bottom","lang":"en"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'Emulisy/Emulisy.github.io',
+      'data-repo-id': 'R_kgDOPAbCig',
+      'data-category-id': 'DIC_kwDOPAbCis4C05wb',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/scripts/quotes.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

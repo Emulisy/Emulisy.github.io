@@ -1,0 +1,715 @@
+<!DOCTYPE html><html lang="[&quot;zh-CN&quot;,&quot;en&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Web3 Operation | Emulisy's blog</title><meta name="author" content="Emulisy"><meta name="copyright" content="Emulisy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Web3 OperationWallet Key ConceptsMnemonic Phrase (Seed Phrase) A human-readable list of words used to generate private keys Usually 12 or 24 words (BIP-39 standard) Acts as the master backup of a wall">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web3 Operation">
+<meta property="og:url" content="https://emulisy.github.io/2026/01/15/Web3%20Operation/index.html">
+<meta property="og:site_name" content="Emulisy&#39;s blog">
+<meta property="og:description" content="Web3 OperationWallet Key ConceptsMnemonic Phrase (Seed Phrase) A human-readable list of words used to generate private keys Usually 12 or 24 words (BIP-39 standard) Acts as the master backup of a wall">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://emulisy.github.io/img/post-bg4.jpg">
+<meta property="article:published_time" content="2026-01-15T09:57:37.000Z">
+<meta property="article:modified_time" content="2026-01-15T14:20:25.844Z">
+<meta property="article:author" content="Emulisy">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="Web3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://emulisy.github.io/img/post-bg4.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Web3 Operation",
+  "url": "https://emulisy.github.io/2026/01/15/Web3%20Operation/",
+  "image": "https://emulisy.github.io/img/post-bg4.jpg",
+  "datePublished": "2026-01-15T09:57:37.000Z",
+  "dateModified": "2026-01-15T14:20:25.844Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Emulisy",
+      "url": "https://emulisy.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://emulisy.github.io/2026/01/15/Web3%20Operation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Web3 Operation',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/modify.css"><link rel="stylesheet" href="/css/quote.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div class="load-page" id="loading-box"><style>* { box-sizing: border-box; margin:0; padding:0; }
+
+.load-page {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    opacity: 1;
+}
+
+.load-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+    width: 200px;
+}
+
+.load-1 {
+    display: flex;
+    gap: 2rem;
+    position: relative;
+}
+
+#heart-wrapper { transform: rotate(-135deg) scale(0.9) translateY(0.4rem); }
+
+#heart {
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    transform-origin: center;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+#heart::before, #heart::after {
+    content: "";
+    position: absolute;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: white;
+    border-radius: 50%;
+}
+
+#heart::before { top: 0.9rem; left: 0; }
+#heart::after { top: 0; left: 0.9rem; }
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+#x {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    transition: transform 0.6s ease-in-out;
+}
+
+#rect1, #rect2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.2rem;
+    height: 0.8rem;
+    background: white;
+    transform-origin: center center;
+}
+
+#rect1 { transform: translate(-50%, -50%) rotate(45deg); border-radius:1rem; width:3.5rem; }
+#rect2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.load-2 {
+    position: absolute;
+    bottom: 0;
+    height: 0.7rem;
+    background: white;
+    animation: load2 0.3s linear forwards;
+    transition: height 0.3s ease-in, width 0.4s ease-in;
+    transform-origin: center right;
+}
+
+@keyframes load2 {
+    0% { transform: translateX(-15rem); width:0; }
+    40% { transform: translateX(-7rem); width:14rem; }
+    70% { transform: translateX(-3rem); width:10rem; }
+    100% { transform: translateX(0); width:6rem; }
+}
+.load-rect-2 { position:fixed; bottom:0; height:0; width:100vw; background:white; z-index:10000; transition: height 0.15s ease-in; }
+</style><div class="load-container"><div class="load-1"><div id="heart-wrapper"><div id="heart"></div></div><div id="x"><div id="rect1"></div><div id="rect2"></div></div></div><div class="load-2"></div></div></div><div class="load-rect-2"><script>(function(){
+    const startTime = Date.now();
+    let i = 0;
+    const $loadingBox = document.getElementById("loading-box");
+    const rect1 = document.querySelector(".load-2");
+    const rect2 = document.querySelector(".load-rect-2");
+
+    rect1.addEventListener("animationend", () => {
+        rect1.style.animation = "none";
+        rect1.style.width = "5.5rem"
+    })
+
+    function rotateX() {
+        const xbox = document.querySelector("#x");
+        if(xbox){ i++; xbox.style.transform = `rotate(${i*45}deg)`; }
+    }
+
+    function loadComplete() { //animation when loading is completed
+        rect1.style.width = "10rem";
+        setTimeout(() => {
+            rect1.style.height = "100vh";
+        }, 350);
+        setTimeout(() => {
+            rect2.style.height = "100vh";
+        }, 700);
+        setTimeout(() => {
+            if ($loadingBox) {
+                $loadingBox.style.display = "none";
+            }
+            if (rect2) {
+                rect2.style.top = "0";
+                rect2.style.height = "0";
+            }
+        }, 1000)
+    }
+
+    window.addEventListener("DOMContentLoaded", ()=>{
+        const timePassed = Date.now() - startTime;
+        const minDisplay = 2000;  // minimum loading time
+        const timeRemaining = Math.max(0, minDisplay - timePassed);
+        setTimeout(loadComplete, timeRemaining);
+    });
+
+    setInterval(rotateX, 1000);
+
+    // PJAX support
+    if(!window.theme || !theme.pjax || !theme.pjax.enable){
+        if(window.btf){
+            btf.addGlobalFn("pjaxSend",()=>{ $loadingBox.style.display="flex"; $loadingBox.style.opacity="1"; },"preloader_init");
+            btf.addGlobalFn("pjaxComplete",()=>{
+                $loadingBox.style.opacity="0";
+                setTimeout(()=>{ $loadingBox.style.display="none"; }, 200);
+            },"preloader_end");
+        }
+    }
+})();</script></div><div id="web_bg" style="background-image: url(/img/home-bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/post-bg4.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Emulisy's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Web3 Operation</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://fuminori-matsumoto-music-library.netlify.app/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://taskly-gray-sigma.vercel.app/"><i class="fa-fw fa-solid fa-list-check"></i><span> task management</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Web3 Operation</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-15T09:57:37.000Z" title="发表于 2026-01-15 17:57:37">2026-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-15T14:20:25.844Z" title="更新于 2026-01-15 22:20:25">2026-01-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">693</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Web3-Operation"><a href="#Web3-Operation" class="headerlink" title="Web3 Operation"></a>Web3 Operation</h1><h2 id="Wallet-Key-Concepts"><a href="#Wallet-Key-Concepts" class="headerlink" title="Wallet Key Concepts"></a>Wallet Key Concepts</h2><h3 id="Mnemonic-Phrase-Seed-Phrase"><a href="#Mnemonic-Phrase-Seed-Phrase" class="headerlink" title="Mnemonic Phrase (Seed Phrase)"></a>Mnemonic Phrase (Seed Phrase)</h3><ul>
+<li>A human-readable list of words used to generate private keys</li>
+<li>Usually 12 or 24 words (BIP-39 standard)</li>
+<li>Acts as the master backup of a wallet</li>
+<li>Anyone with it can fully control the wallet</li>
+</ul>
+<h3 id="Private-Key"><a href="#Private-Key" class="headerlink" title="Private Key"></a>Private Key</h3><ul>
+<li>A secret cryptographic number</li>
+<li>Used to sign transactions and prove ownership</li>
+<li>Derived from the mnemonic phrase</li>
+<li>Must never be shared</li>
+</ul>
+<h3 id="Public-Key"><a href="#Public-Key" class="headerlink" title="Public Key"></a>Public Key</h3><ul>
+<li>Generated from the private key</li>
+<li>Used to verify transaction signatures</li>
+<li>Safe to share publicly</li>
+<li>Cannot be reversed to get the private key</li>
+</ul>
+<h3 id="Wallet-Address"><a href="#Wallet-Address" class="headerlink" title="Wallet Address"></a>Wallet Address</h3><ul>
+<li>Derived from the public key</li>
+<li>Used to receive assets on the blockchain</li>
+<li>Public and shareable</li>
+<li>Example (Ethereum): <code>0x...</code></li>
+</ul>
+<h3 id="Relationship"><a href="#Relationship" class="headerlink" title="Relationship"></a>Relationship</h3><ul>
+<li>Mnemonic Phrase → Private Key → Public Key → Wallet Address</li>
+</ul>
+<hr>
+<h1 id="From-Wallet-Transaction-to-Block-Confirmation-Complete-Flow"><a href="#From-Wallet-Transaction-to-Block-Confirmation-Complete-Flow" class="headerlink" title="From Wallet Transaction to Block Confirmation: Complete Flow"></a>From Wallet Transaction to Block Confirmation: Complete Flow</h1><h2 id="1-Transaction-Creation-Wallet-Side"><a href="#1-Transaction-Creation-Wallet-Side" class="headerlink" title="1. Transaction Creation (Wallet Side)"></a>1. Transaction Creation (Wallet Side)</h2><ol>
+<li><p><strong>User initiates a transaction in the wallet</strong></p>
+<ul>
+<li>Example: Alice wants to send 1 ETH to Bob</li>
+<li>Wallet generates a transaction object:<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;AliceAddress&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BobAddress&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="number">1</span> ETH<span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span><span class="punctuation">:</span> <span class="number">21000</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;gasPrice&quot;</span><span class="punctuation">:</span> <span class="number">50</span> Gwei</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>nonce</code>: sequence number to prevent replay attacks</li>
+<li><code>gas</code>: transaction fee to compensate miners&#x2F;validators</li>
+</ul>
+</li>
+<li><p><strong>Wallet signs the transaction with the private key</strong></p>
+<ul>
+<li>Ensures the transaction is authorized by Alice</li>
+<li>Anyone can verify the signature but cannot forge it</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="2-Transaction-Broadcasting"><a href="#2-Transaction-Broadcasting" class="headerlink" title="2. Transaction Broadcasting"></a>2. Transaction Broadcasting</h2><ol>
+<li>Wallet broadcasts the signed transaction to the blockchain network (P2P network)</li>
+<li>Nodes receive the transaction and place it in the <strong>mempool</strong> (pending transaction pool)<ul>
+<li>Transactions in mempool are waiting to be included in a block</li>
+</ul>
+</li>
+<li>At this stage, the transaction is <strong>not yet part of any block</strong></li>
+</ol>
+<hr>
+<h2 id="3-Transaction-Validation-Nodes-Miners-Validators"><a href="#3-Transaction-Validation-Nodes-Miners-Validators" class="headerlink" title="3. Transaction Validation (Nodes &#x2F; Miners &#x2F; Validators)"></a>3. Transaction Validation (Nodes &#x2F; Miners &#x2F; Validators)</h2><p>Before packaging into a block, transactions are validated:</p>
+<ol>
+<li><strong>Signature verification</strong> → confirms the transaction is from Alice</li>
+<li><strong>Sufficient balance</strong> → Alice has enough ETH + gas</li>
+<li><strong>Nonce correctness</strong> → prevents duplicate transactions</li>
+</ol>
+<p>✅ Only valid transactions are eligible to be included in a block</p>
+<hr>
+<h2 id="4-Block-Packaging"><a href="#4-Block-Packaging" class="headerlink" title="4. Block Packaging"></a>4. Block Packaging</h2><ol>
+<li>Miner&#x2F;validator selects transactions from the mempool<ul>
+<li>Usually prioritizes transactions with higher gas fees</li>
+</ul>
+</li>
+<li>Creates a new block:<ul>
+<li>Contains a list of transactions</li>
+<li>Includes <strong>previous block hash</strong></li>
+<li>Constructs a block header:<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Block N+1</span><br><span class="line">  - PreviousHash: hash(Block N)</span><br><span class="line">  - MerkleRoot: hash(all transactions)</span><br><span class="line">  - Timestamp: 1673779200</span><br><span class="line">  - Nonce: ??? (used in PoW)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>Essentially, the block organizes transactions into a structured format ready for consensus</li>
+</ol>
+<hr>
+<h2 id="5-Consensus-Phase"><a href="#5-Consensus-Phase" class="headerlink" title="5. Consensus Phase"></a>5. Consensus Phase</h2><p>Different blockchains use different consensus mechanisms:</p>
+<h3 id="a-Proof-of-Work-PoW-e-g-Bitcoin"><a href="#a-Proof-of-Work-PoW-e-g-Bitcoin" class="headerlink" title="a. Proof of Work (PoW, e.g., Bitcoin)"></a>a. Proof of Work (PoW, e.g., Bitcoin)</h3><ul>
+<li>Miner performs <strong>work computation</strong></li>
+<li>Tries different <code>Nonce</code> values to find a hash below the target</li>
+<li>Successfully mined block is broadcast to the network</li>
+</ul>
+<h3 id="b-Proof-of-Stake-PoS-e-g-Ethereum-2-0"><a href="#b-Proof-of-Stake-PoS-e-g-Ethereum-2-0" class="headerlink" title="b. Proof of Stake (PoS, e.g., Ethereum 2.0)"></a>b. Proof of Stake (PoS, e.g., Ethereum 2.0)</h3><ul>
+<li>Validator is selected as block proposer</li>
+<li>Verifies transaction validity</li>
+<li>Signs the block and broadcasts it</li>
+<li>Other validators vote to finalize the block</li>
+</ul>
+<blockquote>
+<p>Core idea: global agreement on which block is accepted</p>
+</blockquote>
+<hr>
+<h2 id="6-Block-Confirmation-On-chain"><a href="#6-Block-Confirmation-On-chain" class="headerlink" title="6. Block Confirmation (On-chain)"></a>6. Block Confirmation (On-chain)</h2><ol>
+<li>Nodes receive the new block and re-verify transactions and block integrity</li>
+<li>Updates local ledger&#x2F;state</li>
+<li>Block is appended to the blockchain<ul>
+<li>Links to previous block hash</li>
+<li>Transactions in this block are now confirmed</li>
+</ul>
+</li>
+<li>Wallet can check transaction status:<ul>
+<li>“Pending” → “Confirmed after 1&#x2F;2&#x2F;3 blocks”</li>
+<li>Confirmed transactions are immutable</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="7-Summary-Flow-Diagram-Text-Version"><a href="#7-Summary-Flow-Diagram-Text-Version" class="headerlink" title="7. Summary Flow Diagram (Text Version)"></a>7. Summary Flow Diagram (Text Version)</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Wallet creates &amp; signs transaction</span><br><span class="line">         ↓</span><br><span class="line">Broadcast to network (mempool)</span><br><span class="line">         ↓</span><br><span class="line">Nodes/Miners validate transactions</span><br><span class="line">         ↓</span><br><span class="line">Transactions packaged into new block</span><br><span class="line">         ↓</span><br><span class="line">Consensus mechanism confirms the block</span><br><span class="line">         ↓</span><br><span class="line">Block appended to blockchain, transaction complete</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Wallet-Node-RPC-and-Blockchain-Network"><a href="#Wallet-Node-RPC-and-Blockchain-Network" class="headerlink" title="Wallet, Node, RPC, and Blockchain Network"></a>Wallet, Node, RPC, and Blockchain Network</h1><h2 id="1-Wallet"><a href="#1-Wallet" class="headerlink" title="1. Wallet"></a>1. Wallet</h2><ul>
+<li>Manages <strong>private keys, public keys, and addresses</strong></li>
+<li>Functions:<ul>
+<li>Sign transactions</li>
+<li>Query balances and transaction status</li>
+<li>Interact with blockchain via nodes</li>
+</ul>
+</li>
+<li>Does <strong>not store the blockchain</strong> or validate transactions</li>
+</ul>
+<h2 id="2-Node"><a href="#2-Node" class="headerlink" title="2. Node"></a>2. Node</h2><ul>
+<li>Computer in the blockchain network holding <strong>ledger&#x2F;state</strong></li>
+<li>Functions:<ul>
+<li>Validate transactions and blocks</li>
+<li>Store blockchain data</li>
+<li>Provide <strong>RPC interface</strong> for wallets and apps</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-RPC-Remote-Procedure-Call"><a href="#3-RPC-Remote-Procedure-Call" class="headerlink" title="3. RPC (Remote Procedure Call)"></a>3. RPC (Remote Procedure Call)</h2><ul>
+<li>Interface to interact with nodes remotely</li>
+<li>Functions:<ul>
+<li>Query account balance</li>
+<li>Broadcast signed transactions</li>
+<li>Retrieve block or transaction info</li>
+</ul>
+</li>
+<li>Protocols:<ul>
+<li>HTTP &#x2F; HTTPS (JSON-RPC)</li>
+<li>WebSocket (for real-time events)</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Blockchain-Network"><a href="#4-Blockchain-Network" class="headerlink" title="4. Blockchain Network"></a>4. Blockchain Network</h2><ul>
+<li>P2P network of nodes</li>
+<li>Nodes sync blocks and transactions</li>
+<li>Wallet accesses the network <strong>indirectly via node RPC</strong></li>
+</ul>
+<h2 id="5-Wallet-Node-Network-Connection"><a href="#5-Wallet-Node-Network-Connection" class="headerlink" title="5. Wallet-Node-Network Connection"></a>5. Wallet-Node-Network Connection</h2><pre><code class="language-text">Wallet (UI + Private Key)
+         |
+         | RPC/API call
+         v
+Node (Full / Light / Hosted)
+         |
+         | P2P network sync
+         v
+Blockchain Network
+</code></pre>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/English/">English</a><a class="post-meta__tags" href="/tags/Web3/">Web3</a></div><div class="post-share"><div class="social-share" data-image="/img/post-bg4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts"><img class="cover" src="/img/post-bg3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Ethereum - basic concepts</div></div><div class="info-2"><div class="info-item-1">Ethereum Basics1. What is Ethereum?Ethereum is a decentralized, open-source blockchain platform designed to support smart contracts and decentralized applications (dApps). Unlike Bitcoin, which mainly focuses on digital currency, Ethereum acts as a programmable blockchain that enables developers to build complex on-chain logic. Ethereum has a native cryptocurrency called Ether (ETH), which is used to pay transaction fees and secure the network. Ethereum is often described as a “world...</div></div></div></a><a class="pagination-related" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍"><img class="cover" src="/img/post-bg2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">2025年度书籍</div></div><div class="info-2"><div class="info-item-1">2025 年度书籍2025也是很曲折的一年，很多时候太忙或者没心情看书，所以读的书并不多。即便如此，我还是觉得应该记录一下2025年我读的书里面，最让我有感觉的几本书。 The Catcher in the Rye麦田里的守望者的中文译本我其实很早就读过了，但是从来没有勇气去读全英文的原版。如今在国外历练了英文水平，于是打算重新读一下原文，感受一下与中文译本的不同。 其实我很小的时候就听说塞林格在小说里从来不忌讳用在正式会话里让人觉得粗鄙，甚至可以说是骂人的词语。 但是很早看过的译本里面，我印象里让人感到冒犯的词语似乎只有“该死的”，“王八蛋”这种在现代骂战里面可以说是毫无攻击性的词语。如今看了原文，更加感觉霍尔顿用的很多词语，例如goddamn,...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/01/12/BlockChain%20-%20basic%20concepts/" title="Blcokchain - Basic Concepts"><img class="cover" src="/img/post-bg1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-12</div><div class="info-item-2">Blcokchain - Basic Concepts</div></div><div class="info-2"><div class="info-item-1">Blockchain Basics1. What is Blockchain?Blockchain is a decentralized, distributed ledger technology used to record information securely, transparently, and immutably across multiple participants. It consists of a series of chronologically linked “blocks,” each containing transaction data and the hash of the previous block, ensuring the integrity of the chain. Key Features of Blockchain Immutable: Once data is written to the chain, it is nearly impossible to alter Transparent: Transactions on...</div></div></div></a><a class="pagination-related" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts"><img class="cover" src="/img/post-bg3.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-13</div><div class="info-item-2">Ethereum - basic concepts</div></div><div class="info-2"><div class="info-item-1">Ethereum Basics1. What is Ethereum?Ethereum is a decentralized, open-source blockchain platform designed to support smart contracts and decentralized applications (dApps). Unlike Bitcoin, which mainly focuses on digital currency, Ethereum acts as a programmable blockchain that enables developers to build complex on-chain logic. Ethereum has a native cryptocurrency called Ether (ETH), which is used to pay transaction fees and secure the network. Ethereum is often described as a “world...</div></div></div></a><a class="pagination-related" href="/2026/01/16/Smart%20Contract%20Basics/" title="Smart Contract Basics"><img class="cover" src="/img/post-bg1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-16</div><div class="info-item-2">Smart Contract Basics</div></div><div class="info-2"><div class="info-item-1">Smart Contract Development1. Dapp Architecture and Development WorkflowDecentralized applications (Dapps) differ from traditional centralized apps. They run on blockchains or distributed networks, and their logic and data are maintained collectively by multiple participants rather than a single entity. Dapp development requires understanding:  Decentralized tech stack Smart contract programming Frontend &amp; blockchain interaction   1.1 Dapp ArchitectureDapp architecture consists of four...</div></div></div></a><a class="pagination-related" href="/2025/11/02/All%20about%20DOM%20and%20Browser%20Performance/" title="All about DOM API and Browser Performance"><img class="cover" src="/img/post-bg2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-02</div><div class="info-item-2">All about DOM API and Browser Performance</div></div><div class="info-2"><div class="info-item-1">The DOM APIThe Document Object Model (DOM) is a tree-like, in-memory representation of your HTML document.When the browser parses an HTML file, it creates objects that form a hierarchical tree structure where:  Each HTML element becomes a node.  Text inside elements becomes text nodes.  The relationships between elements (nested tags) form parent-child links.   So the key fact is that in DOM, EVERYTHING is about nodes.  DOM NodeBehind the scenes, each DOM node is a complex object...</div></div></div></a><a class="pagination-related" href="/2025/11/16/Asynchronous%20Javascript/" title="Asynchronous Javascript"><img class="cover" src="/img/post-bg2.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-16</div><div class="info-item-2">Asynchronous Javascript</div></div><div class="info-2"><div class="info-item-1">Asynchronous JSJS has only one thread, so it cannot handle multiple tasks at the same time. But thanks to the non-blocking behaviour, we can carry on to the next task before the last task is finished, this is Asynchronous Javascript. HTTP&#x2F;HTTPSWhen making communication with a server, we use HTTP&#x2F;HTTPS requests. What happens when we make an HTTP&#x2F;HTTPS request:  Parse URL and check cache: to make a request we need to know the url of the server, so we need to parse the...</div></div></div></a><a class="pagination-related" href="/2025/09/02/CS571%20API%20Requests/" title="CS571 More about Fetch"><img class="cover" src="/img/post-bg3.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-02</div><div class="info-item-2">CS571 More about Fetch</div></div><div class="info-2"><div class="info-item-1">CS571 API Requests with JavascriptPrerequisites: Solid understanding to Javascript fundamentalslecture video(web dev basic 2) APIs and The DOM(Document Object Model) APIApplication Programming Interfaces(APIs) is a bit like ADTs om data structures. Without knowing the underlying principles, we can use properties assigned to the ADT and carry out our implementation. API, on the other hand, allows us to use complex functionalities using simple syntax in our actual code. Typically, there are...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Emulisy</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Emulisy"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Emulisy" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:ianzhang2088979637@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">我的避风港——存储了我的技术博客，读书笔记还有杂谈等~</div></div><div class="card-widget visitor-location-map" id="visitor-location-map"><div class="item-headline"><i class="fas fa-map-marker-alt"></i><span>Your Location</span></div><div class="item-content"><div id="location-container" style="
+  width: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  padding: 15px; 
+  background: rgba(255,255,255,0.05); 
+  border-radius: 14px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+  backdrop-filter: blur(6px); 
+  transition: all 0.3s ease;
+">
+  <div id="map-display" style="
+    margin-bottom: 10px; 
+    min-height: 150px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  ">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+
+  <div id="location-text" style="
+    font-size: 14px; 
+    font-weight: 600; 
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+  ">Locating...</div>
+  <div id="location-detail" style="
+    font-size: 12px; 
+    margin-top: 4px;
+  "></div>
+
+  <i id="quote-text" style="
+    font-size: 12px; 
+    margin-top: 8px; 
+    cursor: help; 
+    display: block; 
+    line-height: 1.4;
+    transition: all 0.2s ease;
+  "></i>
+  <i id="quote-author" style="
+    font-size: 11px; 
+    opacity: 0.7; 
+    display: block; 
+    margin-top: 2px; 
+    transition: all 0.2s ease;
+  "></i>
+</div>
+
+<script>
+  function formatHour12(hour) {
+    const suffix = hour >= 12 ? "PM" : "AM";
+    const h = hour % 12 === 0 ? 12 : hour % 12;
+    return `${h} ${suffix}`;
+  }
+
+  function updateVisitorMap() {
+    const hour = new Date().getHours();
+    const quote = window.QuoteService?.getQuote(hour);
+
+    fetch('https://ipwho.is/')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) throw new Error();
+
+        const textEl = document.getElementById('location-text');
+        const detailEl = document.getElementById('location-detail');
+        const mapEl = document.getElementById('map-display');
+        const quoteEl = document.getElementById('quote-text');
+        const authorEl = document.getElementById('quote-author');
+
+        const { country, region, city, latitude, longitude } = data;
+
+        const mapUrl =
+          `https://static-maps.yandex.ru/1.x/?lang=en-US&ll=${longitude},${latitude}` +
+          `&z=4&l=map&size=250,180&pt=${longitude},${latitude},pm2rdm`;
+
+        mapEl.innerHTML =
+          `<img src="${mapUrl}" style="border-radius:12px; width:100%; height:auto;">`;
+
+        textEl.innerHTML = `Welcome, it's ${formatHour12(hour)}`;
+        detailEl.innerHTML = `${region} · ${city}`;
+
+        if (!quote) return;
+
+        /* 默认：英文 */
+        quoteEl.innerHTML = quote.en;
+        authorEl.innerHTML = `— ${quote.authorEN}`;
+
+        /* hover：切换为中文 */
+        quoteEl.onmouseenter = () => {
+          quoteEl.innerHTML = quote.cn;
+          authorEl.innerHTML = `— ${quote.authorCN}`;
+        };
+
+        quoteEl.onmouseleave = () => {
+          quoteEl.innerHTML = quote.en;
+          authorEl.innerHTML = `— ${quote.authorEN}`;
+        };
+      })
+      .catch(() => {
+        document.getElementById('location-text').innerHTML =
+          "Can't find your location, but welcome to my blog!";
+      });
+  }
+
+  window.addEventListener('load', updateVisitorMap);
+</script>
+</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web3-Operation"><span class="toc-number">1.</span> <span class="toc-text">Web3 Operation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Wallet-Key-Concepts"><span class="toc-number">1.1.</span> <span class="toc-text">Wallet Key Concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mnemonic-Phrase-Seed-Phrase"><span class="toc-number">1.1.1.</span> <span class="toc-text">Mnemonic Phrase (Seed Phrase)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Private-Key"><span class="toc-number">1.1.2.</span> <span class="toc-text">Private Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Public-Key"><span class="toc-number">1.1.3.</span> <span class="toc-text">Public Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wallet-Address"><span class="toc-number">1.1.4.</span> <span class="toc-text">Wallet Address</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Relationship"><span class="toc-number">1.1.5.</span> <span class="toc-text">Relationship</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#From-Wallet-Transaction-to-Block-Confirmation-Complete-Flow"><span class="toc-number">2.</span> <span class="toc-text">From Wallet Transaction to Block Confirmation: Complete Flow</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Transaction-Creation-Wallet-Side"><span class="toc-number">2.1.</span> <span class="toc-text">1. Transaction Creation (Wallet Side)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Transaction-Broadcasting"><span class="toc-number">2.2.</span> <span class="toc-text">2. Transaction Broadcasting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Transaction-Validation-Nodes-Miners-Validators"><span class="toc-number">2.3.</span> <span class="toc-text">3. Transaction Validation (Nodes &#x2F; Miners &#x2F; Validators)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Block-Packaging"><span class="toc-number">2.4.</span> <span class="toc-text">4. Block Packaging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Consensus-Phase"><span class="toc-number">2.5.</span> <span class="toc-text">5. Consensus Phase</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-Proof-of-Work-PoW-e-g-Bitcoin"><span class="toc-number">2.5.1.</span> <span class="toc-text">a. Proof of Work (PoW, e.g., Bitcoin)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-Proof-of-Stake-PoS-e-g-Ethereum-2-0"><span class="toc-number">2.5.2.</span> <span class="toc-text">b. Proof of Stake (PoS, e.g., Ethereum 2.0)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Block-Confirmation-On-chain"><span class="toc-number">2.6.</span> <span class="toc-text">6. Block Confirmation (On-chain)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Summary-Flow-Diagram-Text-Version"><span class="toc-number">2.7.</span> <span class="toc-text">7. Summary Flow Diagram (Text Version)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wallet-Node-RPC-and-Blockchain-Network"><span class="toc-number">3.</span> <span class="toc-text">Wallet, Node, RPC, and Blockchain Network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Wallet"><span class="toc-number">3.1.</span> <span class="toc-text">1. Wallet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Node"><span class="toc-number">3.2.</span> <span class="toc-text">2. Node</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-RPC-Remote-Procedure-Call"><span class="toc-number">3.3.</span> <span class="toc-text">3. RPC (Remote Procedure Call)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Blockchain-Network"><span class="toc-number">3.4.</span> <span class="toc-text">4. Blockchain Network</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Wallet-Node-Network-Connection"><span class="toc-number">3.5.</span> <span class="toc-text">5. Wallet-Node-Network Connection</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/01/17/Solidity%20Basic%20Syntax/" title="Solidity Basics"><img src="/img/post-bg3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solidity Basics"/></a><div class="content"><a class="title" href="/2026/01/17/Solidity%20Basic%20Syntax/" title="Solidity Basics">Solidity Basics</a><time datetime="2026-01-17T08:33:03.000Z" title="发表于 2026-01-17 16:33:03">2026-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/16/Smart%20Contract%20Basics/" title="Smart Contract Basics"><img src="/img/post-bg1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Smart Contract Basics"/></a><div class="content"><a class="title" href="/2026/01/16/Smart%20Contract%20Basics/" title="Smart Contract Basics">Smart Contract Basics</a><time datetime="2026-01-16T10:25:33.000Z" title="发表于 2026-01-16 18:25:33">2026-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍"><img src="/img/post-bg2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025年度书籍"/></a><div class="content"><a class="title" href="/2026/01/16/2025%E5%B9%B4%E5%BA%A6%E4%B9%A6%E7%B1%8D/" title="2025年度书籍">2025年度书籍</a><time datetime="2026-01-16T07:29:11.000Z" title="发表于 2026-01-16 15:29:11">2026-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/15/Web3%20Operation/" title="Web3 Operation"><img src="/img/post-bg4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Web3 Operation"/></a><div class="content"><a class="title" href="/2026/01/15/Web3%20Operation/" title="Web3 Operation">Web3 Operation</a><time datetime="2026-01-15T09:57:37.000Z" title="发表于 2026-01-15 17:57:37">2026-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts"><img src="/img/post-bg3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ethereum - basic concepts"/></a><div class="content"><a class="title" href="/2026/01/13/Ethereum%20-%20basic%20concepts/" title="Ethereum - basic concepts">Ethereum - basic concepts</a><time datetime="2026-01-13T12:40:51.000Z" title="发表于 2026-01-13 20:40:51">2026-01-13</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By Emulisy</div><div class="footer_custom_text"><p style="font-size: 20px; font-family: sans-serif;">
+  我永远喜欢水上由岐~
+</p> <p style="text-align: center;">
+  <a target="_blank" href="https://hexo.io/">
+    <img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo">
+  </a>&nbsp;
+  <a target="_blank" href="https://butterfly.js.org/">
+    <img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用Butterfly">
+  </a>
+</p>
+</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"bottom","lang":"en"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'Emulisy/Emulisy.github.io',
+      'data-repo-id': 'R_kgDOPAbCig',
+      'data-category-id': 'DIC_kwDOPAbCis4C05wb',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/scripts/quotes.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="D'où venons-nous ?,Que sommes-nous ?,Où allons-nous ?" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for an article~" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
