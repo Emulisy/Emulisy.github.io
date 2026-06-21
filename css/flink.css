@@ -1,0 +1,289 @@
+body:has(.friend-exchange-button) #page {
+  overflow: visible;
+  padding: 0 !important;
+}
+body:has(.friend-exchange-button) #page > .page-title {
+  display: none;
+}
+body:has(.friend-exchange-button) #article-container.container {
+  --link-ink: #20222c;
+  --link-muted: #7a7f8e;
+  --link-line: #e3e7ec;
+  --link-surface: #fff;
+  --link-accent: #49b1f5;
+  padding: 42px 44px 34px !important;
+}
+[data-theme='dark'] body:has(.friend-exchange-button) #article-container.container {
+  --link-ink: #f1f2f5;
+  --link-muted: #a8adb8;
+  --link-line: #373d44;
+  --link-surface: #24272c;
+  --link-accent: #49b1f5;
+}
+body:has(.friend-exchange-button) #article-container.container .flink {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'heading action' 'slider slider' 'dots dots';
+  align-items: center;
+  min-height: 600px;
+  margin: 0;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > h2 {
+  grid-area: heading;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: var(--link-ink);
+  font-size: 1.55rem;
+  letter-spacing: -0.025em;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > h2:before {
+  width: 10px;
+  height: 10px;
+  margin-right: 14px;
+  border-radius: 50%;
+  background: var(--link-accent);
+  content: '';
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-desc {
+  display: none;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list {
+  position: relative;
+  grid-area: slider;
+  overflow: visible;
+  width: 100%;
+  height: 370px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  float: none;
+  overflow: hidden;
+  width: 30% !important;
+  height: 250px;
+  margin: 0;
+  border: 1px solid var(--link-line);
+  border-radius: 16px;
+  background: var(--link-surface);
+  box-shadow: 0 10px 30px rgba(25,59,72,0.06);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.88);
+  transition: left 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item:before {
+  display: none;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-prev,
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-next {
+  z-index: 1;
+  opacity: 0.7;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(0.94);
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-prev {
+  left: 15%;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-next {
+  left: 85%;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-active {
+  z-index: 3;
+  width: 44% !important;
+  height: 310px;
+  border-color: var(--link-accent);
+  box-shadow: 0 18px 42px rgba(73,177,245,0.12);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-active .flink-item-name {
+  font-size: 1.75rem;
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-active a:before {
+  color: var(--link-accent);
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 44px 36px 34px;
+  color: var(--link-ink);
+}
+body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item a:before {
+  position: absolute;
+  top: 40px;
+  left: 36px;
+  color: var(--link-muted);
+  content: 'LINK';
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+body:has(.friend-exchange-button) #article-container.container .flink .flink-item-name {
+  overflow: visible;
+  height: auto;
+  margin-top: 24px;
+  padding: 0;
+  color: var(--link-ink);
+  font-weight: 650;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  white-space: normal;
+}
+body:has(.friend-exchange-button) #article-container.container .flink .flink-item-desc {
+  overflow: visible;
+  height: auto;
+  padding: 18px 0 0;
+  color: var(--link-muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  white-space: normal;
+}
+body:has(.friend-exchange-button) #article-container.container .friend-exchange-button {
+  grid-area: action;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 18px;
+  border: 1px solid var(--link-line);
+  border-radius: 999px;
+  color: var(--link-ink);
+  background: var(--link-surface);
+  font: inherit;
+  font-size: 0.82rem;
+  opacity: 1;
+  cursor: default;
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-nav {
+  z-index: 8;
+  grid-area: slider;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-top: 18px;
+  border: 1px solid var(--link-line);
+  border-radius: 50%;
+  color: var(--link-ink);
+  background: var(--link-surface);
+  box-shadow: 0 8px 24px rgba(25,59,72,0.1);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-nav:hover {
+  border-color: var(--link-accent);
+  color: var(--link-accent);
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-prev {
+  justify-self: start;
+  transform: translateX(-68px);
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-prev:hover {
+  transform: translateX(-68px) scale(1.04);
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-next {
+  justify-self: end;
+  transform: translateX(68px);
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-next:hover {
+  transform: translateX(68px) scale(1.04);
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-dots {
+  grid-area: dots;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  min-height: 12px;
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #d9dde2;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+body:has(.friend-exchange-button) #article-container.container .friend-slider-dots button.is-active {
+  background: var(--link-accent);
+  transform: scale(1.08);
+}
+@media screen and (max-width: 700px) {
+  body:has(.friend-exchange-button) #article-container.container {
+    padding: 28px 18px 24px !important;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink {
+    min-height: 510px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > h2 {
+    font-size: 1.3rem;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list {
+    height: 330px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item {
+    width: 54% !important;
+    height: 210px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-prev {
+    left: 2%;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-next {
+    left: 98%;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-active {
+    width: 76% !important;
+    height: 260px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item.is-active .flink-item-name {
+    font-size: 1.4rem;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item a {
+    padding: 38px 24px 28px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink > .flink-list > .flink-list-item a:before {
+    top: 30px;
+    left: 24px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink .flink-item-name {
+    font-size: 1.05rem;
+  }
+  body:has(.friend-exchange-button) #article-container.container .flink .flink-item-desc {
+    padding-top: 14px;
+    font-size: 0.75rem;
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-exchange-button {
+    gap: 8px;
+    padding: 9px 12px;
+    font-size: 0.72rem;
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-slider-nav {
+    width: 40px;
+    height: 40px;
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-slider-prev {
+    transform: translateX(-34px);
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-slider-prev:hover {
+    transform: translateX(-34px);
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-slider-next {
+    transform: translateX(34px);
+  }
+  body:has(.friend-exchange-button) #article-container.container .friend-slider-next:hover {
+    transform: translateX(34px);
+  }
+}
